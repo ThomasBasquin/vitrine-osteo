@@ -1,0 +1,434 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site.js';
+
+const title = `${site.praticienne.nom} — Ostéopathe à ${site.cabinet.ville}`;
+const description =
+  `Cabinet d'ostéopathie à ${site.cabinet.ville}. Adultes, femmes enceintes, nourrissons et sportifs. ` +
+  'Techniques douces et structurelles, approche globale et personnalisée. Prise de rendez-vous en ligne.';
+
+const publics = [
+  {
+    titre: 'Adultes',
+    texte:
+      "L'ostéopathie accompagne les adultes face aux douleurs du quotidien : tensions musculaires, troubles posturaux, stress, troubles digestifs ou céphalées. Grâce à une approche globale, elle aide à restaurer la mobilité des tissus et à améliorer le confort de vie. Elle convient aussi bien en prévention qu'en traitement ponctuel.",
+    lien: null,
+  },
+  {
+    titre: 'Femmes enceintes',
+    texte:
+      "Chez la femme enceinte, l'ostéopathie aide le corps à s'adapter aux changements posturaux, hormonaux et mécaniques de la grossesse. Elle soulage les douleurs lombaires, sciatiques, reflux, troubles circulatoires ou gênes thoraciques.",
+    lien: '/femme-enceinte',
+  },
+  {
+    titre: 'Nourrissons',
+    texte:
+      "L'ostéopathie pédiatrique s'adresse aux nouveau-nés pour améliorer leur confort après la naissance : torticolis, plagiocéphalie, troubles du sommeil, régurgitations, coliques ou difficultés d'allaitement.",
+    lien: '/nourrisson',
+  },
+  {
+    titre: 'Sportifs',
+    texte:
+      "Chez le sportif, l'ostéopathie optimise les performances en améliorant la mobilité articulaire, la récupération musculaire et la prévention des blessures. Un suivi régulier aide à maintenir un geste sportif fluide et efficace.",
+    lien: '/sportif',
+  },
+];
+
+const etapes = [
+  {
+    titre: 'Accueil & anamnèse',
+    texte:
+      'La séance débute par un temps d\'échange : motif de consultation, antécédents et mode de vie, pour identifier la cause de vos douleurs.',
+  },
+  {
+    titre: 'Tests médicaux',
+    texte:
+      'Un examen clinique permet de vérifier que votre douleur relève bien du champ de compétences de l\'ostéopathie, avec réorientation vers un médecin si nécessaire.',
+  },
+  {
+    titre: 'Bilan ostéopathique & traitement',
+    texte:
+      'Des tests ostéopathiques identifient les dysfonctions, suivis d\'un traitement manuel personnalisé, adapté à votre corps et à vos ressentis.',
+  },
+  {
+    titre: 'Conseils de fin de séance',
+    texte:
+      'La consultation se termine par des conseils sur vos habitudes de vie ou des exercices simples à réaliser chez vous, et l\'éventuelle reprise de rendez-vous pour le suivi.',
+  },
+];
+
+const faq = [
+  {
+    q: 'Quelle tenue pour une séance d\'ostéopathie ?',
+    a: 'Il est essentiel que vous vous sentiez à l\'aise : privilégiez des tenues confortables et souples (tenue de sport, legging…).',
+  },
+  {
+    q: 'Est-ce qu\'on doit forcément être « craqué » ?',
+    a: 'Ma pratique se base sur des techniques douces, et il est très rare que je procède à des manipulations qui provoquent un « craquement ». Chaque soin est adapté à votre corps, sans forcer ni brusquer.',
+  },
+  {
+    q: 'La séance est-elle remboursée ?',
+    a: 'L\'ostéopathie ne dépend pas du parcours de soin remboursé par la Sécurité sociale, mais la plupart des mutuelles prennent en charge une ou plusieurs séances par an. Une facture vous est remise à transmettre à votre mutuelle.',
+  },
+  {
+    q: 'Que faire après une séance ?',
+    a: 'La séance aide votre corps à retrouver la mobilité qu\'il avait perdue : vous pouvez donc rester actif après la séance et vivre normalement.',
+  },
+  {
+    q: 'Quels sont les moyens de paiement acceptés ?',
+    a: '[Moyens de paiement à préciser : chèque, espèces, carte bancaire…]',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalBusiness',
+  name: site.cabinet.nom,
+  description: 'Cabinet d\'ostéopathie — adultes, femmes enceintes, nourrissons et sportifs.',
+  url: Astro.site?.toString(),
+  telephone: site.cabinet.telephone,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.cabinet.adresse,
+    postalCode: site.cabinet.codePostal,
+    addressLocality: site.cabinet.ville,
+    addressCountry: 'FR',
+  },
+};
+---
+
+<Base title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <h1>Ostéopathe à {site.cabinet.ville}</h1>
+        <p class="hero-lead">
+          Une ostéopathie douce et globale pour soulager vos douleurs et libérer les tensions
+          du corps — pour les adultes, femmes enceintes, nourrissons et sportifs.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
+            Prendre rendez-vous
+          </a>
+          <a class="btn btn-outline" href={`tel:${site.cabinet.telephone.replace(/\s/g, '')}`}>
+            {site.cabinet.telephone}
+          </a>
+        </div>
+      </div>
+      <img
+        class="hero-photo"
+        src="/images/portrait-placeholder.svg"
+        alt={`${site.praticienne.nom}, ostéopathe`}
+        width="400"
+        height="500"
+      />
+    </div>
+  </section>
+
+  <section id="osteopathie" class="section-alt">
+    <div class="container">
+      <h2 class="section-title">Qu'est-ce que l'ostéopathie ?</h2>
+      <blockquote class="definition">
+        « L'ostéopathie est une thérapie manuelle douce et globale qui aide à soulager les
+        douleurs et à libérer les tensions du corps. C'est une science basée sur les principes
+        d'anatomie, de biomécanique et de physiologie. Son objectif est de permettre au corps de
+        retrouver son équilibre afin d'optimiser sa mobilité et sa capacité d'adaptation au
+        quotidien. »
+      </blockquote>
+    </div>
+  </section>
+
+  <section id="presentation">
+    <div class="container presentation">
+      <div>
+        <h2>{site.praticienne.nom}, votre ostéopathe</h2>
+        <p>
+          Diplômée du <strong>{site.praticienne.ecole}</strong> ({site.praticienne.anneeDiplome}),
+          je pratique une ostéopathie complète, alliant techniques douces (fonctionnelles,
+          tissulaires) et techniques structurelles (myotensives, HVBA).
+        </p>
+        <p>
+          Mon approche globale et personnalisée vise à restaurer l'équilibre du corps et à
+          accompagner chaque patient vers un mieux-être durable.
+        </p>
+        <h3>Expériences cliniques</h3>
+        <ul class="exp-list">
+          <li>CHU Hautepierre, Strasbourg — gynécologie, obstétrique</li>
+          <li>Clinique du Ried, Schiltigheim — soins médicaux et de réadaptation à orientation gériatrique</li>
+          <li>Clinique Sainte-Anne, Strasbourg — oncologie, soins palliatifs, chirurgie orthopédique</li>
+          <li>Nouvel Hôpital Civil, Strasbourg</li>
+          <li>Clinique Sainte-Barbe, Strasbourg</li>
+          <li>Clinique Toussaint, Strasbourg</li>
+        </ul>
+      </div>
+      <img
+        class="presentation-photo"
+        src="/images/portrait-placeholder.svg"
+        alt={`Portrait de ${site.praticienne.nom}`}
+        width="400"
+        height="500"
+        loading="lazy"
+      />
+    </div>
+  </section>
+
+  <section id="pour-qui" class="section-green">
+    <div class="container">
+      <h2 class="section-title">L'ostéopathie, pour qui ?</h2>
+      <p class="section-intro">
+        Une prise en charge adaptée à chaque étape de la vie.
+      </p>
+      <div class="grid grid-2">
+        {publics.map((p) => (
+          <article class="card">
+            <h3>{p.titre}</h3>
+            <p>{p.texte}</p>
+            {p.lien && <a class="card-link" href={p.lien}>En savoir plus →</a>}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="seance" class="section-alt">
+    <div class="container">
+      <h2 class="section-title">Déroulement d'une séance</h2>
+      <p class="section-intro">
+        Une consultation dure environ 45 minutes — jusqu'à une heure selon son déroulement et
+        vos besoins.
+      </p>
+      <div class="grid grid-4">
+        {etapes.map((e, i) => (
+          <article class="card etape">
+            <span class="etape-num">{i + 1}</span>
+            <h3>{e.titre}</h3>
+            <p>{e.texte}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="tarifs">
+    <div class="container">
+      <h2 class="section-title">Tarifs & modalités</h2>
+      <div class="grid grid-2 tarifs-grid">
+        <div class="card">
+          <h3>Consultations</h3>
+          <ul class="tarif-list">
+            {site.tarifs.map((t) => (
+              <li><span>{t.label}</span><strong>{t.prix}</strong></li>
+            ))}
+          </ul>
+          <p class="tarif-note">
+            Une facture peut être remise pour un éventuel remboursement par votre mutuelle.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Horaires</h3>
+          <ul class="tarif-list">
+            {site.horaires.map((h) => (
+              <li><span>{h.jours}</span><strong>{h.heures}</strong></li>
+            ))}
+          </ul>
+          <p class="tarif-note">Consultations au cabinet et à domicile.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section-green">
+    <div class="container faq-container">
+      <h2 class="section-title">Des questions ?</h2>
+      {faq.map((item) => (
+        <details class="faq-item">
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section id="contact" class="section-alt">
+    <div class="container">
+      <h2 class="section-title">Contact & accès</h2>
+      <p class="section-intro">
+        Pour la prise de rendez-vous, vous pouvez me joindre par téléphone ou réserver
+        directement un créneau en ligne via Doctolib.
+      </p>
+      <div class="grid grid-2">
+        <div class="card contact-card">
+          <h3>Coordonnées</h3>
+          <address>
+            {site.cabinet.adresse}<br />
+            {site.cabinet.codePostal} {site.cabinet.ville}
+          </address>
+          <p>
+            <a href={`tel:${site.cabinet.telephone.replace(/\s/g, '')}`}>{site.cabinet.telephone}</a><br />
+            <a href={`mailto:${site.cabinet.email}`}>{site.cabinet.email}</a>
+          </p>
+          <p>{site.cabinet.parking}</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
+              Prendre rendez-vous
+            </a>
+          </div>
+        </div>
+        <div class="card map-placeholder">
+          <p>[ Carte à intégrer une fois l'adresse du cabinet confirmée ]</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    background: linear-gradient(160deg, var(--green-50) 0%, var(--sand-100) 100%);
+    padding-block: 3rem;
+  }
+
+  .hero-inner {
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .hero-lead {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 34rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .hero-photo {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    justify-self: center;
+    max-width: 320px;
+  }
+
+  @media (min-width: 820px) {
+    .hero-inner { grid-template-columns: 3fr 2fr; }
+    .hero { padding-block: 5rem; }
+  }
+
+  .definition {
+    margin: 0 auto;
+    max-width: 46rem;
+    font-size: 1.15rem;
+    text-align: center;
+    color: var(--ink-soft);
+    border: none;
+    padding: 0;
+  }
+
+  .presentation {
+    display: grid;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .presentation-photo {
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    justify-self: center;
+    max-width: 300px;
+  }
+
+  @media (min-width: 820px) {
+    .presentation { grid-template-columns: 3fr 2fr; }
+  }
+
+  .exp-list {
+    padding-left: 1.1rem;
+    color: var(--ink-soft);
+  }
+
+  .exp-list li { margin-bottom: 0.35rem; }
+
+  .card-link {
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .etape { position: relative; }
+
+  .etape-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background: var(--green-600);
+    color: var(--white);
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .tarif-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+  }
+
+  .tarif-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--green-100);
+  }
+
+  .tarif-note {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .faq-container { max-width: 46rem; }
+
+  .faq-item {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 0.75rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .faq-item summary {
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--green-900);
+  }
+
+  .faq-item p {
+    margin: 0.75rem 0 0;
+    color: var(--ink-soft);
+  }
+
+  .contact-card address {
+    font-style: normal;
+    margin-bottom: 1rem;
+  }
+
+  .map-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    background: var(--green-50);
+    color: var(--ink-soft);
+    text-align: center;
+  }
+</style>

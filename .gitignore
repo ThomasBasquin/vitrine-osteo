@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+
+# Documents de travail, non versionnés
+moodboard-inspiration.pdf
+.txt
+*@W@8

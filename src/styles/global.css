@@ -1,0 +1,137 @@
+/* Palette inspirée du moodboard : verts sauge, tons naturels doux. */
+:root {
+  --green-900: #2e4632;
+  --green-700: #3f6b4a;
+  --green-600: #4a7c59;
+  --green-500: #5f936d;
+  --green-100: #dce8dc;
+  --green-50: #eef4ee;
+  --sand-100: #f2efe6;
+  --sand-50: #faf8f2;
+  --ink: #263129;
+  --ink-soft: #4c5a50;
+  --white: #ffffff;
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(46, 70, 50, 0.08);
+  --container: 1080px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Le header sticky ne doit pas masquer les titres des ancres */
+  scroll-padding-top: 5rem;
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito Variable', system-ui, -apple-system, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--sand-50);
+}
+
+h1, h2, h3 {
+  line-height: 1.25;
+  color: var(--green-900);
+  font-weight: 800;
+}
+
+h1 { font-size: clamp(1.75rem, 5vw, 2.75rem); }
+h2 { font-size: clamp(1.5rem, 4vw, 2rem); }
+h3 { font-size: 1.15rem; }
+
+p { margin: 0 0 1rem; }
+
+a { color: var(--green-700); }
+
+img { max-width: 100%; height: auto; }
+
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+section { padding-block: 3rem; }
+
+@media (min-width: 768px) {
+  section { padding-block: 4.5rem; }
+}
+
+.section-alt { background: var(--white); }
+.section-green { background: var(--green-50); }
+
+.section-title {
+  text-align: center;
+  margin: 0 0 0.75rem;
+}
+
+.section-intro {
+  text-align: center;
+  max-width: 46rem;
+  margin: 0 auto 2.5rem;
+  color: var(--ink-soft);
+}
+
+/* Boutons */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--green-600);
+  color: var(--white);
+}
+
+.btn-primary:hover { background: var(--green-700); }
+
+.btn-outline {
+  border: 2px solid var(--green-600);
+  color: var(--green-700);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--green-600);
+  color: var(--white);
+}
+
+/* Cartes */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+
+.card h3 { margin-top: 0; }
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 960px) {
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Accessibilité : focus visible */
+:focus-visible {
+  outline: 3px solid var(--green-500);
+  outline-offset: 2px;
+}

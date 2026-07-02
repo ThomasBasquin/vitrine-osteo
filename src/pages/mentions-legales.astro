@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site.js';
+---
+
+<Base
+  title={`Mentions légales — ${site.cabinet.nom}`}
+  description="Mentions légales du site."
+>
+  <section>
+    <div class="container legal">
+      <h1>Mentions légales</h1>
+
+      <h2>Éditeur du site</h2>
+      <p>
+        {site.praticienne.nom}, {site.praticienne.titre}<br />
+        {site.cabinet.adresse}, {site.cabinet.codePostal} {site.cabinet.ville}<br />
+        Téléphone : {site.cabinet.telephone}<br />
+        E-mail : {site.cabinet.email}<br />
+        SIRET : [SIRET]<br />
+        N° ADELI : [ADELI]
+      </p>
+
+      <h2>Hébergement</h2>
+      <p>
+        [Nom de l'hébergeur / prestataire VPS]<br />
+        [Adresse de l'hébergeur]
+      </p>
+
+      <h2>Données personnelles</h2>
+      <p>
+        Ce site ne collecte aucune donnée personnelle et n'utilise pas de cookies. La prise de
+        rendez-vous en ligne s'effectue sur la plateforme Doctolib, soumise à sa propre
+        politique de confidentialité.
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        L'ensemble des contenus de ce site (textes, images) est la propriété de
+        {site.praticienne.nom}. Toute reproduction sans autorisation est interdite.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal { max-width: 46rem; }
+  .legal h2 { margin-top: 2rem; font-size: 1.25rem; }
+</style>

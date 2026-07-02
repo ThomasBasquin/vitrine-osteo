@@ -1,0 +1,31 @@
+---
+import Specialite from '../layouts/Specialite.astro';
+import { site } from '../data/site.js';
+---
+
+<Specialite
+  title={`Ostéopathie et grossesse à ${site.cabinet.ville} — ${site.praticienne.nom}`}
+  description="L'ostéopathie pour la femme enceinte : soulager les douleurs lombaires, sciatiques, reflux et troubles circulatoires pendant la grossesse, et préparer en douceur l'accouchement."
+  h1="L'ostéopathie pour la femme enceinte"
+  motifsTitre="Quand consulter pendant la grossesse ?"
+>
+  <p>
+    Chez la femme enceinte, l'ostéopathie aide le corps à s'adapter aux changements posturaux,
+    hormonaux et mécaniques de la grossesse. Elle soulage les douleurs lombaires, sciatiques,
+    reflux, troubles circulatoires ou gênes thoraciques.
+  </p>
+  <p>
+    Un suivi adapté favorise un meilleur confort maternel et prépare en douceur à
+    l'accouchement. Les techniques utilisées sont exclusivement douces et adaptées à chaque
+    étape de la grossesse.
+  </p>
+
+  <ul slot="motifs">
+    <li>Douleurs lombaires, sciatiques ou douleurs du bassin</li>
+    <li>Reflux gastriques et troubles digestifs</li>
+    <li>Troubles circulatoires (jambes lourdes)</li>
+    <li>Gênes thoraciques et difficultés respiratoires</li>
+    <li>Préparation du corps à l'accouchement</li>
+    <li>Suivi post-partum pour aider le corps à retrouver son équilibre</li>
+  </ul>
+</Specialite>

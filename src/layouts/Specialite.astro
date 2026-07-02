@@ -1,0 +1,73 @@
+---
+import Base from './Base.astro';
+import { site } from '../data/site.js';
+
+const { title, description, h1, motifsTitre } = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <section class="spec-hero">
+    <div class="container">
+      <h1>{h1}</h1>
+    </div>
+  </section>
+
+  <section class="section-alt">
+    <div class="container spec-content">
+      <slot />
+    </div>
+  </section>
+
+  <section class="section-green">
+    <div class="container spec-content">
+      <h2>{motifsTitre}</h2>
+      <slot name="motifs" />
+      <p class="spec-note">
+        Cette liste n'est pas exhaustive : en cas de doute, n'hésitez pas à me contacter pour
+        savoir si l'ostéopathie peut vous aider. L'ostéopathie ne se substitue pas à un suivi
+        médical.
+      </p>
+    </div>
+  </section>
+
+  <section class="spec-cta">
+    <div class="container">
+      <h2>Prendre rendez-vous</h2>
+      <p>
+        En ligne via Doctolib ou par téléphone au
+        <a href={`tel:${site.cabinet.telephone.replace(/\s/g, '')}`}>{site.cabinet.telephone}</a>.
+      </p>
+      <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
+        Prendre rendez-vous
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .spec-hero {
+    background: linear-gradient(160deg, var(--green-50) 0%, var(--sand-100) 100%);
+    padding-block: 2.5rem;
+  }
+
+  .spec-hero h1 { margin: 0; }
+
+  .spec-content { max-width: 46rem; }
+
+  .spec-content :global(ul) {
+    padding-left: 1.1rem;
+    color: var(--ink-soft);
+  }
+
+  .spec-content :global(li) { margin-bottom: 0.4rem; }
+
+  .spec-note {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin-top: 1.5rem;
+  }
+
+  .spec-cta {
+    text-align: center;
+  }
+</style>

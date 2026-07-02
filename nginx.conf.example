@@ -1,0 +1,27 @@
+# Exemple de vhost nginx pour le site (sous-domaine provisoire).
+# À placer dans /etc/nginx/sites-available/ puis symlink vers sites-enabled/.
+# Certificat TLS : certbot --nginx -d osteo.example.com
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name osteo.example.com;  # à remplacer par le sous-domaine réel
+
+    root /var/www/osteo;
+    index index.html;
+
+    # astro build.format "file" génère /page.html : essayer $uri.html
+    location / {
+        try_files $uri $uri.html $uri/index.html =404;
+    }
+
+    error_page 404 /404.html;
+
+    # Cache long pour les assets fingerprintés par Astro
+    location /_astro/ {
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+
+    gzip on;
+    gzip_types text/css application/javascript image/svg+xml;
+}

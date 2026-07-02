@@ -1,0 +1,30 @@
+---
+import Specialite from '../layouts/Specialite.astro';
+import { site } from '../data/site.js';
+---
+
+<Specialite
+  title={`Ostéopathie pour nourrisson à ${site.cabinet.ville} — ${site.praticienne.nom}`}
+  description="L'ostéopathie pédiatrique pour les nouveau-nés : torticolis, plagiocéphalie, coliques, régurgitations, troubles du sommeil et difficultés d'allaitement. Techniques douces et adaptées."
+  h1="L'ostéopathie pour le nourrisson"
+  motifsTitre="Quand consulter pour votre bébé ?"
+>
+  <p>
+    L'ostéopathie pédiatrique s'adresse aux nouveau-nés pour améliorer leur confort après la
+    naissance. Elle peut aider en cas de torticolis, plagiocéphalie, troubles du sommeil,
+    régurgitations, coliques ou difficultés d'allaitement.
+  </p>
+  <p>
+    Les techniques sont douces, adaptées et visent à accompagner le développement harmonieux du
+    nourrisson.
+  </p>
+
+  <ul slot="motifs">
+    <li>Torticolis du nourrisson</li>
+    <li>Plagiocéphalie (tête plate ou déformation du crâne)</li>
+    <li>Troubles de la succion et difficultés d'allaitement</li>
+    <li>Coliques et reflux</li>
+    <li>Troubles digestifs</li>
+    <li>Troubles du sommeil</li>
+  </ul>
+</Specialite>
