@@ -1,5 +1,9 @@
 ---
-import '@fontsource-variable/nunito';
+import '@fontsource-variable/alegreya';
+import '@fontsource-variable/alegreya/wght-italic.css';
+import '@fontsource/alegreya-sans/400.css';
+import '@fontsource/alegreya-sans/500.css';
+import '@fontsource/alegreya-sans/700.css';
 import '../styles/global.css';
 import { site } from '../data/site.js';
 
@@ -27,6 +31,9 @@ const nav = [
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
+    <script>
+      document.documentElement.classList.add('js');
+    </script>
     <slot name="head" />
   </head>
   <body>
@@ -37,7 +44,7 @@ const nav = [
           <span class="brand-sub">{site.praticienne.titre}</span>
         </a>
         <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
-          <span></span><span></span><span></span>
+          <span></span><span></span>
         </button>
         <nav id="site-nav" class="site-nav">
           {nav.map((item) => <a href={item.href}>{item.label}</a>)}
@@ -53,13 +60,26 @@ const nav = [
     </main>
 
     <footer class="site-footer">
-      <div class="container footer-inner">
-        <div>
-          <strong>{site.cabinet.nom}</strong><br />
-          {site.cabinet.adresse}, {site.cabinet.codePostal} {site.cabinet.ville}<br />
-          <a href={`tel:${site.cabinet.telephone.replace(/\s/g, '')}`}>{site.cabinet.telephone}</a>
+      <div class="container footer-cta">
+        <h2 class="footer-cta-title">Prendre soin de vous <em>commence ici</em></h2>
+        <p class="footer-cta-text">
+          Réservez un créneau en ligne, ou appelez-moi pour en discuter.
+        </p>
+        <div class="footer-cta-actions">
+          <a class="btn btn-light" href={site.liens.doctolib} target="_blank" rel="noopener">
+            Prendre rendez-vous
+          </a>
+          <a class="footer-phone" href={`tel:${site.cabinet.telephone.replace(/\s/g, '')}`}>
+            {site.cabinet.telephone}
+          </a>
         </div>
-        <nav class="footer-nav">
+      </div>
+      <div class="container footer-inner">
+        <div class="footer-id">
+          <span class="footer-name">{site.cabinet.nom}</span>
+          {site.cabinet.adresse}, {site.cabinet.codePostal} {site.cabinet.ville}
+        </div>
+        <nav class="footer-nav" aria-label="Pages du site">
           <a href="/femme-enceinte">Femme enceinte</a>
           <a href="/nourrisson">Nourrisson</a>
           <a href="/sportif">Sportif</a>
@@ -84,15 +104,34 @@ const nav = [
           toggle?.setAttribute('aria-expanded', 'false');
         }
       });
+
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const targets = document.querySelectorAll('.reveal');
+      if (reduced || !('IntersectionObserver' in window)) {
+        targets.forEach((el) => el.classList.add('is-visible'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px' }
+        );
+        targets.forEach((el) => io.observe(el));
+      }
     </script>
 
     <style>
       .site-header {
         position: sticky;
         top: 0;
-        z-index: 10;
-        background: rgba(250, 248, 242, 0.95);
-        backdrop-filter: blur(6px);
+        z-index: var(--z-header);
+        background: rgba(250, 248, 242, 0.92);
+        backdrop-filter: blur(8px);
         border-bottom: 1px solid var(--green-100);
       }
 
@@ -101,7 +140,7 @@ const nav = [
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
-        min-height: 4rem;
+        min-height: 4.25rem;
         flex-wrap: wrap;
         padding-block: 0.5rem;
       }
@@ -110,36 +149,49 @@ const nav = [
         text-decoration: none;
         display: flex;
         flex-direction: column;
-        line-height: 1.2;
+        line-height: 1.15;
       }
 
       .brand-name {
-        font-weight: 800;
+        font-family: var(--font-serif);
+        font-weight: 650;
         color: var(--green-900);
-        font-size: 1.1rem;
+        font-size: 1.35rem;
+        letter-spacing: -0.01em;
       }
 
       .brand-sub {
-        font-size: 0.85rem;
-        color: var(--green-600);
+        font-size: 0.8rem;
+        color: var(--green-700);
         font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
       .nav-toggle {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 7px;
         background: none;
         border: none;
-        padding: 0.5rem;
+        padding: 0.65rem 0.5rem;
         cursor: pointer;
       }
 
       .nav-toggle span {
-        width: 24px;
-        height: 3px;
+        width: 26px;
+        height: 2px;
         border-radius: 2px;
         background: var(--green-900);
+        transition: transform 0.3s var(--ease-out);
+      }
+
+      .nav-toggle[aria-expanded='true'] span:first-child {
+        transform: translateY(4.5px) rotate(45deg);
+      }
+
+      .nav-toggle[aria-expanded='true'] span:last-child {
+        transform: translateY(-4.5px) rotate(-45deg);
       }
 
       .site-nav {
@@ -147,24 +199,27 @@ const nav = [
         width: 100%;
         flex-direction: column;
         gap: 0.25rem;
-        padding-bottom: 1rem;
+        padding-bottom: 1.25rem;
       }
 
       .site-nav.open { display: flex; }
 
       .site-nav a {
         text-decoration: none;
-        font-weight: 700;
+        font-weight: 500;
+        font-size: 1.0625rem;
         color: var(--ink);
         padding: 0.5rem 0;
       }
 
-      .site-nav a:hover { color: var(--green-600); }
+      .site-nav a:hover { color: var(--green-700); }
 
       .site-nav a.nav-cta {
-        margin-top: 0.5rem;
-        padding: 0.8rem 1.6rem;
+        margin-top: 0.75rem;
+        padding: 0.7rem 1.5rem;
         color: var(--white);
+        font-weight: 700;
+        align-self: flex-start;
       }
 
       @media (min-width: 900px) {
@@ -174,39 +229,102 @@ const nav = [
           display: flex;
           flex-direction: row;
           align-items: center;
-          gap: 1.5rem;
+          gap: 1.75rem;
           width: auto;
           padding-bottom: 0;
         }
 
-        .site-nav a.nav-cta { margin-top: 0; }
+        .site-nav a { padding: 0.25rem 0; }
+
+        .site-nav a:not(.nav-cta) {
+          background: linear-gradient(currentColor, currentColor) bottom left / 0 1px no-repeat;
+          transition: background-size 0.3s var(--ease-out), color 0.2s var(--ease-out);
+        }
+
+        .site-nav a:not(.nav-cta):hover {
+          background-size: 100% 1px;
+        }
+
+        .site-nav a.nav-cta { margin-top: 0; align-self: auto; }
       }
 
       .site-footer {
         background: var(--green-900);
         color: var(--green-100);
-        padding-block: 2.5rem 1.5rem;
-        margin-top: 3rem;
+        padding-block: clamp(3.5rem, 8vw, 6rem) 1.5rem;
+        margin-top: 0;
       }
 
-      .site-footer a { color: var(--green-100); }
+      .footer-cta {
+        text-align: center;
+        padding-bottom: clamp(3rem, 7vw, 5rem);
+      }
+
+      .footer-cta-title {
+        color: var(--sand-50);
+        font-size: clamp(2rem, 4.5vw, 3rem);
+        margin-bottom: 0.75rem;
+      }
+
+      .footer-cta-title em {
+        font-style: italic;
+        font-weight: 500;
+        color: var(--green-200);
+      }
+
+      .footer-cta-text {
+        color: var(--green-100);
+        font-size: 1.15rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-cta-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 1.25rem;
+      }
+
+      .footer-phone {
+        color: var(--sand-50);
+        font-size: 1.15rem;
+        font-weight: 700;
+        text-decoration-color: var(--green-500);
+      }
+
+      .footer-phone:hover { color: var(--white); }
 
       .footer-inner {
         display: flex;
         flex-direction: column;
         gap: 1.5rem;
+        padding-top: 2.5rem;
+        border-top: 1px solid var(--green-800);
+      }
+
+      .footer-name {
+        display: block;
+        font-family: var(--font-serif);
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--sand-50);
+        margin-bottom: 0.25rem;
       }
 
       .footer-nav {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem 1.5rem;
+        gap: 0.5rem 1.75rem;
       }
 
+      .site-footer a:not(.btn) { color: var(--green-100); }
+      .site-footer a:not(.btn):hover { color: var(--white); }
+
       .footer-note {
-        margin-top: 2rem;
-        font-size: 0.85rem;
-        opacity: 0.75;
+        margin-top: 2.5rem;
+        font-size: 0.9rem;
+        color: var(--green-200);
       }
 
       @media (min-width: 768px) {

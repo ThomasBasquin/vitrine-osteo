@@ -4,11 +4,23 @@ import { site } from '../data/site.js';
 ---
 
 <Base title={`Page introuvable — ${site.cabinet.nom}`} description="Page introuvable.">
-  <section>
-    <div class="container" style="text-align: center;">
-      <h1>Page introuvable</h1>
+  <section class="notfound">
+    <div class="container">
+      <h1>Page <em>introuvable</em></h1>
       <p>La page que vous cherchez n'existe pas ou a été déplacée.</p>
       <a class="btn btn-primary" href="/">Retour à l'accueil</a>
     </div>
   </section>
 </Base>
+
+<style>
+  .notfound {
+    text-align: center;
+    padding-block: clamp(5rem, 12vw, 9rem);
+  }
+
+  .notfound p {
+    color: var(--ink-soft);
+    margin-bottom: 2rem;
+  }
+</style>

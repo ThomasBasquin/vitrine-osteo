@@ -7,7 +7,8 @@ const { title, description, h1, motifsTitre } = Astro.props;
 
 <Base title={title} description={description}>
   <section class="spec-hero">
-    <div class="container">
+    <div class="container spec-content">
+      <a class="spec-back" href="/">← Retour à l'accueil</a>
       <h1>{h1}</h1>
     </div>
   </section>
@@ -20,54 +21,78 @@ const { title, description, h1, motifsTitre } = Astro.props;
 
   <section class="section-green">
     <div class="container spec-content">
-      <h2>{motifsTitre}</h2>
-      <slot name="motifs" />
-      <p class="spec-note">
+      <h2 class="reveal">{motifsTitre}</h2>
+      <div class="reveal">
+        <slot name="motifs" />
+      </div>
+      <p class="spec-note reveal">
         Cette liste n'est pas exhaustive : en cas de doute, n'hésitez pas à me contacter pour
         savoir si l'ostéopathie peut vous aider. L'ostéopathie ne se substitue pas à un suivi
         médical.
       </p>
     </div>
   </section>
-
-  <section class="spec-cta">
-    <div class="container">
-      <h2>Prendre rendez-vous</h2>
-      <p>
-        En ligne via Doctolib ou par téléphone au
-        <a href={`tel:${site.cabinet.telephone.replace(/\s/g, '')}`}>{site.cabinet.telephone}</a>.
-      </p>
-      <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
-        Prendre rendez-vous
-      </a>
-    </div>
-  </section>
 </Base>
 
 <style>
   .spec-hero {
-    background: linear-gradient(160deg, var(--green-50) 0%, var(--sand-100) 100%);
-    padding-block: 2.5rem;
+    background:
+      radial-gradient(40rem 24rem at 90% 10%, var(--green-100) 0%, transparent 60%),
+      linear-gradient(170deg, var(--green-50) 0%, var(--sand-50) 70%);
+    padding-block: clamp(2.5rem, 6vw, 4.5rem);
   }
 
-  .spec-hero h1 { margin: 0; }
+  .spec-back {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    margin-bottom: 1.25rem;
+  }
+
+  .spec-back:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  .spec-hero h1 {
+    margin: 0;
+    font-size: clamp(2.1rem, 5vw, 3.2rem);
+    max-width: 22ch;
+  }
 
   .spec-content { max-width: 46rem; }
 
+  .spec-content :global(p) {
+    font-size: 1.15rem;
+  }
+
   .spec-content :global(ul) {
-    padding-left: 1.1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
     color: var(--ink-soft);
   }
 
-  .spec-content :global(li) { margin-bottom: 0.4rem; }
+  .spec-content :global(li) {
+    position: relative;
+    padding: 0.5rem 0 0.5rem 1.75rem;
+    border-bottom: 1px solid var(--green-200);
+  }
+
+  .spec-content :global(li:last-child) { border-bottom: none; }
+
+  .spec-content :global(li)::before {
+    content: '';
+    position: absolute;
+    left: 0.25rem;
+    top: 1.15rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50% 50% 50% 0;
+    background: var(--green-500);
+  }
 
   .spec-note {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--ink-soft);
-    margin-top: 1.5rem;
-  }
-
-  .spec-cta {
-    text-align: center;
+    margin-top: 1.75rem;
   }
 </style>
