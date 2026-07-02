@@ -1,0 +1,70 @@
+<div class="aura" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="mask"></div>
+</div>
+
+<style>
+  .aura {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .blob {
+    position: absolute;
+    width: 60vw;
+    height: 60vw;
+    max-width: 900px;
+    max-height: 900px;
+    border-radius: 50%;
+    will-change: transform;
+  }
+
+  .blob-1 {
+    left: -10%;
+    top: -30%;
+    background: radial-gradient(circle, var(--aura-1) 0%, transparent 65%);
+    animation: drift-1 26s ease-in-out infinite alternate;
+  }
+
+  .blob-2 {
+    right: -15%;
+    top: -20%;
+    background: radial-gradient(circle, var(--aura-2) 0%, transparent 65%);
+    animation: drift-2 32s ease-in-out infinite alternate;
+  }
+
+  .blob-3 {
+    left: 30%;
+    top: -10%;
+    background: radial-gradient(circle, var(--aura-3) 0%, transparent 65%);
+    animation: drift-3 38s ease-in-out infinite alternate;
+  }
+
+  .mask {
+    position: absolute;
+    inset: 0;
+    background: var(--color-gradient);
+  }
+
+  @keyframes drift-1 {
+    to { transform: translate3d(12vw, 8vh, 0) scale(1.15); }
+  }
+
+  @keyframes drift-2 {
+    to { transform: translate3d(-10vw, 12vh, 0) scale(0.9); }
+  }
+
+  @keyframes drift-3 {
+    to { transform: translate3d(-14vw, 6vh, 0) scale(1.2); }
+  }
+
+  /* Sur mobile la référence garde un fond uni */
+  @media (max-width: 767px) {
+    .aura { display: none; }
+  }
+</style>

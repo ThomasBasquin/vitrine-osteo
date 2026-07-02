@@ -1,61 +1,55 @@
 # Design
 
-Système visuel du site vitrine de Marie Wach, ostéopathe. Registre : brand, « éditorial apaisant ».
+Système visuel du site vitrine de Marie Wach, ostéopathe. Registre : brand.
+Style inspiré de seanhalpin.xyz : typographie ronde généreuse, palette beige/vert émeraude, thème circadien jour/nuit.
 
 ## Theme
 
-Clair uniquement. Fond sable très doux (`--sand-50`), sections alternées blanc / vert d'eau, footer drenché en vert profond. Le calme est le message : beaucoup d'air, rythme lent, aucun élément criard.
+**Double thème circadien.** Clair (beige/vert émeraude) entre le lever et le coucher du soleil, sombre (vert profond/menthe) la nuit. Les heures de lever/coucher sont calculées côté client pour les coordonnées GPS du cabinet (`src/scripts/theme.js`, formule NOAA avec équation du temps, inliné dans le `<head>` avant le premier rendu — pas de FOUC). Bascule manuelle via la bulle soleil/lune de l'indicateur circadien (persistée en `sessionStorage`). La classe `.light`/`.dark` est posée sur `<html>`.
 
 ## Colors
 
-Palette verte sauge du moodboard (identité conservée — ne pas remplacer).
+Tous les rôles sont des custom properties redéfinies par `.dark:root` (voir `src/styles/global.css`).
 
-| Token | Valeur | Usage |
+| Token | Jour | Nuit |
 |---|---|---|
-| `--green-900` | `#2e4632` | Titres, footer (fond) |
-| `--green-800` | `#375441` | Prix, hairline du footer |
-| `--green-700` | `#3f6b4a` | Liens, bouton primaire, kickers |
-| `--green-600` | `#4a7c59` | Accents italiques dans les titres, labels |
-| `--green-500` | `#5f936d` | Focus ring, ornements |
-| `--green-200` | `#c8dbc8` | Hairlines sur fond teinté, anneau décoratif |
-| `--green-100` | `#dce8dc` | Hairlines sur fond clair, guillemet décoratif |
-| `--green-50` | `#eef4ee` | Bandes de section teintées |
-| `--sand-100` / `--sand-50` | `#f2efe6` / `#faf8f2` | Fond de page, header |
-| `--ink` / `--ink-soft` | `#263129` / `#46554b` | Corps de texte / texte secondaire |
+| `--color-primary` (fond) | beige `hsla(36,31%,90%)` | vert profond `hsla(158,23%,18%)` |
+| `--color-text-primary` | émeraude `hsla(172,95%,18%)` | menthe `hsla(160,52%,71%)` |
+| `--color-text-secondary` | `hsla(171,15%,35%)` | `hsla(159,42%,88%)` |
+| `--color-primary-accent` (boutons, bulle, traits) | émeraude | menthe |
+| `--color-text-tertiary` (texte sur accent) | beige | vert profond |
 
-Contrastes vérifiés WCAG AA (corps ≥ 7:1 ; accents larges ≥ 4.3:1).
+**Pastels fixes** (identiques jour et nuit, texte toujours `--color-green500`) : `--color-mint`, `--color-lilac`, `--color-babyblue`, `--color-rust` — classes `.pastel .pastel-*`. Attribution : Adultes = mint, Femme enceinte = lilac, Nourrisson = babyblue, Sportif = rust (cartes d'accueil **et** panneau motifs des pages spécialité).
 
 ## Typography
 
-- **Titres, marque, citations, chiffres d'étapes** : `Alegreya Variable` (serif humaniste calligraphique — écho du geste manuel). Poids 500–650, italique pour le mot accentué d'un titre (`h2 em` → vert `--green-600`).
-- **Corps, UI, boutons** : `Alegreya Sans` (400/500/700).
-- Échelle fluide : h1 `clamp(2.4rem, 6vw, 3.9rem)`, h2 `clamp(1.9rem, 4vw, 2.7rem)`, corps `1.125rem/1.65`.
-- `text-wrap: balance` sur les titres, `pretty` sur les paragraphes.
+- **Titres** : `Baloo 2 Variable` (rond, joufflu — équivalent libre d'Acorn). Toujours via `--titleFont` : si un jour la licence Acorn est achetée, une seule ligne à changer.
+- **Corps, UI** : `Figtree Variable` via `--bodyFont` (équivalent libre de GT Walsheim), graisse 500 par défaut comme la référence.
+- Échelle fluide copiée de la référence : `--font-h1` jusqu'à 9.75rem (h1 centré, letter-spacing -2/-4px, line-height 100%), `--font-h2-display`, `--font-body`, `--font-link`, `--font-mini`.
+- Les h1 de pages sont courts et suivis d'un point : « La séance. », « Tarifs. », « Contact. », « Marie Wach. »
 
 ## Signature moves
 
-- **Arche** : les portraits sont masqués en arche (`border-radius: 999px 999px 20px 20px`), doublés d'un anneau décalé `--green-200` (aspect-ratio 4/5, jamais plus haut que la photo).
-- **Galets** : les panneaux « Pour qui » (`.pebble .public-N`) ont chacun un coin très arrondi différent (4.5rem) — pas de grille de cartes uniformes.
-- **Hairlines plutôt qu'ombres** : listes, FAQ, tarifs et contact sont structurés par filets 1px (`--green-100`/`--green-200`), pas par des cartes ombrées.
-- **Timeline earned** : le déroulement de séance est une vraie séquence → numéros serif dans des pastilles reliées par un filet vertical, en-tête sticky à gauche.
-- **Lignes fluides** : ornement SVG de courbes fines (`.hero-lines`, `--green-500` à 35 %) évoquant tissus/mouvement, uniquement dans les bandeaux.
-- **Bande CTA drenchée** : le footer ouvre sur « Prendre soin de vous *commence ici* » sur `--green-900`, bouton clair `btn-light`.
+- **Nav pilule flottante** (`src/components/Nav.astro`) : fixe, centrée, item actif sur fond `--color-white50`, backdrop-blur (`.blur`) après 40px de scroll, CTA « Rendez-vous » en pilule accent (masqué < 640px). Pas de burger.
+- **Aura** (`src/components/Aura.astro`) : trois blobs radiaux (`--aura-1/2/3`) en dérive lente derrière chaque hero, fondus vers le fond par `--color-gradient`. Masquée < 768px : sur mobile le fond reste uni, comme la référence.
+- **Indicateur circadien** (`src/components/Circadian.astro`, en bas de chaque page) : 24 traits (opacité 0.2 la nuit, 0.45 le jour, 1 pour l'heure courante), bulle soleil/lune positionnée sur l'heure courante = bouton de bascule de thème. Pas de texte d'heures de lever/coucher. Traits animés par `transform` dans un conteneur `overflow:hidden` (courbe `--curve`, l'overshoot copié de la référence).
+- **Cartes pastel** : grandes cartes arrondies (`--radius-card` 1.5rem), carte entière cliquable (lien étiré).
+- **Arche** : le portrait de la page À propos garde le masque en arche (`border-radius: 999px 999px 1.5rem 1.5rem`).
+- **Hairlines** : listes (tarifs, FAQ, expériences, contact) structurées par filets 1px `--color-light-border`, pas de cartes ombrées.
+- Carte Leaflet : tuiles inversées en thème sombre (`.dark .leaflet-tile { filter: invert(1) hue-rotate(180deg) … }`).
 
-## Components
+## Structure
 
-- `.btn-primary` (vert 700, pill, lift au hover) / `.btn-outline` / `.btn-light` (sur fond vert profond). Attention : dans le footer, les couleurs de liens excluent `.btn` (`.site-footer a:not(.btn)`).
-- FAQ : `<details>` avec icône plus/moins en pseudo-éléments, filets horizontaux.
-- Carte Leaflet dans un cadre au radius organique (`--radius-organic: 2rem 2rem 2rem 5rem`).
+4 pages dans la nav : Accueil (`/`), La séance (`/seance` — déroulement, tarifs `#tarifs`, FAQ), À propos (`/a-propos`), Contact (`/contact` — coordonnées, horaires, carte) + 3 pages spécialité (layout `Specialite.astro`, prop `pastel`) + mentions légales + 404. Première section de chaque page : classe `.page-hero` (passe sous la nav fixe, contient l'Aura).
 
 ## Motion
 
-- Entrée du hero : keyframes `hero-in` (fade + translation 28px), stagger 0.05–0.3s.
-- Reveals au scroll : classe `.reveal` + IntersectionObserver (dans `Base.astro`). Gatés par `html.js` → sans JS tout est visible. Stagger via `--reveal-delay`.
-- Courbes : `--ease-out: cubic-bezier(0.22, 1, 0.36, 1)`. Pas de bounce.
-- `prefers-reduced-motion: reduce` neutralise animations, transitions et smooth scroll.
+- Entrée du hero : keyframes `hero-in` staggerées (accueil).
+- Reveals au scroll : `.reveal` + IntersectionObserver (Base.astro), gatés par `html.js`.
+- `prefers-reduced-motion: reduce` neutralise tout (règle globale).
 
 ## Anti-patterns (à ne pas réintroduire)
 
-- Grilles de cartes blanches identiques avec ombre portée.
-- Eyebrows uppercase au-dessus de chaque section (un seul kicker : le hero).
-- Dégradés de texte, side-stripes, glassmorphism.
+- Kickers uppercase au-dessus des sections.
+- Cartes blanches identiques avec ombre portée.
+- Thème unique : le jour/nuit fait partie de l'identité.

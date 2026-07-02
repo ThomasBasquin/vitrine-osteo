@@ -1,92 +1,181 @@
-/* Palette du moodboard : verts sauge, tons naturels doux.
-   Typographie : Alegreya (serif humaniste calligraphique) + Alegreya Sans. */
+/* Système visuel inspiré de seanhalpin.xyz : beige/vert émeraude le jour,
+   vert profond la nuit (bascule circadienne), titres ronds généreux.
+   Les polices sont abstraites derrière --titleFont/--bodyFont pour pouvoir
+   les remplacer sans toucher au reste. */
+
 :root {
-  --green-900: #2e4632;
-  --green-800: #375441;
-  --green-700: #3f6b4a;
-  --green-600: #4a7c59;
-  --green-500: #5f936d;
-  --green-200: #c8dbc8;
-  --green-100: #dce8dc;
-  --green-50: #eef4ee;
-  --sand-100: #f2efe6;
-  --sand-50: #faf8f2;
-  --ink: #263129;
-  --ink-soft: #46554b;
-  --white: #ffffff;
+  --titleFont: 'Baloo 2 Variable', ui-rounded, 'Segoe UI', system-ui, sans-serif;
+  --bodyFont: 'Figtree Variable', -apple-system, 'Segoe UI', system-ui, sans-serif;
 
-  --font-serif: 'Alegreya Variable', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Alegreya Sans', 'Gill Sans', 'Segoe UI', system-ui, sans-serif;
+  /* Gamme brute */
+  --color-white: hsla(0, 0%, 100%, 1);
+  --color-beige: hsla(36, 31%, 90%, 1);
+  --color-green300: hsla(159, 42%, 88%, 1);
+  --color-green400: hsla(160, 52%, 71%, 1);
+  --color-green500: hsla(172, 95%, 18%, 1);
+  --color-green600: hsla(171, 15%, 35%, 1);
+  --color-green700: hsla(171, 11%, 24%, 1);
+  --color-green800: hsla(158, 23%, 18%, 1);
 
-  --radius-s: 10px;
-  --radius: 20px;
-  --radius-organic: 2rem 2rem 2rem 5rem;
-  --shadow-soft: 0 8px 30px rgba(46, 70, 50, 0.09);
-  --shadow-lift: 0 12px 32px rgba(46, 70, 50, 0.16);
-  --container: 1120px;
+  /* Pastels des cartes — fixes, identiques jour et nuit */
+  --color-mint: hsla(172, 45%, 75%, 1);
+  --color-lilac: hsla(227, 65%, 87%, 1);
+  --color-rust: hsla(22, 62%, 76%, 1);
+  --color-babyblue: hsla(206, 84%, 86%, 1);
+
+  /* Rôles (thème jour par défaut) */
+  --color-primary: var(--color-beige);
+  --color-primary-accent: var(--color-green500);
+  --color-text-primary: var(--color-green500);
+  --color-text-secondary: var(--color-green600);
+  --color-text-tertiary: var(--color-beige);
+  --color-opaque: hsla(0, 0%, 100%, 0.5);
+  --color-white50: hsla(0, 0%, 100%, 0.5);
+  --color-white30: hsla(0, 0%, 100%, 0.3);
+  --color-backdrop: hsla(45, 17%, 95%, 0.8);
+  --color-light-border: rgba(0, 0, 0, 0.08);
+  --color-light-hover: rgba(0, 0, 0, 0.05);
+  --color-selector: var(--color-white);
+  --color-gradient: linear-gradient(
+    to bottom,
+    hsla(36, 31%, 90%, 0) 0%,
+    hsla(36, 31%, 90%, 0.259) 37.7%,
+    hsla(36, 31%, 90%, 0.55) 52.8%,
+    hsla(36, 31%, 90%, 0.825) 68.7%,
+    hsla(36, 31%, 90%, 0.987) 90.5%,
+    hsl(36, 31%, 90%) 100%
+  );
+  --aura-1: hsla(160, 52%, 71%, 0.7);
+  --aura-2: hsla(52, 84%, 70%, 0.6);
+  --aura-3: hsla(206, 84%, 82%, 0.55);
+
+  /* Typographie fluide */
+  --font-h1: clamp(3.2rem, 1.2rem + 6.6vw, 9.75rem);
+  --font-h2: clamp(1.5rem, 1.0982rem + 1.7143vw, 2.8125rem);
+  --font-h2-display: clamp(1.875rem, 1.301rem + 2.449vw, 3.95rem);
+  --font-h3: clamp(1.375rem, 1.1837rem + 0.8163vw, 2rem);
+  --font-body: clamp(1rem, 0.8852rem + 0.4898vw, 1.375rem);
+  --font-link: clamp(0.875rem, 0.7985rem + 0.3265vw, 1.125rem);
+  --font-mini: clamp(0.875rem, 0.8367rem + 0.1633vw, 1rem);
+
+  /* Espacements fluides */
+  --spacing-xxl: max(130px, calc(130px + (260 - 130) * ((100vw - 375px) / (1600 - 375))));
+  --spacing-xl: max(64px, calc(64px + (128 - 64) * ((100vw - 375px) / (1600 - 375))));
+  --spacing-l: max(42px, calc(42px + (84 - 42) * ((100vw - 375px) / (1600 - 375))));
+  --spacing-m: max(24px, calc(24px + (48 - 24) * ((100vw - 375px) / (1600 - 375))));
+  --spacing-s: max(21px, calc(21px + (42 - 21) * ((100vw - 375px) / (1600 - 375))));
+  --spacing-xs: max(14px, calc(14px + (28 - 14) * ((100vw - 375px) / (1600 - 375))));
+
+  --max-width: 1600px;
+  --container: 68rem;
+  --radius-base: 0.75rem;
+  --radius-card: 1.5rem;
+  --curve: cubic-bezier(0, 0.49, 0, 1.49);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-lg: 0px 50px 100px -20px rgba(0, 0, 0, 0.15);
 
-  /* z-index */
-  --z-map: 0;
-  --z-header: 10;
+  --zindex-base: 1;
+  --zindex-map: 10;
+  --zindex-content: 50;
+  --zindex-nav: 1000;
+}
+
+.dark:root {
+  --color-primary: var(--color-green800);
+  --color-primary-accent: var(--color-green400);
+  --color-text-primary: var(--color-green400);
+  --color-text-secondary: var(--color-green300);
+  --color-text-tertiary: var(--color-green800);
+  --color-opaque: hsla(160, 52%, 71%, 0.1);
+  --color-white50: hsla(160, 52%, 71%, 0.1);
+  --color-white30: hsla(160, 52%, 71%, 0.05);
+  --color-backdrop: hsla(158, 23%, 18%, 0.7);
+  --color-light-border: hsla(160, 52%, 71%, 0.2);
+  --color-light-hover: hsla(160, 52%, 71%, 0.1);
+  --color-selector: var(--color-green800);
+  --color-gradient: linear-gradient(
+    to bottom,
+    hsla(158, 23%, 18%, 0) 0%,
+    hsla(158, 23%, 18%, 0.259) 37.7%,
+    hsla(158, 23%, 18%, 0.55) 52.8%,
+    hsla(158, 23%, 18%, 0.825) 68.7%,
+    hsla(158, 23%, 18%, 0.987) 90.5%,
+    hsl(158, 23%, 18%) 100%
+  );
+  --aura-1: hsla(160, 52%, 40%, 0.28);
+  --aura-2: hsla(45, 60%, 35%, 0.22);
+  --aura-3: hsla(220, 50%, 35%, 0.2);
 }
 
 * {
   box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  /* Le header sticky ne doit pas masquer les titres des ancres */
-  scroll-padding-top: 5.5rem;
-}
-
-body {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: 1.125rem;
-  line-height: 1.65;
-  color: var(--ink);
-  background: var(--sand-50);
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-serif);
-  color: var(--green-900);
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.01em;
-  text-wrap: balance;
-  margin: 0 0 1rem;
-}
-
-h1 { font-size: clamp(2.4rem, 6vw, 3.9rem); }
-h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); }
-h3 { font-size: 1.45rem; line-height: 1.25; }
-
-h2 em, h1 em {
-  font-style: italic;
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--bodyFont);
+  font-size: 1rem;
   font-weight: 500;
-  color: var(--green-600);
+  color: var(--color-text-primary);
+  background: var(--color-primary);
+  overflow-x: hidden;
+  transition: background 0.2s linear;
 }
 
-p { margin: 0 0 1rem; text-wrap: pretty; }
+body { line-height: 1.5; min-height: 100vh; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--titleFont);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0 0 1rem;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--font-h1);
+  line-height: 100%;
+  letter-spacing: -2px;
+  text-align: center;
+}
+
+@media (min-width: 992px) {
+  h1 { letter-spacing: -4px; }
+}
+
+h2 { font-size: var(--font-h2); line-height: 130%; }
+
+.h2-display {
+  font-size: var(--font-h2-display);
+  line-height: 130%;
+  letter-spacing: -0.25px;
+}
+
+h3 { font-size: var(--font-h3); }
+
+p {
+  font-size: var(--font-body);
+  line-height: 160%;
+  color: var(--color-text-secondary);
+  margin: 0 0 1rem;
+  text-wrap: pretty;
+}
 
 a {
-  color: var(--green-700);
+  color: var(--color-text-primary);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
-  transition: color 0.2s var(--ease-out);
+  transition: color 0.2s ease-in-out;
 }
 
-a:hover { color: var(--green-900); }
-
-img { max-width: 100%; height: auto; }
+img { max-width: 100%; height: auto; display: block; }
 
 ::selection {
-  background: var(--green-100);
-  color: var(--green-900);
+  background: var(--color-primary-accent);
+  color: var(--color-text-tertiary);
 }
 
 .container {
@@ -95,24 +184,20 @@ img { max-width: 100%; height: auto; }
   padding-inline: clamp(1.25rem, 4vw, 2rem);
 }
 
-section { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
-
-.section-alt { background: var(--white); }
-.section-green { background: var(--green-50); }
-
-.section-title {
-  margin: 0 0 1rem;
+.container-wide {
+  max-width: 78rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2rem);
 }
 
-.section-intro {
-  max-width: 42rem;
-  margin: 0 0 clamp(2rem, 5vw, 3.5rem);
-  color: var(--ink-soft);
-  font-size: 1.2rem;
+section { padding-block: var(--spacing-xl); position: relative; z-index: var(--zindex-base); }
+
+/* Première section d'une page : passe sous la nav fixe, accueille l'Aura */
+.page-hero {
+  padding-top: clamp(8rem, 18vh, 11rem);
 }
 
-.section-head-center .section-title { text-align: center; }
-.section-head-center .section-intro { text-align: center; margin-inline: auto; }
+.page-hero > :not(.aura) { position: relative; z-index: var(--zindex-content); }
 
 /* Boutons */
 .btn {
@@ -122,66 +207,46 @@ section { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
   gap: 0.5rem;
   padding: 0.85rem 1.9rem;
   border-radius: 999px;
-  font-family: var(--font-sans);
-  font-size: 1.0625rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  font-family: var(--bodyFont);
+  font-size: var(--font-link);
+  font-weight: 600;
   text-decoration: none;
-  text-align: center;
-  transition: background 0.25s var(--ease-out), color 0.25s var(--ease-out),
-    box-shadow 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .btn-primary {
-  background: var(--green-700);
-  color: var(--white);
-  box-shadow: 0 4px 14px rgba(46, 70, 50, 0.22);
+  background: var(--color-primary-accent);
+  color: var(--color-text-tertiary);
 }
 
 .btn-primary:hover {
-  background: var(--green-900);
-  color: var(--white);
-  box-shadow: var(--shadow-lift);
+  filter: saturate(1.5);
   transform: translateY(-2px);
+  color: var(--color-text-tertiary);
 }
 
 .btn-outline {
-  border: 1.5px solid var(--green-600);
-  color: var(--green-800);
+  border: 2px solid var(--color-primary-accent);
+  color: var(--color-text-primary);
   background: transparent;
 }
 
-.btn-outline:hover {
-  background: var(--green-50);
-  color: var(--green-900);
+.btn-outline:hover { background: var(--color-white50); }
+
+/* Cartes pastel — couleurs fixes, texte vert profond quel que soit le thème */
+.pastel {
+  border-radius: var(--radius-card);
+  color: var(--color-green500);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
 }
 
-.btn-light {
-  background: var(--sand-50);
-  color: var(--green-900);
-}
+.pastel h2, .pastel h3, .pastel p, .pastel a { color: var(--color-green500); }
 
-.btn-light:hover {
-  background: var(--white);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lift);
-}
-
-/* Panneaux organiques (remplacent les cartes uniformes) */
-.pebble {
-  background: var(--white);
-  border: 1px solid var(--green-100);
-  padding: clamp(1.5rem, 3vw, 2.25rem);
-}
-
-.grid {
-  display: grid;
-  gap: 1.25rem;
-}
-
-@media (min-width: 640px) {
-  .grid-2 { grid-template-columns: repeat(2, 1fr); }
-}
+.pastel-mint { background: var(--color-mint); }
+.pastel-lilac { background: var(--color-lilac); }
+.pastel-rust { background: var(--color-rust); }
+.pastel-babyblue { background: var(--color-babyblue); }
 
 /* Révélation au défilement — sans JS, tout reste visible */
 html.js .reveal {
@@ -196,21 +261,25 @@ html.js .reveal.is-visible {
   translate: 0 0;
 }
 
+/* Carte Leaflet : tuiles assombries la nuit */
+.dark .leaflet-tile {
+  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9) saturate(0.5);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--color-selector), 0 0 0 2px var(--color-primary-accent);
+  border-radius: 4px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
-  html.js .reveal {
-    opacity: 1;
-    translate: none;
-    transition: none;
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 
-  .btn, .btn:hover { transform: none; transition: none; }
-}
-
-/* Accessibilité : focus visible */
-:focus-visible {
-  outline: 3px solid var(--green-500);
-  outline-offset: 2px;
-  border-radius: 4px;
+  html.js .reveal { opacity: 1; translate: none; transition: none; }
 }

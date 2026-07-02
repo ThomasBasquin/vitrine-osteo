@@ -1,0 +1,211 @@
+---
+import Base from '../layouts/Base.astro';
+import Aura from '../components/Aura.astro';
+import { site } from '../data/site.js';
+
+const title = `Contact & accès — ${site.cabinet.nom}`;
+const description =
+  `Contacter le cabinet d'ostéopathie de ${site.cabinet.ville} : téléphone, email, horaires, plan d'accès. ` +
+  'Prise de rendez-vous en ligne via Doctolib.';
+
+const tel = site.cabinet.telephone.replace(/\s/g, '');
+const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+  `${site.cabinet.adresse}, ${site.cabinet.codePostal} ${site.cabinet.ville}`
+)}`;
+---
+
+<Base title={title} description={description}>
+  <section class="page-hero">
+    <Aura />
+    <h1>Contact.</h1>
+    <p class="page-lead">
+      Pour la prise de rendez-vous, vous pouvez me joindre par téléphone ou réserver
+      directement un créneau en ligne via Doctolib.
+    </p>
+  </section>
+
+  <section>
+    <div class="container contact-grid">
+      <div class="contact-info reveal">
+        <dl class="contact-list">
+          <div>
+            <dt>Adresse</dt>
+            <dd>
+              <address>
+                {site.cabinet.adresse}<br />
+                {site.cabinet.codePostal} {site.cabinet.ville}
+              </address>
+              <span class="contact-extra">{site.cabinet.parking}</span>
+            </dd>
+          </div>
+          <div>
+            <dt>Téléphone</dt>
+            <dd><a href={`tel:${tel}`}>{site.cabinet.telephone}</a></dd>
+          </div>
+          <div>
+            <dt>Email</dt>
+            <dd><a href={`mailto:${site.cabinet.email}`}>{site.cabinet.email}</a></dd>
+          </div>
+          <div>
+            <dt>Horaires</dt>
+            <dd>
+              <ul class="horaires">
+                {site.horaires.map((h) => (
+                  <li>
+                    <span>{h.jours}</span>
+                    <strong>{h.heures}</strong>
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        </dl>
+        <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
+          Prendre rendez-vous
+        </a>
+      </div>
+      <div class="map-wrap reveal" style="--reveal-delay: 0.12s">
+        <div
+          id="map"
+          data-lat={site.cabinet.latitude}
+          data-lon={site.cabinet.longitude}
+          data-nom={site.cabinet.nom}
+        ></div>
+        <a class="map-link" href={itineraire} target="_blank" rel="noopener">
+          Itinéraire vers le cabinet<span aria-hidden="true"> →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+
+  const el = document.getElementById('map');
+  if (el) {
+    const lat = Number(el.dataset.lat);
+    const lon = Number(el.dataset.lon);
+    const map = L.map(el, { scrollWheelZoom: false, attributionControl: false }).setView(
+      [lat, lon],
+      14
+    );
+    L.control
+      .attribution({ prefix: false })
+      .addAttribution('© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>')
+      .addTo(map);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+    L.marker([lat, lon], {
+      icon: L.divIcon({
+        className: '',
+        html: '<div class="cabinet-marker"></div>',
+        iconSize: [34, 34],
+        iconAnchor: [17, 41],
+      }),
+    })
+      .addTo(map)
+      .bindPopup(el.dataset.nom ?? '');
+  }
+</script>
+
+<style>
+  .page-lead {
+    text-align: center;
+    max-width: 36rem;
+    margin: var(--spacing-s) auto 0;
+    padding-inline: clamp(1.25rem, 4vw, 2rem);
+  }
+
+  .contact-grid {
+    display: grid;
+    gap: var(--spacing-l);
+    align-items: start;
+  }
+
+  @media (min-width: 820px) {
+    .contact-grid { grid-template-columns: 2fr 3fr; }
+  }
+
+  .contact-list { margin: 0 0 2rem; }
+
+  .contact-list > div {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--color-light-border);
+  }
+
+  .contact-list > div:first-child { padding-top: 0; }
+
+  .contact-list dt {
+    font-family: var(--titleFont);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 0.2rem;
+  }
+
+  .contact-list dd {
+    margin: 0;
+    font-size: var(--font-body);
+    color: var(--color-text-secondary);
+  }
+
+  .contact-list address { font-style: normal; }
+
+  .contact-list a { color: var(--color-text-secondary); }
+
+  .contact-list a:hover { color: var(--color-text-primary); }
+
+  .contact-extra {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: var(--font-mini);
+  }
+
+  .horaires {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .horaires li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.2rem 0;
+  }
+
+  .horaires strong { color: var(--color-text-primary); }
+
+  .map-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  #map {
+    width: 100%;
+    min-height: 380px;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-light-border);
+    z-index: var(--zindex-map);
+  }
+
+  #map :global(.cabinet-marker) {
+    width: 34px;
+    height: 34px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    background: var(--color-green500);
+    border: 3px solid var(--color-white);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  }
+
+  .map-link {
+    align-self: flex-start;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .map-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+</style>

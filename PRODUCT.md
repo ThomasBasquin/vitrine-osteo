@@ -14,7 +14,7 @@ Site vitrine statique (Astro) qui établit la crédibilité d'une ostéopathe fr
 
 ## Brand Personality
 
-Apaisant, soigné, humain. Registre « éditorial apaisant » : typographie serif élégante associée à une sans, beaucoup d'air, formes organiques douces. Le site doit évoquer le soin, le geste manuel et la confiance — le calme d'un cabinet, pas l'agitation d'une startup santé.
+Apaisant, soigné, humain, avec une touche de chaleur ludique. Style inspiré de seanhalpin.xyz (choix de Thomas) : typographie ronde et généreuse, palette beige/vert émeraude, thème jour/nuit circadien, cartes pastel. Le site doit évoquer le soin, le geste manuel et la confiance — le calme d'un cabinet, pas l'agitation d'une startup santé.
 
 ## Anti-references
 

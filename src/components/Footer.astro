@@ -1,0 +1,145 @@
+---
+import { site } from '../data/site.js';
+import Circadian from './Circadian.astro';
+
+const tel = site.cabinet.telephone.replace(/\s/g, '');
+const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+  `${site.cabinet.adresse}, ${site.cabinet.codePostal} ${site.cabinet.ville}`
+)}`;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-cta">
+    <h2>Prendre soin de vous commence ici.</h2>
+    <p>Réservez un créneau en ligne, ou appelez-moi pour en discuter.</p>
+    <div class="cta-actions">
+      <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
+        Prendre rendez-vous
+      </a>
+      <a class="cta-phone" href={`tel:${tel}`}>{site.cabinet.telephone}</a>
+    </div>
+  </div>
+
+  <div class="container-wide footer-grid">
+    <div class="footer-id">
+      <p class="footer-name">{site.cabinet.nom}</p>
+      <p class="footer-address">
+        {site.cabinet.adresse}, {site.cabinet.codePostal} {site.cabinet.ville}
+      </p>
+      <p class="footer-legal">
+        © {year} {site.praticienne.nom} · <a href="/mentions-legales">Mentions légales</a>
+      </p>
+    </div>
+    <nav class="footer-col" aria-label="Consultations">
+      <p class="footer-h">Consultations</p>
+      <ul>
+        <li><a href="/femme-enceinte">Femme enceinte</a></li>
+        <li><a href="/nourrisson">Nourrisson</a></li>
+        <li><a href="/sportif">Sportif</a></li>
+        <li><a href="/seance#tarifs">Tarifs</a></li>
+      </ul>
+    </nav>
+    <nav class="footer-col" aria-label="Contact">
+      <p class="footer-h">Contact</p>
+      <ul>
+        <li><a href={`tel:${tel}`}>{site.cabinet.telephone}</a></li>
+        <li><a href={`mailto:${site.cabinet.email}`}>Email</a></li>
+        <li><a href={site.liens.doctolib} target="_blank" rel="noopener">Doctolib</a></li>
+        <li><a href={itineraire} target="_blank" rel="noopener">Itinéraire</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <p class="container footer-note">
+    L'ostéopathie ne se substitue pas à un suivi médical. En cas de doute, consultez votre médecin.
+  </p>
+
+  <Circadian />
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    z-index: var(--zindex-base);
+    padding-top: var(--spacing-l);
+  }
+
+  .footer-cta {
+    text-align: center;
+    padding-bottom: var(--spacing-l);
+  }
+
+  .footer-cta h2 { margin-bottom: 0.5rem; }
+
+  .footer-cta p {
+    margin: 0 auto 1.25rem;
+    max-width: 34rem;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+
+  .cta-phone {
+    font-size: var(--font-body);
+    font-weight: 600;
+  }
+
+  .footer-grid {
+    display: grid;
+    gap: var(--spacing-m);
+    padding-top: var(--spacing-m);
+    border-top: 1px solid var(--color-light-border);
+  }
+
+  @media (min-width: 768px) {
+    .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
+  }
+
+  .footer-name {
+    font-family: var(--titleFont);
+    font-weight: 700;
+    font-size: var(--font-link);
+    margin-bottom: 0.25rem;
+    color: var(--color-text-primary);
+  }
+
+  .footer-address, .footer-legal {
+    font-size: var(--font-mini);
+    margin: 0 0 0.25rem;
+  }
+
+  .footer-h {
+    font-weight: 600;
+    font-size: var(--font-link);
+    color: var(--color-text-primary);
+    margin: 0 0 0.5rem;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .footer-col a {
+    display: inline-block;
+    padding: 0.3rem 0;
+    font-size: var(--font-link);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+  }
+
+  .footer-col a:hover { color: var(--color-text-primary); }
+
+  .footer-note {
+    font-size: var(--font-mini);
+    color: var(--color-text-secondary);
+    margin-top: var(--spacing-s);
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Aura from '../components/Aura.astro';
 import { site } from '../data/site.js';
 
 const title = `${site.praticienne.nom} — Ostéopathe à ${site.cabinet.ville}`;
@@ -11,72 +12,30 @@ const publics = [
   {
     titre: 'Adultes',
     texte:
-      "L'ostéopathie accompagne les adultes face aux douleurs du quotidien : tensions musculaires, troubles posturaux, stress, troubles digestifs ou céphalées. Grâce à une approche globale, elle aide à restaurer la mobilité des tissus et à améliorer le confort de vie. Elle convient aussi bien en prévention qu'en traitement ponctuel.",
+      "Tensions musculaires, troubles posturaux, stress, troubles digestifs ou céphalées : une approche globale pour restaurer la mobilité des tissus et améliorer le confort de vie, en prévention comme en traitement ponctuel.",
     lien: null,
+    pastel: 'pastel-mint',
   },
   {
     titre: 'Femmes enceintes',
     texte:
-      "Chez la femme enceinte, l'ostéopathie aide le corps à s'adapter aux changements posturaux, hormonaux et mécaniques de la grossesse. Elle soulage les douleurs lombaires, sciatiques, reflux, troubles circulatoires ou gênes thoraciques.",
+      "Aider le corps à s'adapter aux changements posturaux, hormonaux et mécaniques de la grossesse : douleurs lombaires, sciatiques, reflux, troubles circulatoires ou gênes thoraciques.",
     lien: '/femme-enceinte',
+    pastel: 'pastel-lilac',
   },
   {
     titre: 'Nourrissons',
     texte:
-      "L'ostéopathie pédiatrique s'adresse aux nouveau-nés pour améliorer leur confort après la naissance : torticolis, plagiocéphalie, troubles du sommeil, régurgitations, coliques ou difficultés d'allaitement.",
+      "Améliorer le confort des nouveau-nés après la naissance : torticolis, plagiocéphalie, troubles du sommeil, régurgitations, coliques ou difficultés d'allaitement.",
     lien: '/nourrisson',
+    pastel: 'pastel-babyblue',
   },
   {
     titre: 'Sportifs',
     texte:
-      "Chez le sportif, l'ostéopathie optimise les performances en améliorant la mobilité articulaire, la récupération musculaire et la prévention des blessures. Un suivi régulier aide à maintenir un geste sportif fluide et efficace.",
+      "Optimiser les performances en améliorant la mobilité articulaire, la récupération musculaire et la prévention des blessures, pour un geste sportif fluide et efficace.",
     lien: '/sportif',
-  },
-];
-
-const etapes = [
-  {
-    titre: 'Accueil & anamnèse',
-    texte:
-      'La séance débute par un temps d\'échange : motif de consultation, antécédents et mode de vie, pour identifier la cause de vos douleurs.',
-  },
-  {
-    titre: 'Tests médicaux',
-    texte:
-      'Un examen clinique permet de vérifier que votre douleur relève bien du champ de compétences de l\'ostéopathie, avec réorientation vers un médecin si nécessaire.',
-  },
-  {
-    titre: 'Bilan ostéopathique & traitement',
-    texte:
-      'Des tests ostéopathiques identifient les dysfonctions, suivis d\'un traitement manuel personnalisé, adapté à votre corps et à vos ressentis.',
-  },
-  {
-    titre: 'Conseils de fin de séance',
-    texte:
-      'La consultation se termine par des conseils sur vos habitudes de vie ou des exercices simples à réaliser chez vous, et l\'éventuelle reprise de rendez-vous pour le suivi.',
-  },
-];
-
-const faq = [
-  {
-    q: 'Quelle tenue pour une séance d\'ostéopathie ?',
-    a: 'Il est essentiel que vous vous sentiez à l\'aise : privilégiez des tenues confortables et souples (tenue de sport, legging…).',
-  },
-  {
-    q: 'Est-ce qu\'on doit forcément être « craqué » ?',
-    a: 'Ma pratique se base sur des techniques douces, et il est très rare que je procède à des manipulations qui provoquent un « craquement ». Chaque soin est adapté à votre corps, sans forcer ni brusquer.',
-  },
-  {
-    q: 'La séance est-elle remboursée ?',
-    a: 'L\'ostéopathie ne dépend pas du parcours de soin remboursé par la Sécurité sociale, mais la plupart des mutuelles prennent en charge une ou plusieurs séances par an. Une facture vous est remise à transmettre à votre mutuelle.',
-  },
-  {
-    q: 'Que faire après une séance ?',
-    a: 'La séance aide votre corps à retrouver la mobilité qu\'il avait perdue : vous pouvez donc rester actif après la séance et vivre normalement.',
-  },
-  {
-    q: 'Quels sont les moyens de paiement acceptés ?',
-    a: '[Moyens de paiement à préciser : chèque, espèces, carte bancaire…]',
+    pastel: 'pastel-rust',
   },
 ];
 
@@ -84,7 +43,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'MedicalBusiness',
   name: site.cabinet.nom,
-  description: 'Cabinet d\'ostéopathie — adultes, femmes enceintes, nourrissons et sportifs.',
+  description: "Cabinet d'ostéopathie — adultes, femmes enceintes, nourrissons et sportifs.",
   url: Astro.site?.toString(),
   telephone: site.cabinet.telephone,
   address: {
@@ -107,771 +66,169 @@ const jsonLd = {
 <Base title={title} description={description}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
 
-  <section class="hero">
-    <svg class="hero-lines" viewBox="0 0 900 600" fill="none" aria-hidden="true" preserveAspectRatio="xMaxYMid slice">
-      <path d="M900 80C700 90 560 180 520 320c-38 133 60 220 380 250" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M900 30C640 45 470 160 430 320c-40 160 90 260 470 280" stroke="currentColor" stroke-width="1.5" opacity="0.65"/>
-      <path d="M900 130c-160 10 -270 90 -300 200 -30 108 50 180 300 210" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
-    </svg>
-    <div class="container hero-inner">
-      <div class="hero-text">
-        <h1>
-          <span class="hero-loc">Ostéopathe à {site.cabinet.ville}</span>
-          <span class="hero-display">Libérer les tensions, <em>en douceur.</em></span>
-        </h1>
-        <p class="hero-lead">
-          Une ostéopathie douce et globale pour soulager vos douleurs — pour les adultes,
-          femmes enceintes, nourrissons et sportifs.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
-            Prendre rendez-vous
-          </a>
-          <a class="hero-phone" href={`tel:${site.cabinet.telephone.replace(/\s/g, '')}`}>
-            ou par téléphone — {site.cabinet.telephone}
-          </a>
-        </div>
-      </div>
-      <figure class="hero-figure">
-        <img
-          class="hero-photo"
-          src="/images/portrait-placeholder.svg"
-          alt={`${site.praticienne.nom}, ostéopathe`}
-          width="400"
-          height="500"
-        />
-        <figcaption>{site.praticienne.nom} · {site.praticienne.titre}</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section id="osteopathie" class="section-alt">
-    <div class="container definition-wrap reveal">
-      <span class="definition-mark" aria-hidden="true">«</span>
-      <blockquote class="definition">
-        L'ostéopathie est une thérapie manuelle <em>douce et globale</em> qui aide à soulager
-        les douleurs et à libérer les tensions du corps. C'est une science basée sur les
-        principes d'anatomie, de biomécanique et de physiologie. Son objectif est de permettre
-        au corps de retrouver son équilibre afin d'optimiser sa mobilité et sa capacité
-        d'adaptation au quotidien.
-      </blockquote>
-    </div>
-  </section>
-
-  <section id="presentation">
-    <div class="container presentation">
-      <figure class="presentation-figure reveal">
-        <img
-          class="presentation-photo"
-          src="/images/portrait-placeholder.svg"
-          alt={`Portrait de ${site.praticienne.nom}`}
-          width="400"
-          height="500"
-          loading="lazy"
-        />
-      </figure>
-      <div class="presentation-text reveal" style="--reveal-delay: 0.12s">
-        <h2>{site.praticienne.nom}, <em>votre ostéopathe</em></h2>
-        <p>
-          Diplômée du <strong>{site.praticienne.ecole}</strong> ({site.praticienne.anneeDiplome}),
-          je pratique une ostéopathie complète, alliant techniques douces (fonctionnelles,
-          tissulaires) et techniques structurelles (myotensives, HVBA).
-        </p>
-        <p>
-          Mon approche globale et personnalisée vise à restaurer l'équilibre du corps et à
-          accompagner chaque patient vers un mieux-être durable.
-        </p>
-        <h3>Expériences cliniques</h3>
-        <ul class="exp-list">
-          <li><strong>CHU Hautepierre, Strasbourg</strong> — gynécologie, obstétrique</li>
-          <li><strong>Clinique du Ried, Schiltigheim</strong> — soins médicaux et de réadaptation à orientation gériatrique</li>
-          <li><strong>Clinique Sainte-Anne, Strasbourg</strong> — oncologie, soins palliatifs, chirurgie orthopédique</li>
-          <li><strong>Nouvel Hôpital Civil, Strasbourg</strong></li>
-          <li><strong>Clinique Sainte-Barbe, Strasbourg</strong></li>
-          <li><strong>Clinique Toussaint, Strasbourg</strong></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section id="pour-qui" class="section-green">
-    <div class="container section-head-center">
-      <h2 class="section-title reveal">L'ostéopathie, <em>pour qui ?</em></h2>
-      <p class="section-intro reveal">
-        Une prise en charge adaptée à chaque étape de la vie.
+  <section class="page-hero home-hero">
+    <Aura />
+    <div class="hero-content">
+      <h1>
+        <span class="hero-line">Marie Wach.</span>
+        <span class="hero-line">Ostéopathe D.O.</span>
+      </h1>
+      <p class="hero-lead">
+        Une ostéopathie douce et globale à {site.cabinet.ville} — pour les adultes,
+        femmes enceintes, nourrissons et sportifs.
       </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
+          Prendre rendez-vous
+        </a>
+        <a class="btn btn-outline" href="/contact">Me contacter</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="definition-section">
+    <div class="container">
+      <blockquote class="definition reveal">
+        L'ostéopathie est une thérapie manuelle douce et globale qui aide à soulager les
+        douleurs et à libérer les tensions du corps. Son objectif&nbsp;: permettre au corps
+        de retrouver son équilibre, sa mobilité et sa capacité d'adaptation au quotidien.
+      </blockquote>
+      <p class="definition-more reveal">
+        <a href="/seance">Découvrir le déroulement d'une séance →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="publics-section">
+    <div class="container-wide">
+      <h2 class="h2-display publics-title reveal">Pour qui&nbsp;?</h2>
       <div class="publics">
         {publics.map((p, i) => (
-          <article class={`pebble public reveal public-${i + 1}`} style={`--reveal-delay: ${i * 0.08}s`}>
+          <article class={`public pastel ${p.pastel} reveal`} style={`--reveal-delay: ${i * 0.08}s`}>
             <h3>{p.titre}</h3>
             <p>{p.texte}</p>
-            {p.lien && <a class="public-link" href={p.lien}>En savoir plus<span aria-hidden="true"> →</span></a>}
+            {p.lien && (
+              <a class="public-link" href={p.lien}>
+                En savoir plus<span aria-hidden="true"> →</span>
+              </a>
+            )}
           </article>
         ))}
       </div>
     </div>
   </section>
-
-  <section id="seance" class="section-alt">
-    <div class="container seance-inner">
-      <div class="seance-head reveal">
-        <h2 class="section-title">Le déroulement <em>d'une séance</em></h2>
-        <p class="section-intro">
-          Une consultation dure environ 45 minutes — jusqu'à une heure selon son déroulement et
-          vos besoins.
-        </p>
-      </div>
-      <ol class="etapes">
-        {etapes.map((e, i) => (
-          <li class="etape reveal" style={`--reveal-delay: ${i * 0.08}s`}>
-            <span class="etape-num" aria-hidden="true">{i + 1}</span>
-            <div>
-              <h3>{e.titre}</h3>
-              <p>{e.texte}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
-  <section id="tarifs">
-    <div class="container section-head-center">
-      <h2 class="section-title reveal">Tarifs <em>& horaires</em></h2>
-      <div class="tarifs-panel reveal">
-        <div class="tarifs-col">
-          <h3>Consultations</h3>
-          <ul class="tarif-list">
-            {site.tarifs.map((t) => (
-              <li><span>{t.label}</span><strong class="tarif-prix">{t.prix}</strong></li>
-            ))}
-          </ul>
-          <p class="tarif-note">
-            Une facture peut être remise pour un éventuel remboursement par votre mutuelle.
-          </p>
-        </div>
-        <div class="tarifs-col">
-          <h3>Horaires</h3>
-          <ul class="tarif-list">
-            {site.horaires.map((h) => (
-              <li><span>{h.jours}</span><strong>{h.heures}</strong></li>
-            ))}
-          </ul>
-          <p class="tarif-note">Consultations au cabinet uniquement.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq" class="section-green">
-    <div class="container faq-container">
-      <h2 class="section-title reveal">Des questions ?</h2>
-      <div class="faq-list reveal">
-        {faq.map((item) => (
-          <details class="faq-item">
-            <summary>
-              {item.q}
-              <span class="faq-icon" aria-hidden="true"></span>
-            </summary>
-            <p>{item.a}</p>
-          </details>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="section-alt">
-    <div class="container">
-      <h2 class="section-title reveal">Contact <em>& accès</em></h2>
-      <p class="section-intro reveal">
-        Pour la prise de rendez-vous, vous pouvez me joindre par téléphone ou réserver
-        directement un créneau en ligne via Doctolib.
-      </p>
-      <div class="contact-grid">
-        <div class="contact-info reveal">
-          <dl class="contact-list">
-            <div>
-              <dt>Adresse</dt>
-              <dd>
-                <address>
-                  {site.cabinet.adresse}<br />
-                  {site.cabinet.codePostal} {site.cabinet.ville}
-                </address>
-                <span class="contact-extra">{site.cabinet.parking}</span>
-              </dd>
-            </div>
-            <div>
-              <dt>Téléphone</dt>
-              <dd><a href={`tel:${site.cabinet.telephone.replace(/\s/g, '')}`}>{site.cabinet.telephone}</a></dd>
-            </div>
-            <div>
-              <dt>Email</dt>
-              <dd><a href={`mailto:${site.cabinet.email}`}>{site.cabinet.email}</a></dd>
-            </div>
-          </dl>
-          <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
-            Prendre rendez-vous
-          </a>
-        </div>
-        <div class="map-wrap reveal" style="--reveal-delay: 0.12s">
-          <div
-            id="map"
-            data-lat={site.cabinet.latitude}
-            data-lon={site.cabinet.longitude}
-            data-nom={site.cabinet.nom}
-          ></div>
-          <a
-            class="map-link"
-            href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${site.cabinet.adresse}, ${site.cabinet.codePostal} ${site.cabinet.ville}`)}`}
-            target="_blank"
-            rel="noopener"
-          >Itinéraire vers le cabinet<span aria-hidden="true"> →</span></a>
-        </div>
-      </div>
-    </div>
-  </section>
 </Base>
 
-<script>
-  import L from 'leaflet';
-  import 'leaflet/dist/leaflet.css';
-
-  const el = document.getElementById('map');
-  if (el) {
-    const lat = Number(el.dataset.lat);
-    const lon = Number(el.dataset.lon);
-    const map = L.map(el, { scrollWheelZoom: false, attributionControl: false }).setView(
-      [lat, lon],
-      14
-    );
-    L.control
-      .attribution({ prefix: false })
-      .addAttribution('© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>')
-      .addTo(map);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
-    L.marker([lat, lon], {
-      icon: L.divIcon({
-        className: '',
-        html: '<div class="cabinet-marker"></div>',
-        iconSize: [34, 34],
-        iconAnchor: [17, 41],
-      }),
-    })
-      .addTo(map)
-      .bindPopup(el.dataset.nom ?? '');
-  }
-</script>
-
 <style>
-  /* ————— Hero ————— */
-  .hero {
-    position: relative;
+  .home-hero {
+    padding-bottom: var(--spacing-xl);
     overflow: hidden;
-    background:
-      radial-gradient(52rem 32rem at 88% 0%, var(--green-100) 0%, transparent 62%),
-      linear-gradient(170deg, var(--green-50) 0%, var(--sand-50) 55%);
-    padding-block: clamp(3.5rem, 8vw, 7rem);
   }
 
-  .hero-lines {
-    position: absolute;
-    inset: 0 0 auto auto;
-    width: min(60rem, 90vw);
-    height: 100%;
-    color: var(--green-500);
-    opacity: 0.35;
-    pointer-events: none;
+  .hero-content {
+    max-width: var(--max-width);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 2rem);
+    text-align: center;
   }
 
-  .hero-inner {
-    position: relative;
-    display: grid;
-    gap: clamp(2.5rem, 6vw, 4rem);
-    align-items: center;
-  }
-
-  .hero-loc {
-    display: block;
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--green-700);
-    margin-bottom: 1rem;
-  }
-
-  .hero-display {
-    display: block;
-    max-width: 12ch;
-  }
-
-  .hero h1 { margin-bottom: 1.25rem; }
+  .hero-line { display: block; }
 
   .hero-lead {
-    font-size: 1.25rem;
-    color: var(--ink-soft);
-    max-width: 32rem;
-    margin-bottom: 0;
+    max-width: 36rem;
+    margin: var(--spacing-s) auto 0;
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    gap: 1.25rem;
-    margin-top: 2.25rem;
-  }
-
-  .hero-phone {
-    font-weight: 500;
-    color: var(--ink-soft);
-    text-decoration-color: var(--green-500);
-  }
-
-  .hero-phone:hover { color: var(--green-900); }
-
-  .hero-figure {
-    position: relative;
-    justify-self: center;
-    margin: 0;
-  }
-
-  .hero-photo {
-    display: block;
-    width: min(320px, 78vw);
-    border-radius: 999px 999px var(--radius) var(--radius);
-    box-shadow: var(--shadow-soft);
-  }
-
-  .hero-figure::before {
-    content: '';
-    position: absolute;
-    inset: -14px auto auto -18px;
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    border: 1.5px solid var(--green-200);
-    border-radius: 999px 999px var(--radius) var(--radius);
-    z-index: -1;
-  }
-
-  .hero-figure figcaption {
-    margin-top: 1rem;
-    text-align: center;
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 1.05rem;
-    color: var(--ink-soft);
+    gap: 1rem;
+    margin-top: var(--spacing-m);
   }
 
   /* Entrée du hero */
-  html.js .hero-text > *,
-  html.js .hero-figure {
+  html.js .hero-content > * {
     animation: hero-in 0.9s var(--ease-out) both;
   }
 
-  html.js .hero-text h1 { animation-delay: 0.05s; }
-  html.js .hero-text .hero-lead { animation-delay: 0.18s; }
-  html.js .hero-text .hero-actions { animation-delay: 0.3s; }
-  html.js .hero-figure { animation-delay: 0.25s; }
+  html.js .hero-content h1 { animation-delay: 0.05s; }
+  html.js .hero-content .hero-lead { animation-delay: 0.18s; }
+  html.js .hero-content .hero-actions { animation-delay: 0.3s; }
 
   @keyframes hero-in {
-    from {
-      opacity: 0;
-      translate: 0 28px;
-    }
-    to {
-      opacity: 1;
-      translate: 0 0;
-    }
+    from { opacity: 0; translate: 0 28px; }
+    to { opacity: 1; translate: 0 0; }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    html.js .hero-text > *,
-    html.js .hero-figure {
-      animation: none;
-    }
-  }
-
-  @media (min-width: 820px) {
-    .hero-inner { grid-template-columns: 7fr 4fr; }
-  }
-
-  /* ————— Définition ————— */
-  .definition-wrap {
-    position: relative;
-    max-width: 52rem;
-  }
-
-  .definition-mark {
-    position: absolute;
-    top: -3.5rem;
-    left: -0.5rem;
-    font-family: var(--font-serif);
-    font-size: 9rem;
-    line-height: 1;
-    color: var(--green-100);
-    user-select: none;
-  }
+  .definition-section .container { max-width: 52rem; }
 
   .definition {
-    position: relative;
     margin: 0;
     padding: 0;
     border: none;
-    font-family: var(--font-serif);
-    font-size: clamp(1.35rem, 2.6vw, 1.75rem);
-    line-height: 1.5;
-    color: var(--green-900);
-    font-weight: 450;
+    font-family: var(--titleFont);
+    font-size: clamp(1.4rem, 1.1rem + 1.4vw, 2.2rem);
+    font-weight: 600;
+    line-height: 145%;
+    color: var(--color-text-primary);
+    text-align: center;
+    text-wrap: balance;
   }
 
-  .definition em {
-    font-style: italic;
-    color: var(--green-600);
+  .definition-more {
+    text-align: center;
+    margin: var(--spacing-s) 0 0;
   }
 
-  /* ————— Présentation ————— */
-  .presentation {
-    display: grid;
-    gap: clamp(2rem, 5vw, 4rem);
-    align-items: center;
+  .definition-more a {
+    font-weight: 600;
+    text-decoration: none;
   }
 
-  .presentation-figure {
-    margin: 0;
-    justify-self: center;
-    order: 2;
+  .definition-more a:hover { text-decoration: underline; }
+
+  .publics-title {
+    text-align: center;
+    margin-bottom: var(--spacing-l);
   }
 
-  .presentation-photo {
-    display: block;
-    width: min(300px, 75vw);
-    border-radius: var(--radius) var(--radius) 999px 999px;
-    box-shadow: var(--shadow-soft);
-  }
-
-  .presentation-text h3 {
-    margin-top: 2rem;
-    font-size: 1.25rem;
-  }
-
-  @media (min-width: 820px) {
-    .presentation { grid-template-columns: 2fr 3fr; }
-    .presentation-figure { order: 0; }
-  }
-
-  .exp-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    color: var(--ink-soft);
-  }
-
-  .exp-list li {
-    padding: 0.55rem 0;
-    border-bottom: 1px solid var(--green-100);
-  }
-
-  .exp-list li:last-child { border-bottom: none; }
-
-  .exp-list strong {
-    color: var(--ink);
-    font-weight: 700;
-  }
-
-  /* ————— Pour qui ————— */
   .publics {
     display: grid;
-    gap: 1.25rem;
-    text-align: left;
+    gap: 1.5rem;
   }
 
   @media (min-width: 720px) {
     .publics { grid-template-columns: repeat(2, 1fr); }
   }
 
+  .public {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .public:has(.public-link):hover { transform: translateY(-4px); }
+
   .public h3 { margin-bottom: 0.5rem; }
 
-  .public p { color: var(--ink-soft); margin-bottom: 0; }
-
-  .public-1 { border-radius: var(--radius) var(--radius) var(--radius) 4.5rem; }
-  .public-2 { border-radius: var(--radius) var(--radius) 4.5rem var(--radius); }
-  .public-3 { border-radius: var(--radius) 4.5rem var(--radius) var(--radius); }
-  .public-4 { border-radius: 4.5rem var(--radius) var(--radius) var(--radius); }
+  .public p { margin-bottom: 0; font-size: var(--font-link); }
 
   .public-link {
-    display: inline-block;
-    margin-top: 1rem;
+    margin-top: 1.25rem;
     font-weight: 700;
     text-decoration: none;
+  }
+
+  /* Toute la carte est cliquable */
+  .public-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-card);
   }
 
   .public-link:hover { text-decoration: underline; text-underline-offset: 4px; }
-
-  /* ————— Séance ————— */
-  .seance-inner {
-    display: grid;
-    gap: clamp(2rem, 5vw, 4.5rem);
-    align-items: start;
-  }
-
-  @media (min-width: 900px) {
-    .seance-inner { grid-template-columns: 2fr 3fr; }
-
-    .seance-head {
-      position: sticky;
-      top: 6.5rem;
-    }
-  }
-
-  .seance-head .section-intro { margin-bottom: 0; }
-
-  .etapes {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .etape {
-    position: relative;
-    display: grid;
-    grid-template-columns: 3.25rem 1fr;
-    gap: 1.25rem;
-    padding-bottom: 2.25rem;
-  }
-
-  .etape:last-child { padding-bottom: 0; }
-
-  /* Ligne verticale reliant les étapes */
-  .etape:not(:last-child)::before {
-    content: '';
-    position: absolute;
-    left: 1.625rem;
-    top: 3.5rem;
-    bottom: 0.25rem;
-    width: 1px;
-    background: var(--green-200);
-  }
-
-  .etape-num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3.25rem;
-    height: 3.25rem;
-    border-radius: 50%;
-    background: var(--green-50);
-    border: 1px solid var(--green-200);
-    color: var(--green-800);
-    font-family: var(--font-serif);
-    font-weight: 600;
-    font-size: 1.4rem;
-  }
-
-  .etape h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.4rem;
-    padding-top: 0.7rem;
-  }
-
-  .etape p { color: var(--ink-soft); margin-bottom: 0; }
-
-  /* ————— Tarifs ————— */
-  .tarifs-panel {
-    display: grid;
-    gap: 2.5rem;
-    max-width: 56rem;
-    margin-inline: auto;
-    margin-top: clamp(2rem, 5vw, 3rem);
-    background: var(--white);
-    border: 1px solid var(--green-100);
-    border-radius: var(--radius-organic);
-    padding: clamp(1.75rem, 4vw, 3rem);
-    text-align: left;
-  }
-
-  @media (min-width: 720px) {
-    .tarifs-panel {
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-    }
-
-    .tarifs-col:first-child {
-      padding-right: 3rem;
-      border-right: 1px solid var(--green-100);
-    }
-
-    .tarifs-col:last-child { padding-left: 3rem; }
-  }
-
-  .tarifs-col h3 { margin-bottom: 0.75rem; }
-
-  .tarif-list {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1rem;
-  }
-
-  .tarif-list li {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.7rem 0;
-    border-bottom: 1px solid var(--green-100);
-  }
-
-  .tarif-prix {
-    font-family: var(--font-serif);
-    font-size: 1.7rem;
-    font-weight: 600;
-    color: var(--green-800);
-  }
-
-  .tarif-note {
-    font-size: 0.95rem;
-    color: var(--ink-soft);
-    margin: 0;
-  }
-
-  /* ————— FAQ ————— */
-  .faq-container { max-width: 46rem; }
-
-  .faq-list {
-    border-top: 1px solid var(--green-200);
-    margin-top: clamp(1.5rem, 4vw, 2.5rem);
-  }
-
-  .faq-item {
-    border-bottom: 1px solid var(--green-200);
-  }
-
-  .faq-item summary {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    list-style: none;
-    cursor: pointer;
-    padding: 1.15rem 0;
-    font-family: var(--font-serif);
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--green-900);
-    transition: color 0.2s var(--ease-out);
-  }
-
-  .faq-item summary::-webkit-details-marker { display: none; }
-
-  .faq-item summary:hover { color: var(--green-600); }
-
-  .faq-icon {
-    position: relative;
-    flex: none;
-    width: 0.9rem;
-    height: 0.9rem;
-  }
-
-  .faq-icon::before,
-  .faq-icon::after {
-    content: '';
-    position: absolute;
-    inset: 50% auto auto 0;
-    width: 100%;
-    height: 1.5px;
-    background: var(--green-600);
-    transition: rotate 0.3s var(--ease-out);
-  }
-
-  .faq-icon::after { rotate: 90deg; }
-
-  .faq-item[open] .faq-icon::after { rotate: 0deg; }
-
-  .faq-item[open] .faq-icon::before { rotate: 180deg; }
-
-  .faq-item p {
-    margin: 0 0 1.25rem;
-    color: var(--ink-soft);
-    max-width: 40rem;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .faq-icon::before,
-    .faq-icon::after { transition: none; }
-  }
-
-  /* ————— Contact ————— */
-  .contact-grid {
-    display: grid;
-    gap: clamp(2rem, 5vw, 4rem);
-    align-items: start;
-  }
-
-  @media (min-width: 820px) {
-    .contact-grid { grid-template-columns: 2fr 3fr; }
-  }
-
-  .contact-list {
-    margin: 0 0 2rem;
-  }
-
-  .contact-list > div {
-    padding: 0.9rem 0;
-    border-bottom: 1px solid var(--green-100);
-  }
-
-  .contact-list > div:first-child { padding-top: 0; }
-
-  .contact-list dt {
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--green-600);
-    margin-bottom: 0.2rem;
-  }
-
-  .contact-list dd { margin: 0; }
-
-  .contact-list address { font-style: normal; }
-
-  .contact-extra {
-    display: block;
-    margin-top: 0.2rem;
-    color: var(--ink-soft);
-    font-size: 0.95rem;
-  }
-
-  .map-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  #map {
-    width: 100%;
-    min-height: 340px;
-    border-radius: var(--radius-organic);
-    border: 1px solid var(--green-100);
-    z-index: var(--z-map);
-  }
-
-  #map :global(.cabinet-marker) {
-    width: 34px;
-    height: 34px;
-    border-radius: 50% 50% 50% 0;
-    transform: rotate(-45deg);
-    background: var(--green-700);
-    border: 3px solid var(--white);
-    box-shadow: 0 2px 6px rgba(46, 70, 50, 0.4);
-  }
-
-  .map-link {
-    align-self: flex-start;
-    font-weight: 700;
-    text-decoration: none;
-  }
-
-  .map-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 </style>

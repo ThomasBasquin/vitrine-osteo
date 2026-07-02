@@ -1,0 +1,122 @@
+---
+const hours = Array.from({ length: 24 }, (_, h) => h);
+---
+
+<div class="circadian" data-circadian>
+  <button class="bubble" type="button" aria-label="Basculer entre le thème jour et le thème nuit">
+    <svg class="icon-sun" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.5" fill="currentColor" />
+      <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7" />
+      </g>
+    </svg>
+    <svg class="icon-moon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M20.4 14.2A8.6 8.6 0 0 1 9.8 3.6a8.6 8.6 0 1 0 10.6 10.6Z" fill="currentColor" />
+    </svg>
+  </button>
+  <div class="hours">
+    {hours.map((h) => (
+      <div class="hour" data-hour={h} title={`${String(h).padStart(2, '0')}h`}>
+        <span class="line"></span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector('[data-circadian]');
+
+  if (root) {
+    const bubble = root.querySelector<HTMLButtonElement>('.bubble')!;
+    const hourEls = root.querySelectorAll<HTMLElement>('.hour');
+
+    const update = (sunrise?: Date, sunset?: Date) => {
+      const circadian = (window as any).__circadian;
+      if (!circadian) return;
+      const now = new Date();
+      if (!sunrise || !sunset) {
+        ({ sunrise, sunset } = circadian.sunTimes(now));
+      }
+      const riseH = sunrise!.getHours() + sunrise!.getMinutes() / 60;
+      const setH = sunset!.getHours() + sunset!.getMinutes() / 60;
+
+      hourEls.forEach((el) => {
+        const mid = Number(el.dataset.hour) + 0.5;
+        el.classList.toggle('day', mid >= riseH && mid <= setH);
+        el.classList.toggle('active', Number(el.dataset.hour) === now.getHours());
+      });
+
+      bubble.style.left = `${((now.getHours() + now.getMinutes() / 60) / 24) * 100}%`;
+    };
+
+    document.addEventListener('themechange', ((e: CustomEvent) =>
+      update(e.detail.sunrise, e.detail.sunset)) as EventListener);
+    bubble.addEventListener('click', () => (window as any).__circadian?.toggle());
+    update();
+  }
+</script>
+
+<style>
+  .circadian {
+    position: relative;
+    max-width: 72rem;
+    margin: var(--spacing-m) auto 0;
+    padding: 70px clamp(1.25rem, 4vw, 2rem) var(--spacing-s);
+  }
+
+  .hours {
+    display: flex;
+    width: 100%;
+  }
+
+  .hour {
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .line {
+    height: 40px;
+    width: 2px;
+    border-radius: 20px;
+    background: var(--color-primary-accent);
+    opacity: 0.2;
+    transform: translate3d(0, 22px, 0);
+    transition: transform 0.5s var(--curve), opacity 0.3s linear;
+  }
+
+  .hour.day .line { transform: translate3d(0, 8px, 0); opacity: 0.45; }
+
+  .hour.active .line { transform: translate3d(0, 0, 0); opacity: 1; }
+
+  .hour:hover .line { opacity: 0.8; transform: translate3d(0, 4px, 0); }
+
+  .bubble {
+    position: absolute;
+    top: 46px;
+    transform: translate(-50%, -100%);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-accent);
+    color: var(--color-text-tertiary);
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: left 0.5s var(--ease-out), filter 0.2s ease-in-out;
+    /* left est posé par le script ; départ hors écran le temps du premier calcul */
+    left: 50%;
+  }
+
+  .bubble:hover { filter: saturate(1.5); }
+
+  .icon-moon { display: none; }
+
+  :global(.dark) .icon-sun { display: none; }
+  :global(.dark) .icon-moon { display: block; }
+</style>

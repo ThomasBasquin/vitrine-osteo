@@ -1,28 +1,26 @@
 ---
 import Base from './Base.astro';
-import { site } from '../data/site.js';
+import Aura from '../components/Aura.astro';
 
-const { title, description, h1, motifsTitre } = Astro.props;
+const { title, description, h1, motifsTitre, pastel = 'pastel-mint' } = Astro.props;
 ---
 
 <Base title={title} description={description}>
-  <section class="spec-hero">
-    <div class="container spec-content">
-      <a class="spec-back" href="/">← Retour à l'accueil</a>
-      <h1>{h1}</h1>
-    </div>
+  <section class="page-hero spec-hero">
+    <Aura />
+    <h1>{h1}</h1>
   </section>
 
-  <section class="section-alt">
+  <section class="spec-section">
     <div class="container spec-content">
       <slot />
     </div>
   </section>
 
-  <section class="section-green">
+  <section class="spec-section">
     <div class="container spec-content">
-      <h2 class="reveal">{motifsTitre}</h2>
-      <div class="reveal">
+      <div class={`motifs pastel ${pastel} reveal`}>
+        <h2>{motifsTitre}</h2>
         <slot name="motifs" />
       </div>
       <p class="spec-note reveal">
@@ -35,64 +33,46 @@ const { title, description, h1, motifsTitre } = Astro.props;
 </Base>
 
 <style>
-  .spec-hero {
-    background:
-      radial-gradient(40rem 24rem at 90% 10%, var(--green-100) 0%, transparent 60%),
-      linear-gradient(170deg, var(--green-50) 0%, var(--sand-50) 70%);
-    padding-block: clamp(2.5rem, 6vw, 4.5rem);
-  }
-
-  .spec-back {
-    display: inline-block;
-    font-weight: 700;
-    font-size: 0.95rem;
-    text-decoration: none;
-    margin-bottom: 1.25rem;
-  }
-
-  .spec-back:hover { text-decoration: underline; text-underline-offset: 4px; }
-
   .spec-hero h1 {
-    margin: 0;
-    font-size: clamp(2.1rem, 5vw, 3.2rem);
+    font-size: var(--font-h2-display);
+    letter-spacing: -1px;
     max-width: 22ch;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 2rem);
   }
+
+  .spec-section { padding-block: var(--spacing-l); }
 
   .spec-content { max-width: 46rem; }
 
-  .spec-content :global(p) {
-    font-size: 1.15rem;
-  }
+  .motifs h2 { font-size: var(--font-h3); }
 
-  .spec-content :global(ul) {
+  .motifs :global(ul) {
     list-style: none;
     padding: 0;
     margin: 0;
-    color: var(--ink-soft);
   }
 
-  .spec-content :global(li) {
+  .motifs :global(li) {
     position: relative;
-    padding: 0.5rem 0 0.5rem 1.75rem;
-    border-bottom: 1px solid var(--green-200);
+    padding: 0.5rem 0 0.5rem 1.6rem;
+    font-size: var(--font-link);
+    color: var(--color-green500);
   }
 
-  .spec-content :global(li:last-child) { border-bottom: none; }
-
-  .spec-content :global(li)::before {
+  .motifs :global(li)::before {
     content: '';
     position: absolute;
     left: 0.25rem;
-    top: 1.15rem;
+    top: 1.05rem;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50% 50% 50% 0;
-    background: var(--green-500);
+    background: var(--color-green500);
   }
 
   .spec-note {
-    font-size: 0.95rem;
-    color: var(--ink-soft);
+    font-size: var(--font-mini);
     margin-top: 1.75rem;
   }
 </style>
