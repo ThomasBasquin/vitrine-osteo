@@ -284,11 +284,12 @@ const jsonLd = {
           </div>
         </div>
         <div class="card map-card">
-          <iframe
-            title="Carte d'accès au cabinet"
-            src={`https://www.openstreetmap.org/export/embed.html?bbox=${site.cabinet.longitude - 0.012},${site.cabinet.latitude - 0.007},${site.cabinet.longitude + 0.012},${site.cabinet.latitude + 0.007}&layer=mapnik&marker=${site.cabinet.latitude},${site.cabinet.longitude}`}
-            loading="lazy"
-          ></iframe>
+          <div
+            id="map"
+            data-lat={site.cabinet.latitude}
+            data-lon={site.cabinet.longitude}
+            data-nom={site.cabinet.nom}
+          ></div>
           <a
             href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${site.cabinet.adresse}, ${site.cabinet.codePostal} ${site.cabinet.ville}`)}`}
             target="_blank"
@@ -299,6 +300,36 @@ const jsonLd = {
     </div>
   </section>
 </Base>
+
+<script>
+  import L from 'leaflet';
+  import 'leaflet/dist/leaflet.css';
+
+  const el = document.getElementById('map');
+  if (el) {
+    const lat = Number(el.dataset.lat);
+    const lon = Number(el.dataset.lon);
+    const map = L.map(el, { scrollWheelZoom: false, attributionControl: false }).setView(
+      [lat, lon],
+      14
+    );
+    L.control
+      .attribution({ prefix: false })
+      .addAttribution('© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>')
+      .addTo(map);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+    L.marker([lat, lon], {
+      icon: L.divIcon({
+        className: '',
+        html: '<div class="cabinet-marker"></div>',
+        iconSize: [34, 34],
+        iconAnchor: [17, 41],
+      }),
+    })
+      .addTo(map)
+      .bindPopup(el.dataset.nom ?? '');
+  }
+</script>
 
 <style>
   .hero {
@@ -445,12 +476,22 @@ const jsonLd = {
     padding: 0.75rem;
   }
 
-  .map-card iframe {
+  #map {
     width: 100%;
     min-height: 280px;
     flex: 1;
-    border: none;
     border-radius: calc(var(--radius) - 4px);
+    z-index: 0;
+  }
+
+  #map :global(.cabinet-marker) {
+    width: 34px;
+    height: 34px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    background: var(--green-600);
+    border: 3px solid var(--white);
+    box-shadow: 0 2px 6px rgba(46, 70, 50, 0.4);
   }
 
   .map-card a {
