@@ -283,8 +283,17 @@ const jsonLd = {
             </a>
           </div>
         </div>
-        <div class="card map-placeholder">
-          <p>[ Carte à intégrer une fois l'adresse du cabinet confirmée ]</p>
+        <div class="card map-card">
+          <iframe
+            title="Carte d'accès au cabinet"
+            src={`https://www.openstreetmap.org/export/embed.html?bbox=${site.cabinet.longitude - 0.012},${site.cabinet.latitude - 0.007},${site.cabinet.longitude + 0.012},${site.cabinet.latitude + 0.007}&layer=mapnik&marker=${site.cabinet.latitude},${site.cabinet.longitude}`}
+            loading="lazy"
+          ></iframe>
+          <a
+            href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(`${site.cabinet.adresse}, ${site.cabinet.codePostal} ${site.cabinet.ville}`)}`}
+            target="_blank"
+            rel="noopener"
+          >Itinéraire vers le cabinet →</a>
         </div>
       </div>
     </div>
@@ -429,13 +438,25 @@ const jsonLd = {
     margin-bottom: 1rem;
   }
 
-  .map-placeholder {
+  .map-card {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 260px;
-    background: var(--green-50);
-    color: var(--ink-soft);
-    text-align: center;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .map-card iframe {
+    width: 100%;
+    min-height: 280px;
+    flex: 1;
+    border: none;
+    border-radius: calc(var(--radius) - 4px);
+  }
+
+  .map-card a {
+    font-weight: 700;
+    text-decoration: none;
+    padding-inline: 0.5rem;
+    padding-bottom: 0.25rem;
   }
 </style>
