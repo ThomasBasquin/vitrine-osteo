@@ -94,6 +94,13 @@ const jsonLd = {
     addressLocality: site.cabinet.ville,
     addressCountry: 'FR',
   },
+  ...(site.cabinet.latitude && {
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: site.cabinet.latitude,
+      longitude: site.cabinet.longitude,
+    },
+  }),
 };
 ---
 
@@ -233,7 +240,7 @@ const jsonLd = {
               <li><span>{h.jours}</span><strong>{h.heures}</strong></li>
             ))}
           </ul>
-          <p class="tarif-note">Consultations au cabinet et à domicile.</p>
+          <p class="tarif-note">Consultations au cabinet uniquement.</p>
         </div>
       </div>
     </div>

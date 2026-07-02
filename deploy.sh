@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
-# Déploiement du site statique vers le VPS.
-# Prérequis : accès SSH au VPS, rsync installé des deux côtés.
+# Déploiement du site statique. Le repo vit sur le VPS : copie locale vers /var/www.
 set -euo pipefail
 
-VPS_HOST="${VPS_HOST:-user@mon-vps}"          # à adapter ou exporter avant l'appel
-VPS_PATH="${VPS_PATH:-/var/www/osteo}"        # racine servie par nginx
+DEST="${DEST:-/var/www/osteo.thomasbasquin.fr}"
 
 npm run build
-rsync -avz --delete dist/ "${VPS_HOST}:${VPS_PATH}/"
-echo "Déployé sur ${VPS_HOST}:${VPS_PATH}"
+rsync -a --delete dist/ "${DEST}/"
+echo "Déployé dans ${DEST}"

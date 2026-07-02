@@ -1,13 +1,16 @@
-# Exemple de vhost nginx pour le site (sous-domaine provisoire).
-# À placer dans /etc/nginx/sites-available/ puis symlink vers sites-enabled/.
-# Certificat TLS : certbot --nginx -d osteo.example.com
+# Vhost pour le site vitrine ostéo (sous-domaine provisoire).
+# Installation :
+#   sudo cp nginx/osteo.thomasbasquin.fr /etc/nginx/sites-available/
+#   sudo ln -s /etc/nginx/sites-available/osteo.thomasbasquin.fr /etc/nginx/sites-enabled/
+#   sudo nginx -t && sudo systemctl reload nginx
+#   sudo certbot --nginx -d osteo.thomasbasquin.fr   (une fois le DNS créé)
 
 server {
     listen 80;
     listen [::]:80;
-    server_name osteo.example.com;  # à remplacer par le sous-domaine réel
+    server_name osteo.thomasbasquin.fr;
 
-    root /var/www/osteo;
+    root /var/www/osteo.thomasbasquin.fr;
     index index.html;
 
     # astro build.format "file" génère /page.html : essayer $uri.html

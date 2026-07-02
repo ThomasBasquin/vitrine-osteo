@@ -4,23 +4,23 @@
 
 export const site = {
   praticienne: {
-    nom: '[Prénom Nom]',
+    nom: 'Marie Wach',
     titre: 'Ostéopathe D.O.',
     ecole: 'Collège Ostéopathique de Strasbourg',
-    anneeDiplome: '[Année]',
+    anneeDiplome: '2026',
   },
 
   cabinet: {
-    nom: '[Prénom Nom] — Ostéopathe',
-    adresse: '[N° et rue]',
-    codePostal: '[Code postal]',
-    ville: '[Ville]',
+    nom: 'Marie Wach — Ostéopathe',
+    adresse: '7 ZI Haechy',
+    codePostal: '67220',
+    ville: 'Dieffenbach-au-Val',
     telephone: '[06 00 00 00 00]',
-    email: '[contact@exemple.fr]',
+    email: 'mariewach.osteo@gmail.com',
     parking: 'Parking à disposition',
     // Coordonnées GPS pour la carte et le SEO local
-    latitude: null,
-    longitude: null,
+    latitude: 48.32319,
+    longitude: 7.33155,
   },
 
   horaires: [
@@ -29,8 +29,7 @@ export const site = {
   ],
 
   tarifs: [
-    { label: 'Consultation au cabinet', prix: '[60 €]' },
-    { label: 'Consultation à domicile', prix: '[70 €]' },
+    { label: 'Consultation au cabinet', prix: '60 €' },
   ],
 
   liens: {

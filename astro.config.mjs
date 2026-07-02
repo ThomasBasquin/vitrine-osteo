@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 
 // Sous-domaine provisoire ; à remplacer par le domaine définitif une fois acheté.
 export default defineConfig({
-  site: 'https://osteo.example.com',
+  site: 'https://osteo.thomasbasquin.fr',
   server: { port: 5173 },
   trailingSlash: 'never',
   build: {

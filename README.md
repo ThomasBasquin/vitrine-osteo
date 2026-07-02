@@ -9,7 +9,7 @@ d'hébergement : le build produit du HTML/CSS pur dans `dist/`, servi par nginx 
 npm install       # première fois
 npm run dev       # serveur de dev sur http://localhost:5173
 npm run build     # build statique dans dist/
-./deploy.sh       # build + rsync vers le VPS (adapter VPS_HOST / VPS_PATH)
+./deploy.sh       # build + copie vers /var/www/osteo.thomasbasquin.fr (le repo vit sur le VPS)
 ```
 
 ## Structure
@@ -18,5 +18,5 @@ npm run build     # build statique dans dist/
 - `src/pages/` — les pages (accueil, femme-enceinte, nourrisson, sportif, mentions légales, 404)
 - `src/layouts/` — layout commun (header/footer/SEO) et layout des pages spécialités
 - `src/styles/global.css` — palette et styles partagés
-- `nginx.conf.example` — vhost nginx à installer sur le VPS
+- `nginx/osteo.thomasbasquin.fr` — vhost nginx à installer sur le VPS
 - `INFOS-A-COMPLETER.md` — liste des placeholders à remplacer avant mise en ligne
