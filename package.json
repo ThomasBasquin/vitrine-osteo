@@ -9,7 +9,6 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@fontsource-variable/baloo-2": "^5.2.7",
     "@fontsource-variable/figtree": "^5.2.10",
     "astro": "^5.0.0",
     "leaflet": "^1.9.4"

@@ -3,8 +3,16 @@
    Les polices sont abstraites derrière --titleFont/--bodyFont pour pouvoir
    les remplacer sans toucher au reste. */
 
+@font-face {
+  font-family: 'DT Getai Grotesk Display';
+  src: url('/fonts/DTGetaiGroteskDisplay-Black.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --titleFont: 'Baloo 2 Variable', ui-rounded, 'Segoe UI', system-ui, sans-serif;
+  --titleFont: 'DT Getai Grotesk Display', ui-rounded, 'Segoe UI', system-ui, sans-serif;
   --bodyFont: 'Figtree Variable', -apple-system, 'Segoe UI', system-ui, sans-serif;
 
   /* Gamme brute */
