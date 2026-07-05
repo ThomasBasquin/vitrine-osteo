@@ -86,6 +86,19 @@ const jsonLd = {
     </div>
   </section>
 
+  <section class="home-portrait-section">
+    <div class="container">
+      <figure class="home-portrait reveal">
+        <img
+          src="/images/portrait-placeholder.svg"
+          alt={`Portrait de ${site.praticienne.nom}, ostéopathe`}
+          width="400"
+          height="500"
+        />
+      </figure>
+    </div>
+  </section>
+
   <section class="definition-section">
     <div class="container">
       <blockquote class="definition reveal">
@@ -170,6 +183,17 @@ const jsonLd = {
   @keyframes hero-in {
     from { opacity: 0; translate: 0 28px; }
     to { opacity: 1; translate: 0 0; }
+  }
+
+  .home-portrait-section { padding-top: 0; padding-bottom: calc(var(--spacing-xl) / 3); }
+
+  .home-portrait-section .container { display: flex; justify-content: center; }
+
+  .home-portrait { margin: 0; }
+
+  .home-portrait img {
+    width: min(340px, 78vw);
+    border-radius: 999px 999px var(--radius-card) var(--radius-card);
   }
 
   .definition-section .container { max-width: 52rem; }
