@@ -3,18 +3,18 @@ const hours = Array.from({ length: 24 }, (_, h) => h);
 ---
 
 <div class="circadian" data-circadian>
-  <button class="bubble" type="button" aria-label="Basculer entre le thème jour et le thème nuit">
-    <svg class="icon-sun" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="4.5" fill="currentColor" />
-      <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-        <path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7" />
-      </g>
-    </svg>
-    <svg class="icon-moon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M20.4 14.2A8.6 8.6 0 0 1 9.8 3.6a8.6 8.6 0 1 0 10.6 10.6Z" fill="currentColor" />
-    </svg>
-  </button>
   <div class="hours">
+    <button class="bubble" type="button" aria-label="Basculer entre le thème jour et le thème nuit">
+      <svg class="icon-sun" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="4.5" fill="currentColor" />
+        <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3L17 7M7 17l-1.7 1.7" />
+        </g>
+      </svg>
+      <svg class="icon-moon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M20.4 14.2A8.6 8.6 0 0 1 9.8 3.6a8.6 8.6 0 1 0 10.6 10.6Z" fill="currentColor" />
+      </svg>
+    </button>
     {hours.map((h) => (
       <div class="hour" data-hour={h} title={`${String(h).padStart(2, '0')}h`}>
         <span class="line"></span>
@@ -46,7 +46,7 @@ const hours = Array.from({ length: 24 }, (_, h) => h);
         el.classList.toggle('active', Number(el.dataset.hour) === now.getHours());
       });
 
-      bubble.style.left = `${((now.getHours() + now.getMinutes() / 60) / 24) * 100}%`;
+      bubble.style.left = `${((now.getHours() + 0.5) / 24) * 100}%`;
     };
 
     document.addEventListener('themechange', ((e: CustomEvent) =>
@@ -65,6 +65,7 @@ const hours = Array.from({ length: 24 }, (_, h) => h);
   }
 
   .hours {
+    position: relative;
     display: flex;
     width: 100%;
   }
@@ -96,7 +97,7 @@ const hours = Array.from({ length: 24 }, (_, h) => h);
 
   .bubble {
     position: absolute;
-    top: 46px;
+    top: -24px;
     transform: translate(-50%, -100%);
     width: 44px;
     height: 44px;
@@ -109,7 +110,7 @@ const hours = Array.from({ length: 24 }, (_, h) => h);
     border-radius: 50%;
     cursor: pointer;
     transition: left 0.5s var(--ease-out), filter 0.2s ease-in-out;
-    /* left est posé par le script ; départ hors écran le temps du premier calcul */
+    /* left est posé par le script, en % de .hours pour rester aligné avec les traits d'heure */
     left: 50%;
   }
 
