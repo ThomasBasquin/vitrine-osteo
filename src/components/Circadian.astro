@@ -49,10 +49,21 @@ const hours = Array.from({ length: 24 }, (_, h) => h);
       bubble.style.left = `${((now.getHours() + 0.5) / 24) * 100}%`;
     };
 
+    const scheduleHourlyUpdate = () => {
+      const now = new Date();
+      const msToNextHour =
+        (60 - now.getMinutes()) * 60000 - now.getSeconds() * 1000 - now.getMilliseconds();
+      setTimeout(() => {
+        update();
+        setInterval(update, 3600000);
+      }, msToNextHour);
+    };
+
     document.addEventListener('themechange', ((e: CustomEvent) =>
       update(e.detail.sunrise, e.detail.sunset)) as EventListener);
     bubble.addEventListener('click', () => (window as any).__circadian?.toggle());
     update();
+    scheduleHourlyUpdate();
   }
 </script>
 
