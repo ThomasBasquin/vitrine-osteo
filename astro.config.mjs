@@ -9,4 +9,10 @@ export default defineConfig({
   build: {
     format: 'file',
   },
+  // La nav est toujours visible : la précharger dès l'affichage évite un délai
+  // au clic (le survol seul ne sert à rien sur mobile, public majoritaire du site).
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'viewport',
+  },
 });
