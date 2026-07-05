@@ -14,11 +14,11 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
 <header class="site-header">
   <nav aria-label="Navigation principale">
     <ul class="pill" data-nav-pill>
-      {links.map((l) => (
+      {links.map((l, i) => (
         <li>
           <a href={l.href} class:list={[{ active: path === l.href }]} aria-current={path === l.href ? 'page' : undefined}>
             {path === l.href && <span class="active-pill" transition:name="nav-active-pill" />}
-            {l.label}
+            <span class="nav-label" transition:name={`nav-label-${i}`}>{l.label}</span>
           </a>
         </li>
       ))}
@@ -131,6 +131,24 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
   ::view-transition-group(nav-active-pill) {
     animation-duration: 0.4s;
     animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Le libellé a aussi son propre calque (au-dessus de la pastille, dans l'ordre
+     du DOM) pour ne pas être recouvert pendant que la pastille glisse dessus ;
+     lui-même ne doit pas animer, seule la pastille se déplace. */
+  ::view-transition-group(nav-label-0),
+  ::view-transition-group(nav-label-1),
+  ::view-transition-group(nav-label-2),
+  ::view-transition-group(nav-label-3),
+  ::view-transition-old(nav-label-0),
+  ::view-transition-old(nav-label-1),
+  ::view-transition-old(nav-label-2),
+  ::view-transition-old(nav-label-3),
+  ::view-transition-new(nav-label-0),
+  ::view-transition-new(nav-label-1),
+  ::view-transition-new(nav-label-2),
+  ::view-transition-new(nav-label-3) {
+    animation-duration: 1ms;
   }
 
   @media (prefers-reduced-motion: reduce) {

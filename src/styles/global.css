@@ -202,15 +202,17 @@ section { padding-block: var(--spacing-xl); position: relative; z-index: var(--z
 
 /* Première section d'une page : passe sous la nav fixe, accueille l'Aura */
 .page-hero {
-  padding-top: clamp(8.5rem, 12vh, 11.75rem);
+  padding-top: clamp(8.25rem, 12vh, 11.75rem);
 }
 
 .page-hero > :not(.aura) { position: relative; z-index: var(--zindex-content); }
 
-/* La nav pill est la seule transition de page voulue ; le reste du swap reste instantané */
+/* La nav pill est la seule transition de page voulue : le fondu de la capture
+   d'ancienne page doit rester quasi instantané, sinon elle reste figée par-dessus
+   le contenu déjà à jour pendant toute la durée de l'animation de la pastille. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: none;
+  animation-duration: 1ms;
   mix-blend-mode: normal;
 }
 
