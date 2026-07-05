@@ -100,13 +100,14 @@ const jsonLd = {
   </section>
 
   <section class="definition-section">
-    <div class="container">
+    <div class="container definition-container">
       <blockquote class="definition reveal">
+        <span class="definition-mark" aria-hidden="true">“</span>
         L'ostéopathie est une thérapie manuelle globale qui aide à soulager les
         douleurs et à libérer les tensions du corps. Son objectif&nbsp;: permettre au corps
         de retrouver son équilibre, sa mobilité et sa capacité d'adaptation au quotidien.
       </blockquote>
-      <p class="definition-more reveal">
+      <p class="definition-more reveal" style="--reveal-delay: 0.16s">
         <a href="/seance">Découvrir le déroulement d'une séance →</a>
       </p>
     </div>
@@ -196,9 +197,10 @@ const jsonLd = {
     border-radius: 999px 999px var(--radius-card) var(--radius-card);
   }
 
-  .definition-section .container { max-width: 52rem; }
+  .definition-container { max-width: 48rem; }
 
   .definition {
+    position: relative;
     margin: 0;
     padding: 0;
     border: none;
@@ -209,6 +211,16 @@ const jsonLd = {
     color: var(--color-text-primary);
     text-align: center;
     text-wrap: balance;
+  }
+
+  .definition-mark {
+    display: block;
+    font-family: var(--titleFont);
+    font-size: clamp(2.75rem, 2rem + 3vw, 4.5rem);
+    line-height: 0.6;
+    margin: 0 auto -0.1em;
+    color: var(--color-primary-accent);
+    opacity: 0.3;
   }
 
   .definition-more {
