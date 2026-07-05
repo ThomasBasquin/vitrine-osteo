@@ -40,7 +40,7 @@
   --color-opaque: hsla(0, 0%, 100%, 0.5);
   --color-white50: hsla(0, 0%, 100%, 0.5);
   --color-white30: hsla(0, 0%, 100%, 0.3);
-  --color-backdrop: hsla(45, 17%, 95%, 0.8);
+  --color-backdrop: hsla(42, 15%, 96%, 0.76);
   --color-light-border: rgba(0, 0, 0, 0.08);
   --color-light-hover: rgba(0, 0, 0, 0.05);
   --color-selector: var(--color-white);
