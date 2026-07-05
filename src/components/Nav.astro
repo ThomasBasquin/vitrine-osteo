@@ -17,6 +17,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
       {links.map((l) => (
         <li>
           <a href={l.href} class:list={[{ active: path === l.href }]} aria-current={path === l.href ? 'page' : undefined}>
+            {path === l.href && <span class="active-pill" transition:name="nav-active-pill" />}
             {l.label}
           </a>
         </li>
@@ -73,6 +74,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
   li { display: flex; }
 
   a {
+    position: relative;
     display: flex;
     align-items: center;
     font-size: var(--font-link);
@@ -81,7 +83,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
     border-radius: 24px;
     padding: 0.375rem 0.625rem;
     margin: 0 2px;
-    transition: all 0.2s ease-in-out;
+    transition: background 0.2s ease-in-out;
     white-space: nowrap;
   }
 
@@ -89,8 +91,15 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
 
   a.active {
     color: var(--color-text-primary);
-    background: var(--color-white50);
     font-weight: 600;
+  }
+
+  .active-pill {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 24px;
+    background: var(--color-white50);
   }
 
   .rdv {
@@ -115,5 +124,20 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
 
   @media (max-width: 374px) {
     a { font-size: 0.8rem; padding: 0.375rem 0.45rem; }
+  }
+</style>
+
+<style is:global>
+  ::view-transition-group(nav-active-pill) {
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(nav-active-pill),
+    ::view-transition-old(nav-active-pill),
+    ::view-transition-new(nav-active-pill) {
+      animation: none;
+    }
   }
 </style>

@@ -202,10 +202,17 @@ section { padding-block: var(--spacing-xl); position: relative; z-index: var(--z
 
 /* Première section d'une page : passe sous la nav fixe, accueille l'Aura */
 .page-hero {
-  padding-top: clamp(8rem, 18vh, 11rem);
+  padding-top: clamp(8.5rem, 12vh, 11.75rem);
 }
 
 .page-hero > :not(.aura) { position: relative; z-index: var(--zindex-content); }
+
+/* La nav pill est la seule transition de page voulue ; le reste du swap reste instantané */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
 
 /* Boutons */
 .btn {

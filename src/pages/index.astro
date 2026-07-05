@@ -70,8 +70,8 @@ const jsonLd = {
     <Aura />
     <div class="hero-content">
       <h1>
-        <span class="hero-line">Marie Wach.</span>
-        <span class="hero-line">Ostéopathe D.O.</span>
+        <span class="hero-line">Marie Wach</span>
+        <span class="hero-line hero-line-do"><span>Ostéopathe</span><span>D.O.</span></span>
       </h1>
       <p class="hero-lead">
         Une ostéopathie globale à {site.cabinet.ville} — pour les adultes,
@@ -133,6 +133,16 @@ const jsonLd = {
   }
 
   .hero-line { display: block; }
+
+  .hero-line-do {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: var(--font-h2-display);
+    letter-spacing: -0.02em;
+    row-gap: 0.15em;
+    column-gap: 0.32em;
+  }
 
   .hero-lead {
     max-width: 36rem;

@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import '@fontsource-variable/figtree';
 import '../styles/global.css';
 import { site } from '../data/site.js';
@@ -27,6 +28,7 @@ const coords = JSON.stringify({
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
+    <ClientRouter />
     <script is:inline set:html={`document.documentElement.classList.add('js');window.__SITE_COORDS=${coords};${themeScript}`} />
     <slot name="head" />
   </head>
