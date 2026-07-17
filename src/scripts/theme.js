@@ -58,4 +58,8 @@
   window.__circadian = { sunTimes: sunTimes, apply: apply, toggle: toggle };
   apply();
   setInterval(apply, 60000);
+  // Astro reset les attributs de <html> à chaque navigation (ClientRouter) et ne
+  // rejoue pas ce script inline déjà exécuté : sans ce hook, le thème retombe
+  // systématiquement au défaut non stylé après un changement de page.
+  document.addEventListener('astro:after-swap', apply);
 })();
