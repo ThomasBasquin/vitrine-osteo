@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import figtreeWoff2 from '@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2?url';
 import '@fontsource-variable/figtree';
 import '../styles/global.css';
 import { site } from '../data/site.js';
@@ -24,6 +25,14 @@ const coords = JSON.stringify({
     <meta name="description" content={description} />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="/fonts/DTGetaiGroteskDisplay-Black-v2.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="preload" href={figtreeWoff2} as="font" type="font/woff2" crossorigin />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
