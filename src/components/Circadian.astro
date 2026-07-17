@@ -30,13 +30,20 @@ const hours = Array.from({ length: 24 }, (_, h) => h);
 </div>
 
 <script>
-  const root = document.querySelector('[data-circadian]');
+  let stopCircadian: (() => void) | undefined;
 
-  if (root) {
+  function initCircadian() {
+    stopCircadian?.();
+
+    const root = document.querySelector('[data-circadian]');
+    if (!root) return;
+
     const bubble = root.querySelector<HTMLButtonElement>('.bubble')!;
     const hourEls = root.querySelectorAll<HTMLElement>('.hour');
 
     let manualHour: number | null = null;
+    let hourlyTimeout: ReturnType<typeof setTimeout> | undefined;
+    let hourlyInterval: ReturnType<typeof setInterval> | undefined;
 
     const update = (sunrise?: Date, sunset?: Date) => {
       const circadian = (window as any).__circadian;
@@ -66,18 +73,22 @@ const hours = Array.from({ length: 24 }, (_, h) => h);
       const now = new Date();
       const msToNextHour =
         (60 - now.getMinutes()) * 60000 - now.getSeconds() * 1000 - now.getMilliseconds();
-      setTimeout(() => {
+      hourlyTimeout = setTimeout(() => {
         update();
-        setInterval(update, 3600000);
+        hourlyInterval = setInterval(update, 3600000);
       }, msToNextHour);
     };
 
-    document.addEventListener('themechange', ((e: CustomEvent) =>
-      update(e.detail.sunrise, e.detail.sunset)) as EventListener);
-    bubble.addEventListener('click', () => (window as any).__circadian?.toggle());
+    const onThemeChange = ((e: CustomEvent) =>
+      update(e.detail.sunrise, e.detail.sunset)) as EventListener;
+    document.addEventListener('themechange', onThemeChange);
 
+    const onBubbleClick = () => (window as any).__circadian?.toggle();
+    bubble.addEventListener('click', onBubbleClick);
+
+    const hourClickHandlers: Array<[HTMLElement, () => void]> = [];
     hourEls.forEach((el) => {
-      el.addEventListener('click', () => {
+      const handler = () => {
         const circadian = (window as any).__circadian;
         if (!circadian) return;
         const h = Number(el.dataset.hour);
@@ -90,11 +101,24 @@ const hours = Array.from({ length: 24 }, (_, h) => h);
           sessionStorage.setItem('theme', isDay ? 'light' : 'dark');
         } catch (e) {}
         circadian.apply();
-      });
+      };
+      el.addEventListener('click', handler);
+      hourClickHandlers.push([el, handler]);
     });
+
     update();
     scheduleHourlyUpdate();
+
+    stopCircadian = () => {
+      document.removeEventListener('themechange', onThemeChange);
+      bubble.removeEventListener('click', onBubbleClick);
+      hourClickHandlers.forEach(([el, handler]) => el.removeEventListener('click', handler));
+      if (hourlyTimeout) clearTimeout(hourlyTimeout);
+      if (hourlyInterval) clearInterval(hourlyInterval);
+    };
   }
+
+  document.addEventListener('astro:page-load', initCircadian);
 </script>
 
 <style>
