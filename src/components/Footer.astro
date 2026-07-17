@@ -2,7 +2,10 @@
 import { site } from '../data/site.js';
 import Circadian from './Circadian.astro';
 
+const { hideCta = false } = Astro.props;
+
 const tel = site.cabinet.telephone.replace(/\s/g, '');
+const telDisplay = site.cabinet.telephone.replace(/[[\]]/g, '');
 const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
   `${site.cabinet.adresse}, ${site.cabinet.codePostal} ${site.cabinet.ville}`
 )}`;
@@ -10,16 +13,18 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="container footer-cta">
-    <h2>Prendre soin de vous commence ici.</h2>
-    <p>Réservez un créneau en ligne, ou appelez-moi pour en discuter.</p>
-    <div class="cta-actions">
-      <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
-        Prendre rendez-vous
-      </a>
-      <a class="cta-phone" href={`tel:${tel}`}>{site.cabinet.telephone}</a>
+  {!hideCta && (
+    <div class="container footer-cta">
+      <h2>Prendre soin de vous commence ici.</h2>
+      <p>Réservez un créneau en ligne, ou appelez-moi pour en discuter.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
+          Prendre rendez-vous
+        </a>
+        <a class="cta-phone" href={`tel:${tel}`}>{telDisplay}</a>
+      </div>
     </div>
-  </div>
+  )}
 
   <div class="container-wide footer-grid">
     <div class="footer-id">

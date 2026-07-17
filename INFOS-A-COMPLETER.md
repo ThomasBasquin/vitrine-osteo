@@ -22,7 +22,7 @@ Presque tout se remplit dans **`src/data/site.js`** (un seul fichier).
 - [ ] **FAQ moyens de paiement** : réponse à préciser dans `src/pages/index.astro` (tableau `faq`)
 - [ ] **Carte** : l'adresse est connue → intégrer une carte OpenStreetMap (pas de cookie)
       dans la section contact de `src/pages/index.astro`
-- [ ] **Mentions légales** (`src/pages/mentions-legales.astro`) : SIRET, n° ADELI
+- [x] **Mentions légales** (`src/pages/mentions-legales.astro`) : SIRET, n° RPPS
       (hébergeur : fait — Hetzner)
 - [ ] **Domaine définitif** : une fois acheté, remplacer `osteo.thomasbasquin.fr` dans
       `astro.config.mjs`, `nginx/` et `deploy.sh`

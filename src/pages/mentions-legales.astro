@@ -6,6 +6,7 @@ import { site } from '../data/site.js';
 <Base
   title={`Mentions légales — ${site.cabinet.nom}`}
   description="Mentions légales du site."
+  hideFooterCta
 >
   <section class="page-hero">
     <div class="container legal">
@@ -17,8 +18,8 @@ import { site } from '../data/site.js';
         {site.cabinet.adresse}, {site.cabinet.codePostal} {site.cabinet.ville}<br />
         Téléphone : {site.cabinet.telephone}<br />
         E-mail : {site.cabinet.email}<br />
-        SIRET : [SIRET]<br />
-        N° ADELI : [ADELI]
+        SIRET : {site.cabinet.siret}<br />
+        N° RPPS : {site.praticienne.rpps}
       </p>
 
       <h2>Hébergement</h2>
@@ -47,12 +48,7 @@ import { site } from '../data/site.js';
 <style>
   .legal { max-width: 46rem; }
 
-  .legal h1 {
-    font-size: var(--font-h2-display);
-    letter-spacing: -1px;
-    text-align: left;
-    margin-bottom: var(--spacing-m);
-  }
+  .legal h1 { font-size: var(--font-h2-display); padding-bottom: var(--spacing-m); }
 
   .legal h2 { margin-top: 2rem; font-size: 1.25rem; }
 </style>

@@ -8,6 +8,7 @@ export const site = {
     titre: 'Ostéopathe D.O.',
     ecole: 'Collège Ostéopathique de Strasbourg',
     anneeDiplome: '2026',
+    rpps: '10112237838',
   },
 
   cabinet: {
@@ -17,6 +18,7 @@ export const site = {
     ville: 'Dieffenbach-au-Val',
     telephone: '[06 00 00 00 00]',
     email: 'mariewach.osteo@gmail.com',
+    siret: '10661350800014',
     parking: 'Parking à disposition',
     // Coordonnées GPS pour la carte et le SEO local
     latitude: 48.32319,
