@@ -207,6 +207,21 @@ section { padding-block: var(--spacing-xl); position: relative; z-index: var(--z
 
 .page-hero > :not(.aura) { position: relative; z-index: var(--zindex-content); }
 
+/* Entrée du hero des pages secondaires (l'accueil gère la sienne en propre,
+   avec ses propres enfants échelonnés) */
+html.js .page-hero:not(.home-hero) > :not(.aura) {
+  animation: page-hero-in 0.9s var(--ease-out) both;
+}
+
+html.js .page-hero:not(.home-hero) > :not(.aura):nth-child(2) { animation-delay: 0.05s; }
+html.js .page-hero:not(.home-hero) > :not(.aura):nth-child(3) { animation-delay: 0.18s; }
+html.js .page-hero:not(.home-hero) > :not(.aura):nth-child(4) { animation-delay: 0.3s; }
+
+@keyframes page-hero-in {
+  from { opacity: 0; translate: 0 28px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
 /* La nav pill est la seule transition de page voulue : le fondu de la capture
    d'ancienne page doit rester quasi instantané, sinon elle reste figée par-dessus
    le contenu déjà à jour pendant toute la durée de l'animation de la pastille. */
