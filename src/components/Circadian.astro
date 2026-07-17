@@ -55,8 +55,9 @@ const hours = Array.from({ length: 24 }, (_, h) => h);
       const riseH = sunrise!.getHours() + sunrise!.getMinutes() / 60;
       const setH = sunset!.getHours() + sunset!.getMinutes() / 60;
       const currentHour = manualHour ?? now.getHours();
-      const prevHour = (currentHour + 23) % 24;
-      const nextHour = (currentHour + 1) % 24;
+      // Pas de bouclage 23h/0h : aux bornes de la bande, un seul voisin existe visuellement.
+      const prevHour = currentHour > 0 ? currentHour - 1 : -1;
+      const nextHour = currentHour < 23 ? currentHour + 1 : -1;
 
       hourEls.forEach((el) => {
         const h = Number(el.dataset.hour);
@@ -164,9 +165,17 @@ const hours = Array.from({ length: 24 }, (_, h) => h);
 
   .hour.day .line { transform: translate3d(0, 22px, 0); opacity: 0.85; }
 
-  .hour.near .line { transform: translate3d(0, 13px, 0); opacity: 1; }
+  /* La hauteur (near/active) est indépendante du jour/nuit ; seule la couleur
+     s'éclaircit, et uniquement si le créneau tombe aussi de jour — sinon le
+     trait reste dans son opacité de nuit, juste plus haut. */
+  .hour.near .line { transform: translate3d(0, 13px, 0); }
 
-  .hour.active .line { transform: translate3d(0, -6px, 0); opacity: 1; }
+  .hour.active .line { transform: translate3d(0, -6px, 0); }
+
+  .hour.day.near .line,
+  .hour.day.active .line {
+    opacity: 1;
+  }
 
   .hour:not(.active):hover .line { opacity: 1; transform: translate3d(0, 12px, 0); }
 
