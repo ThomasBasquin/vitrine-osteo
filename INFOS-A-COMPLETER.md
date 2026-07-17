@@ -8,7 +8,7 @@ Presque tout se remplit dans **`src/data/site.js`** (un seul fichier).
 - [x] Année de diplôme
 - [x] Adresse du cabinet (rue, code postal, ville) + coordonnées GPS
 - [ ] Téléphone
-- [ ] E-mail
+- [x] E-mail
 - [ ] Horaires d'ouverture
 - [x] Tarifs (consultation au cabinet)
 - [ ] Lien Doctolib (bouton « Prendre rendez-vous » — pointe encore vers doctolib.fr tout court)
@@ -16,12 +16,11 @@ Presque tout se remplit dans **`src/data/site.js`** (un seul fichier).
 
 ## Ailleurs
 
-- [ ] **Photo** : remplacer `public/images/portrait-placeholder.svg` par une vraie photo
-      (mettre le fichier dans `public/images/` et adapter les `src` dans
+- [x] **Photo** : vraie photo en place (`public/images/marie-wach-portrait.jpg`,
       `src/pages/index.astro`)
-- [ ] **FAQ moyens de paiement** : réponse à préciser dans `src/pages/index.astro` (tableau `faq`)
-- [ ] **Carte** : l'adresse est connue → intégrer une carte OpenStreetMap (pas de cookie)
-      dans la section contact de `src/pages/index.astro`
+- [ ] **FAQ moyens de paiement** : réponse à préciser dans `src/pages/seance.astro` (tableau `faq`)
+- [x] **Carte** : carte OpenStreetMap/Leaflet intégrée (sans cookie) dans
+      `src/pages/contact.astro`
 - [x] **Mentions légales** (`src/pages/mentions-legales.astro`) : SIRET, n° RPPS
       (hébergeur : fait — Hetzner)
 - [ ] **Domaine définitif** : une fois acheté, remplacer `osteo.thomasbasquin.fr` dans
