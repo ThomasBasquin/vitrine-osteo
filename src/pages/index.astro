@@ -11,31 +11,35 @@ const description =
 const publics = [
   {
     titre: 'Adultes',
-    texte:
-      "Tensions musculaires, troubles posturaux, stress, troubles digestifs ou céphalées : une approche globale pour restaurer la mobilité des tissus et améliorer le confort de vie, en prévention comme en traitement ponctuel.",
+    motifs: ['Tensions musculaires, troubles posturaux', 'Stress, céphalées', 'Troubles digestifs'],
     lien: null,
-    pastel: 'pastel-mint',
+    accent: 'var(--color-mint)',
+    icone:
+      'M367-527q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47ZM160-240v-32q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v32q0 33-23.5 56.5T720-160H240q-33 0-56.5-23.5T160-240Zm80 0h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm296.5-343.5Q560-607 560-640t-23.5-56.5Q513-720 480-720t-56.5 23.5Q400-673 400-640t23.5 56.5Q447-560 480-560t56.5-23.5ZM480-640Zm0 400Z',
   },
   {
     titre: 'Femmes enceintes',
-    texte:
-      "Aider le corps à s'adapter aux changements posturaux, hormonaux et mécaniques de la grossesse : douleurs lombaires, sciatiques, reflux, troubles circulatoires ou gênes thoraciques.",
+    motifs: ['Douleurs lombaires, sciatiques, bassin', 'Troubles digestifs et circulatoires', "Préparation à l'accouchement"],
     lien: '/femme-enceinte',
-    pastel: 'pastel-lilac',
+    accent: 'var(--color-lilac)',
+    icone:
+      'M400-120v-160h-40q-17 0-28.5-11.5T320-320v-240q0-50 35-85t85-35q50 0 85 35t35 85q36 15 58 48t22 72v120q0 17-11.5 28.5T600-280h-80v160q0 17-11.5 28.5T480-80h-40q-17 0-28.5-11.5T400-120Zm-16.5-623.5Q360-767 360-800t23.5-56.5Q407-880 440-880t56.5 23.5Q520-833 520-800t-23.5 56.5Q473-720 440-720t-56.5-23.5Z',
   },
   {
     titre: 'Nourrissons',
-    texte:
-      "Améliorer le confort des nouveau-nés après la naissance : torticolis, plagiocéphalie, troubles du sommeil, régurgitations, coliques ou difficultés d'allaitement.",
+    motifs: ['Torticolis, plagiocéphalie', 'Troubles du sommeil', "Coliques, reflux, allaitement"],
     lien: '/nourrisson',
-    pastel: 'pastel-babyblue',
+    accent: 'var(--color-babyblue)',
+    icone:
+      'M544.5-504.5Q530-519 530-540t14.5-35.5Q559-590 580-590t35.5 14.5Q630-561 630-540t-14.5 35.5Q601-490 580-490t-35.5-14.5Zm-200 0Q330-519 330-540t14.5-35.5Q359-590 380-590t35.5 14.5Q430-561 430-540t-14.5 35.5Q401-490 380-490t-35.5-14.5Zm27 191.5Q323-346 300-400h360q-23 54-71.5 87T480-280q-60 0-108.5-33Zm-32 164.5q-65.5-28.5-114-77t-77-114Q120-405 120-480t28.5-140.5q28.5-65.5 77-114t114-77Q405-840 480-840t140.5 28.5q65.5 28.5 114 77t77 114Q840-555 840-480t-28.5 140.5q-28.5 65.5-77 114t-114 77Q555-120 480-120t-140.5-28.5ZM678-282q82-82 82-198t-82-198q-82-82-198-82h-12q-6 0-12 2-6 6-8 13t-2 15q0 21 14.5 35.5T496-680q9 0 16.5-3t15.5-3q12 0 20 9t8 21q0 23-21.5 29.5T496-620q-45 0-77.5-32.5T386-730v-6q0-3 1-8-83 30-135 101t-52 163q0 116 82 198t198 82q116 0 198-82ZM480-480Z',
   },
   {
     titre: 'Sportifs',
-    texte:
-      "Optimiser les performances en améliorant la mobilité articulaire, la récupération musculaire et la prévention des blessures, pour un geste sportif fluide et efficace.",
+    motifs: ["Douleurs liées à l'entraînement", 'Prévention des blessures', 'Récupération, mobilité'],
     lien: '/sportif',
-    pastel: 'pastel-rust',
+    accent: 'var(--color-rust)',
+    icone:
+      'M520-80v-200l-84-80-31 138q-4 16-17.5 24.5T358-192l-198-40q-17-3-26-17t-6-31q3-17 17-26.5t31-5.5l152 32 64-324-72 28v96q0 17-11.5 28.5T280-440q-17 0-28.5-11.5T240-480v-122q0-12 6.5-21.5T264-638l134-58q35-15 51.5-19.5T480-720q21 0 39 11t29 29l40 64q21 34 54.5 59t77.5 33q17 3 28.5 15t11.5 29q0 17-11.5 28t-27.5 9q-54-8-101-33.5T540-540l-24 120 72 68q6 6 9 13.5t3 15.5v243q0 17-11.5 28.5T560-40q-17 0-28.5-11.5T520-80Zm-36.5-683.5Q460-787 460-820t23.5-56.5Q507-900 540-900t56.5 23.5Q620-853 620-820t-23.5 56.5Q573-740 540-740t-56.5-23.5Z',
   },
 ];
 
@@ -118,9 +122,14 @@ const jsonLd = {
       <h2 class="h2-display publics-title reveal">Pour qui&nbsp;?</h2>
       <div class="publics">
         {publics.map((p, i) => (
-          <article class={`public pastel ${p.pastel} reveal`} style={`--reveal-delay: ${i * 0.08}s`}>
-            <h3>{p.titre}</h3>
-            <p>{p.texte}</p>
+          <article class="public reveal" style={`--card-accent: ${p.accent}; --reveal-delay: ${i * 0.08}s`}>
+            <div class="public-heading">
+              <span class="public-icon" set:html={`<svg viewBox="0 -960 960 960"><path d="${p.icone}" fill="currentColor"/></svg>`} />
+              <h3>{p.titre}</h3>
+            </div>
+            <ul class="public-motifs">
+              {p.motifs.map((m) => <li>{m}</li>)}
+            </ul>
             {p.lien && (
               <a class="public-link" href={p.lien}>
                 En savoir plus<span aria-hidden="true"> →</span>
@@ -235,6 +244,21 @@ const jsonLd = {
 
   .definition-more a:hover { text-decoration: underline; }
 
+  /* Même espace que .home-portrait-section en padding-bottom, pour une symétrie autour de la définition */
+  .publics-section { padding-top: calc(var(--spacing-xl) / 3); }
+
+  /* Marque la transition avec la citation, surtout visible sur mobile où les deux blocs de texte se suivent de près */
+  .publics-section::before {
+    content: '';
+    display: block;
+    width: 2.5rem;
+    height: 3px;
+    margin: 0 auto var(--spacing-l);
+    border-radius: 999px;
+    background: var(--color-primary-accent);
+    opacity: 0.3;
+  }
+
   .publics-title {
     text-align: center;
     margin-bottom: var(--spacing-l);
@@ -253,14 +277,62 @@ const jsonLd = {
     position: relative;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s var(--ease-out);
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    background: var(--color-opaque);
+    border: 1px solid var(--color-light-border);
+    border-radius: var(--radius-card);
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
   }
 
-  .public:has(.public-link):hover { transform: translateY(-4px); }
+  .public:has(.public-link):hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.18);
+  }
 
-  .public h3 { margin-bottom: 0.5rem; }
+  .public-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
 
-  .public p { margin-bottom: 0; font-size: var(--font-link); }
+  .public-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--card-accent);
+  }
+
+  .public-icon :global(svg) {
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+
+  .public h3 { margin-bottom: 0; margin-left: 0.15em; position: relative; top: 0.16em; }
+
+  .public-motifs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .public-motifs li {
+    position: relative;
+    padding: 0.4rem 0 0.4rem 1.4rem;
+    font-size: var(--font-link);
+  }
+
+  .public-motifs li::before {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: 1rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50% 50% 50% 0;
+    background: var(--card-accent);
+  }
 
   .public-link {
     margin-top: 1.25rem;
