@@ -37,10 +37,6 @@ const faq = [
     a: "Il est essentiel que vous vous sentiez à l'aise : privilégiez des tenues confortables et souples (tenue de sport, legging…).",
   },
   {
-    q: 'Est-ce qu\'on doit forcément être « craqué » ?',
-    a: 'Ma pratique se base sur des techniques douces, et il est très rare que je procède à des manipulations qui provoquent un « craquement ». Chaque soin est adapté à votre corps, sans forcer ni brusquer.',
-  },
-  {
     q: 'La séance est-elle remboursée ?',
     a: "L'ostéopathie ne dépend pas du parcours de soin remboursé par la Sécurité sociale, mais la plupart des mutuelles prennent en charge une ou plusieurs séances par an. Une facture vous est remise à transmettre à votre mutuelle.",
   },
@@ -50,7 +46,7 @@ const faq = [
   },
   {
     q: 'Quels sont les moyens de paiement acceptés ?',
-    a: '[Moyens de paiement à préciser : chèque, espèces, carte bancaire…]',
+    a: 'Le règlement se fait en espèces ou par carte bancaire.',
   },
 ];
 ---
@@ -105,7 +101,7 @@ const faq = [
     </div>
   </section>
 
-  <section>
+  <section class="faq-section">
     <div class="container faq-container">
       <h2 class="h2-display reveal">Des questions&nbsp;?</h2>
       <div class="faq-list reveal">
@@ -133,9 +129,11 @@ const faq = [
 
   .seance-inner { max-width: 46rem; }
 
-  .etapes-section { padding-top: var(--spacing-s); }
+  .etapes-section { padding-block: var(--spacing-s) var(--spacing-m); }
 
-  #tarifs { padding-top: var(--spacing-s); }
+  #tarifs { padding-block: var(--spacing-xl); }
+
+  .faq-section { padding-block: var(--spacing-s) var(--spacing-xl); }
 
   .etapes {
     list-style: none;
@@ -237,7 +235,10 @@ const faq = [
     border-top: 1px solid var(--color-light-border);
   }
 
-  .faq-container { max-width: 46rem; }
+  .faq-container {
+    max-width: 46rem;
+    padding-inline: clamp(1.5rem, 5vw, 2.25rem);
+  }
 
   .faq-list {
     border-top: 1px solid var(--color-light-border);
@@ -257,7 +258,7 @@ const faq = [
     cursor: pointer;
     padding: 1.15rem 0;
     font-family: var(--titleFont);
-    font-size: var(--font-h3);
+    font-size: var(--font-body);
     font-weight: 600;
     color: var(--color-text-primary);
     transition: color 0.2s ease-in-out;

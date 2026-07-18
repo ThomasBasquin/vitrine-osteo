@@ -18,7 +18,7 @@ Presque tout se remplit dans **`src/data/site.js`** (un seul fichier).
 
 - [x] **Photo** : vraie photo en place (`public/images/marie-wach-portrait.jpg`,
       `src/pages/index.astro`)
-- [ ] **FAQ moyens de paiement** : réponse à préciser dans `src/pages/seance.astro` (tableau `faq`)
+- [x] **FAQ moyens de paiement** : réponse à préciser dans `src/pages/seance.astro` (tableau `faq`)
 - [x] **Carte** : carte OpenStreetMap/Leaflet intégrée (sans cookie) dans
       `src/pages/contact.astro`
 - [x] **Mentions légales** (`src/pages/mentions-legales.astro`) : SIRET, n° RPPS
