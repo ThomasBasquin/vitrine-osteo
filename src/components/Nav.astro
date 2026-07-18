@@ -70,7 +70,8 @@ const specialitesActive = specialites.some((s) => s.href === path);
   function initNavPill() {
     stopScrollWatch?.();
     const pill = document.querySelector('[data-nav-pill]');
-    const onScroll = () => pill?.classList.toggle('blur', window.scrollY > 40);
+    const dropdown = document.querySelector('[data-dropdown]');
+    const onScroll = () => pill?.classList.toggle('blur', window.scrollY > 40 || !!dropdown?.classList.contains('open'));
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     stopScrollWatch = () => window.removeEventListener('scroll', onScroll);
