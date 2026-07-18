@@ -5,6 +5,7 @@ import { site } from '../data/site.js';
 
 const title = `Contact & accès — ${site.cabinet.nom}`;
 const description =
+  `${site.praticienne.nom}, ${site.praticienne.titre} diplômée du ${site.praticienne.ecole}. ` +
   `Contacter le cabinet d'ostéopathie de ${site.cabinet.ville} : téléphone, email, horaires, plan d'accès. ` +
   'Prise de rendez-vous en ligne via Doctolib.';
 
@@ -12,6 +13,12 @@ const tel = site.cabinet.telephone.replace(/\s/g, '');
 const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
   `${site.cabinet.adresse}, ${site.cabinet.codePostal} ${site.cabinet.ville}`
 )}`;
+
+const experiences = [
+  { lieu: 'CHU Hautepierre, Strasbourg', detail: 'gynécologie, obstétrique' },
+  { lieu: 'Clinique du Ried, Schiltigheim', detail: 'soins médicaux et de réadaptation à orientation gériatrique' },
+  { lieu: 'Clinique Sainte-Anne, Strasbourg', detail: 'oncologie, soins palliatifs, chirurgie orthopédique' },
+];
 ---
 
 <Base title={title} description={description}>
@@ -75,6 +82,52 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
           Itinéraire vers le cabinet<span aria-hidden="true"> →</span>
         </a>
       </div>
+    </div>
+  </section>
+
+  <section class="portrait-section">
+    <div class="container">
+      <figure class="portrait reveal">
+        <img
+          src="/images/portrait-placeholder.svg"
+          alt={`Portrait de ${site.praticienne.nom}, ostéopathe`}
+          width="400"
+          height="500"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="presentation">
+    <div class="container presentation-inner">
+      <h2 class="reveal">Diplômée du {site.praticienne.ecole}.</h2>
+      <p class="reveal" style="--reveal-delay: 0.06s">
+        Je pratique une ostéopathie complète, alliant techniques douces (fonctionnelles,
+        tissulaires) et techniques structurelles (myotensives, HVBA).
+      </p>
+      <p class="reveal" style="--reveal-delay: 0.12s">
+        Mon approche globale et personnalisée vise à restaurer l'équilibre du corps et à
+        accompagner chaque patient vers un mieux-être durable.
+      </p>
+    </div>
+  </section>
+
+  <section class="exp-section">
+    <div class="container exp-wrap">
+      <h2 class="reveal">Expériences cliniques</h2>
+      <p class="exp-lead reveal" style="--reveal-delay: 0.06s">
+        Avant d'ouvrir mon cabinet, j'ai exercé au Nouvel Hôpital Civil, à la Clinique
+        Sainte-Barbe et à la Clinique Toussaint à Strasbourg, ainsi que dans ces
+        établissements&nbsp;:
+      </p>
+      <ul class="exp-list reveal" style="--reveal-delay: 0.1s">
+        {experiences.map((e) => (
+          <li>
+            <strong class="exp-lieu">{e.lieu}</strong>
+            {e.detail && <span class="exp-detail">{e.detail}</span>}
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 </Base>
@@ -208,4 +261,74 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
   }
 
   .map-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  .portrait-section { padding-top: 0; padding-bottom: calc(var(--spacing-xl) / 3); }
+
+  .portrait-section .container { display: flex; justify-content: center; }
+
+  .portrait { margin: 0; }
+
+  .portrait img {
+    width: min(340px, 78vw);
+    border-radius: 999px 999px var(--radius-card) var(--radius-card);
+  }
+
+  .presentation { padding-block: calc(var(--spacing-xl) / 3) var(--spacing-m); }
+
+  .presentation-inner {
+    max-width: 38rem;
+  }
+
+  .presentation-inner h2,
+  .exp-wrap h2 {
+    font-size: clamp(1.15rem, 0.85rem + 1.5vw, 2.25rem);
+  }
+
+  .presentation-inner h2 { margin-bottom: var(--spacing-xs); }
+
+  .exp-section { padding-block: var(--spacing-s) var(--spacing-xl); }
+
+  .exp-wrap { max-width: 38rem; }
+
+  .exp-lead { margin-top: -0.5rem; }
+
+  .exp-list {
+    list-style: none;
+    padding: 0;
+    margin: var(--spacing-m) 0 0;
+  }
+
+  .exp-list li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.85rem 0 0.85rem 1.15rem;
+    border-bottom: 1px solid var(--color-light-border);
+  }
+
+  .exp-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1.5rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50% 50% 50% 0;
+    background: var(--color-primary-accent);
+  }
+
+  .exp-list li:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .exp-lieu {
+    font-family: var(--titleFont);
+    font-size: var(--font-link);
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  .exp-detail {
+    font-size: var(--font-mini);
+    color: var(--color-text-secondary);
+  }
 </style>
