@@ -163,9 +163,16 @@ const specialitesActive = specialites.some((s) => s.href === path);
 
     const onTriggerClick = (e: MouseEvent) => {
       e.stopPropagation();
+      // Le curseur reste sur le bouton après le clic (ouverture comme
+      // fermeture) : sans ça, le survol reprend aussitôt la même couleur
+      // que l'état actif de la page. On le coupe jusqu'à ce que la souris
+      // quitte réellement le bouton.
+      trigger.classList.add('no-hover-flash');
       if (dropdown.classList.contains('open')) close();
       else open();
     };
+
+    const onTriggerMouseLeave = () => trigger.classList.remove('no-hover-flash');
 
     const onDocClick = (e: MouseEvent) => {
       if (!pill.contains(e.target as Node)) close();
@@ -180,12 +187,14 @@ const specialitesActive = specialites.some((s) => s.href === path);
     };
 
     trigger.addEventListener('click', onTriggerClick);
+    trigger.addEventListener('mouseleave', onTriggerMouseLeave);
     document.addEventListener('click', onDocClick);
     document.addEventListener('keydown', onKeydown);
     window.addEventListener('resize', onResize);
 
     stopDropdown = () => {
       trigger.removeEventListener('click', onTriggerClick);
+      trigger.removeEventListener('mouseleave', onTriggerMouseLeave);
       document.removeEventListener('click', onDocClick);
       document.removeEventListener('keydown', onKeydown);
       window.removeEventListener('resize', onResize);
@@ -275,6 +284,16 @@ const specialitesActive = specialites.some((s) => s.href === path);
   }
 
   .dropdown-trigger { gap: 0.3rem; }
+
+  /* Le survol du déclencheur reprend le fond de la pastille active (même
+     couleur), ce qui le fait passer pour "actif" dès qu'on clique pour
+     ouvrir ou fermer le menu (le curseur reste dessus) — ou reste "collé"
+     au doigt sur tactile. `.no-hover-flash` coupe le survol jusqu'à ce que
+     la souris quitte réellement le bouton (voir script ci-dessus). */
+  .dropdown-trigger.no-hover-flash:hover:not(.active) {
+    color: var(--color-text-secondary);
+    background: none;
+  }
 
   .dropdown-caret {
     width: 0.8rem;
