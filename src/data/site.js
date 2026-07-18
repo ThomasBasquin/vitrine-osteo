@@ -32,6 +32,7 @@ export const site = {
 
   tarifs: [
     { label: 'Consultation au cabinet', prix: '60 €' },
+    { label: 'Consultation à domicile', prix: '70 €' },
   ],
 
   liens: {

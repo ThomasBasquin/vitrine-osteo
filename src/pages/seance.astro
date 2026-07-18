@@ -88,7 +88,7 @@ const faq = [
   <section id="tarifs">
     <div class="container seance-inner">
       <h2 class="h2-display reveal">Tarifs.</h2>
-      <div class="reveal">
+      <div class="tarif-card reveal">
         <ul class="tarif-list">
           {site.tarifs.map((t) => (
             <li>
@@ -134,6 +134,8 @@ const faq = [
   .seance-inner { max-width: 46rem; }
 
   .etapes-section { padding-top: var(--spacing-s); }
+
+  #tarifs { padding-top: var(--spacing-s); }
 
   .etapes {
     list-style: none;
@@ -192,11 +194,18 @@ const faq = [
 
   .etape p { margin-bottom: 0; }
 
+  .tarif-card {
+    margin-top: var(--spacing-m);
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    background: var(--color-opaque);
+    border: 1px solid var(--color-light-border);
+    border-radius: var(--radius-card);
+  }
+
   .tarif-list {
     list-style: none;
     padding: 0;
-    margin: var(--spacing-m) 0 1rem;
-    border-top: 1px solid var(--color-light-border);
+    margin: 0;
   }
 
   .tarif-list li {
@@ -210,6 +219,10 @@ const faq = [
     color: var(--color-text-secondary);
   }
 
+  .tarif-list li:first-child { padding-top: 0; }
+
+  .tarif-list li:last-child { border-bottom: none; padding-bottom: 0; }
+
   .tarif-prix {
     font-family: var(--titleFont);
     font-size: 1.7rem;
@@ -219,7 +232,9 @@ const faq = [
 
   .tarif-note {
     font-size: var(--font-mini);
-    margin: 0;
+    margin: 1.25rem 0 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-light-border);
   }
 
   .faq-container { max-width: 46rem; }
