@@ -2,23 +2,24 @@
 import Base from './Base.astro';
 import Aura from '../components/Aura.astro';
 
-const { title, description, h1, motifsTitre, pastel = 'pastel-mint' } = Astro.props;
+const { title, description, h1, crumb, motifsTitre, pastel = 'pastel-mint' } = Astro.props;
 ---
 
 <Base title={title} description={description}>
   <section class="page-hero spec-hero">
     <Aura />
+    <p class="crumb">
+      <a href="/">Accueil</a>
+      <span class="crumb-sep" aria-hidden="true">·</span>
+      <span class="crumb-current">{crumb}</span>
+    </p>
     <h1>{h1}</h1>
   </section>
 
   <section class="spec-section">
     <div class="container spec-content">
       <slot />
-    </div>
-  </section>
 
-  <section class="spec-section">
-    <div class="container spec-content">
       <div class={`motifs pastel ${pastel} reveal`}>
         <h2>{motifsTitre}</h2>
         <slot name="motifs" />
@@ -33,6 +34,34 @@ const { title, description, h1, motifsTitre, pastel = 'pastel-mint' } = Astro.pr
 </Base>
 
 <style>
+  .crumb {
+    display: flex;
+    justify-content: center;
+    font-size: var(--font-mini);
+    color: var(--color-text-secondary);
+    padding-inline: clamp(1.25rem, 4vw, 2rem);
+    margin: 0 0 0.75rem;
+  }
+
+  .crumb a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .crumb a:hover {
+    color: var(--color-text-primary);
+  }
+
+  .crumb-sep {
+    margin: 0 0.35em;
+    opacity: 0.6;
+  }
+
+  .crumb-current {
+    color: var(--color-text-primary);
+    font-weight: 600;
+  }
+
   .spec-hero h1 {
     font-size: var(--font-h2-display);
     letter-spacing: -1px;
@@ -41,9 +70,13 @@ const { title, description, h1, motifsTitre, pastel = 'pastel-mint' } = Astro.pr
     padding-inline: clamp(1.25rem, 4vw, 2rem);
   }
 
-  .spec-section { padding-block: var(--spacing-l); }
+  .spec-hero { padding-bottom: 0; }
+
+  .spec-section { padding-top: var(--spacing-m); padding-bottom: var(--spacing-l); }
 
   .spec-content { max-width: 46rem; }
+
+  .motifs { margin-top: var(--spacing-m); }
 
   .motifs h2 { font-size: var(--font-h3); }
 
