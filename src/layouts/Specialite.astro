@@ -14,12 +14,13 @@ const { title, description, h1, crumb, motifsTitre, pastel = 'pastel-mint' } = A
       <span class="crumb-current">{crumb}</span>
     </p>
     <h1>{h1}</h1>
+    <div class="spec-intro">
+      <slot />
+    </div>
   </section>
 
   <section class="spec-section">
     <div class="container spec-content">
-      <slot />
-
       <div class={`motifs pastel ${pastel} reveal`}>
         <h2>{motifsTitre}</h2>
         <slot name="motifs" />
@@ -72,11 +73,15 @@ const { title, description, h1, crumb, motifsTitre, pastel = 'pastel-mint' } = A
 
   .spec-hero { padding-bottom: 0; }
 
+  .spec-intro {
+    max-width: 46rem;
+    margin: var(--spacing-m) auto 0;
+    padding-inline: clamp(1.25rem, 4vw, 2rem);
+  }
+
   .spec-section { padding-top: var(--spacing-m); padding-bottom: var(--spacing-l); }
 
   .spec-content { max-width: 46rem; }
-
-  .motifs { margin-top: var(--spacing-m); }
 
   .motifs h2 { font-size: var(--font-h3); }
 
