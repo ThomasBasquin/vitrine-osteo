@@ -70,7 +70,7 @@ const faq = [
       <ol class="etapes">
         {etapes.map((e, i) => (
           <li class="etape reveal" style={`--reveal-delay: ${i * 0.08}s`}>
-            <span class="etape-num" aria-hidden="true">{i + 1}</span>
+            <span class="etape-num" aria-hidden="true"><span>{i + 1}</span></span>
             <div>
               <h3>{e.titre}</h3>
               <p>{e.texte}</p>
@@ -170,6 +170,11 @@ const faq = [
     font-family: var(--titleFont);
     font-weight: 700;
     font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  .etape-num span {
+    transform: translateY(0.17em);
   }
 
   .etape h3 {
