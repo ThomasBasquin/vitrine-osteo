@@ -15,8 +15,8 @@ npm run build     # build statique dans dist/
 ## Structure
 
 - `src/data/site.js` — **toutes les infos du cabinet** (nom, adresse, tarifs, liens…)
-- `src/pages/` — les pages (accueil, femme-enceinte, nourrisson, sportif, mentions légales, 404)
-- `src/layouts/` — layout commun (header/footer/SEO) et layout des pages spécialités
+- `src/pages/` — les pages (accueil, séance, pour-qui, contact, mentions légales, 404)
+- `src/layouts/` — layout commun (header/footer/SEO)
 - `src/styles/global.css` — palette et styles partagés
 - `nginx/osteo.thomasbasquin.fr` — vhost nginx à installer sur le VPS
 - `INFOS-A-COMPLETER.md` — liste des placeholders à remplacer avant mise en ligne

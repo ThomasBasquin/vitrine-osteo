@@ -1,0 +1,246 @@
+---
+import Base from '../layouts/Base.astro';
+import Aura from '../components/Aura.astro';
+import { site } from '../data/site.js';
+
+const title = `Ostéopathie pour adultes, femmes enceintes, nourrissons et sportifs à ${site.cabinet.ville} — ${site.praticienne.nom}`;
+const description =
+  "L'ostéopathie s'adresse à tous : adultes, femmes enceintes, nourrissons et sportifs. " +
+  'Découvrez les motifs de consultation propres à chaque profil et les bienfaits adaptés à chacun.';
+
+const profils = [
+  {
+    id: 'adultes',
+    titre: 'Adultes',
+    accent: 'var(--color-mint)',
+    icone:
+      'M367-527q-47-47-47-113t47-113q47-47 113-47t113 47q47 47 47 113t-47 113q-47 47-113 47t-113-47ZM160-240v-32q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v32q0 33-23.5 56.5T720-160H240q-33 0-56.5-23.5T160-240Zm80 0h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm296.5-343.5Q560-607 560-640t-23.5-56.5Q513-720 480-720t-56.5 23.5Q400-673 400-640t23.5 56.5Q447-560 480-560t56.5-23.5ZM480-640Zm0 400Z',
+    motifsTitre: 'Quand consulter ?',
+    paragraphes: [
+      "Chez l'adulte, l'ostéopathie aide à soulager les tensions accumulées par le quotidien : sédentarité, stress, gestes répétés ou mauvaises postures. Elle agit aussi bien sur les douleurs articulaires et musculaires que sur leurs répercussions plus globales.",
+      "Un suivi régulier permet de prévenir les récidives et d'entretenir la mobilité du corps, que la consultation soit ponctuelle ou qu'elle s'inscrive dans une démarche de bien-être au long cours.",
+    ],
+    motifs: [
+      'Tensions musculaires et troubles posturaux',
+      'Douleurs articulaires (dos, nuque, épaules)',
+      'Stress et céphalées',
+      'Troubles digestifs',
+      'Troubles du sommeil',
+      "Suite d'un choc, d'une chute ou d'un accident",
+    ],
+  },
+  {
+    id: 'femme-enceinte',
+    titre: 'Femme enceinte',
+    accent: 'var(--color-lilac)',
+    icone:
+      'M400-120v-160h-40q-17 0-28.5-11.5T320-320v-240q0-50 35-85t85-35q50 0 85 35t35 85q36 15 58 48t22 72v120q0 17-11.5 28.5T600-280h-80v160q0 17-11.5 28.5T480-80h-40q-17 0-28.5-11.5T400-120Zm-16.5-623.5Q360-767 360-800t23.5-56.5Q407-880 440-880t56.5 23.5Q520-833 520-800t-23.5 56.5Q473-720 440-720t-56.5-23.5Z',
+    motifsTitre: 'Quand consulter pendant la grossesse ?',
+    paragraphes: [
+      "Chez la femme enceinte, l'ostéopathie aide le corps à s'adapter aux changements posturaux, hormonaux et mécaniques de la grossesse. Elle soulage les douleurs lombaires, sciatiques, reflux, troubles circulatoires ou gênes thoraciques.",
+      "Un suivi adapté favorise un meilleur confort maternel et prépare à l'accouchement. Les techniques utilisées sont adaptées à chaque étape de la grossesse.",
+    ],
+    motifs: [
+      'Douleurs lombaires, sciatiques ou douleurs du bassin',
+      'Reflux gastriques et troubles digestifs',
+      'Troubles circulatoires (jambes lourdes)',
+      'Gênes thoraciques et difficultés respiratoires',
+      "Préparation du corps à l'accouchement",
+      'Suivi post-partum pour aider le corps à retrouver son équilibre',
+    ],
+  },
+  {
+    id: 'nourrisson',
+    titre: 'Nourrisson',
+    accent: 'var(--color-babyblue)',
+    icone:
+      'M544.5-504.5Q530-519 530-540t14.5-35.5Q559-590 580-590t35.5 14.5Q630-561 630-540t-14.5 35.5Q601-490 580-490t-35.5-14.5Zm-200 0Q330-519 330-540t14.5-35.5Q359-590 380-590t35.5 14.5Q430-561 430-540t-14.5 35.5Q401-490 380-490t-35.5-14.5Zm27 191.5Q323-346 300-400h360q-23 54-71.5 87T480-280q-60 0-108.5-33Zm-32 164.5q-65.5-28.5-114-77t-77-114Q120-405 120-480t28.5-140.5q28.5-65.5 77-114t114-77Q405-840 480-840t140.5 28.5q65.5 28.5 114 77t77 114Q840-555 840-480t-28.5 140.5q-28.5 65.5-77 114t-114 77Q555-120 480-120t-140.5-28.5ZM678-282q82-82 82-198t-82-198q-82-82-198-82h-12q-6 0-12 2-6 6-8 13t-2 15q0 21 14.5 35.5T496-680q9 0 16.5-3t15.5-3q12 0 20 9t8 21q0 23-21.5 29.5T496-620q-45 0-77.5-32.5T386-730v-6q0-3 1-8-83 30-135 101t-52 163q0 116 82 198t198 82q116 0 198-82ZM480-480Z',
+    motifsTitre: 'Quand consulter pour votre bébé ?',
+    paragraphes: [
+      "L'ostéopathie pédiatrique s'adresse aux nouveau-nés pour améliorer leur confort après la naissance. Elle peut aider en cas de torticolis, plagiocéphalie, troubles du sommeil, régurgitations, coliques ou difficultés d'allaitement.",
+      'Les techniques sont douces, adaptées et visent à accompagner le développement harmonieux du nourrisson.',
+    ],
+    motifs: [
+      'Torticolis du nourrisson',
+      'Plagiocéphalie (tête plate ou déformation du crâne)',
+      "Troubles de la succion et difficultés d'allaitement",
+      'Coliques et reflux',
+      'Troubles digestifs',
+      'Troubles du sommeil',
+    ],
+  },
+  {
+    id: 'sportif',
+    titre: 'Sportif',
+    accent: 'var(--color-rust)',
+    icone:
+      'M520-80v-200l-84-80-31 138q-4 16-17.5 24.5T358-192l-198-40q-17-3-26-17t-6-31q3-17 17-26.5t31-5.5l152 32 64-324-72 28v96q0 17-11.5 28.5T280-440q-17 0-28.5-11.5T240-480v-122q0-12 6.5-21.5T264-638l134-58q35-15 51.5-19.5T480-720q21 0 39 11t29 29l40 64q21 34 54.5 59t77.5 33q17 3 28.5 15t11.5 29q0 17-11.5 28t-27.5 9q-54-8-101-33.5T540-540l-24 120 72 68q6 6 9 13.5t3 15.5v243q0 17-11.5 28.5T560-40q-17 0-28.5-11.5T520-80Zm-36.5-683.5Q460-787 460-820t23.5-56.5Q507-900 540-900t56.5 23.5Q620-853 620-820t-23.5 56.5Q573-740 540-740t-56.5-23.5Z',
+    motifsTitre: 'Quand consulter en tant que sportif ?',
+    paragraphes: [
+      "Chez le sportif, l'ostéopathie optimise les performances en améliorant la mobilité articulaire, la récupération musculaire et la prévention des blessures. Elle intervient sur les douleurs liées à l'entraînement, les déséquilibres posturaux ou les restrictions de mouvement.",
+      'Un suivi régulier aide à maintenir un geste sportif fluide et efficace, que vous soyez sportif occasionnel ou de compétition.',
+    ],
+    motifs: [
+      "Douleurs musculaires ou articulaires liées à l'entraînement",
+      'Tendinites et douleurs chroniques',
+      'Déséquilibres posturaux et restrictions de mouvement',
+      'Préparation à une échéance sportive',
+      'Récupération après blessure (en complément du suivi médical)',
+      'Prévention et entretien de la mobilité',
+    ],
+  },
+];
+---
+
+<Base title={title} description={description}>
+  <section class="page-hero">
+    <Aura />
+    <h1>Pour qui.</h1>
+    <p class="page-lead">
+      L'ostéopathie accompagne toutes les étapes de la vie — adultes, femmes enceintes,
+      nourrissons, sportifs — avec une approche manuelle globale, douce ou structurelle selon les
+      besoins de chacun. Elle vient en complément d'un suivi médical, jamais à sa place.
+    </p>
+
+    <nav class="profile-nav" aria-label="Profils">
+      {profils.map((p, i) => (
+        <>
+          {i > 0 && <span class="dot" aria-hidden="true">·</span>}
+          <a href={`#${p.id}`}>{p.titre}</a>
+        </>
+      ))}
+    </nav>
+  </section>
+
+  {profils.map((p, i) => (
+    <section id={p.id} class="profile-section">
+      <div class="container profile-inner" style={`--card-accent: ${p.accent}`}>
+        <div class="profile-heading reveal">
+          <span class="profile-icon" set:html={`<svg viewBox="0 -960 960 960"><path d="${p.icone}" fill="currentColor"/></svg>`} />
+          <h2>{p.titre}</h2>
+        </div>
+        {p.paragraphes.map((para, j) => (
+          <p class="reveal" style={`--reveal-delay: ${0.06 + j * 0.06}s`}>{para}</p>
+        ))}
+        <div class="motifs reveal" style="--reveal-delay: 0.18s">
+          <h3>{p.motifsTitre}</h3>
+          <ul>
+            {p.motifs.map((m) => <li>{m}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="note-section">
+    <div class="container profile-inner">
+      <p class="spec-note reveal">
+        Cette liste n'est pas exhaustive : en cas de doute, n'hésitez pas à me contacter pour
+        savoir si l'ostéopathie peut vous aider. L'ostéopathie ne se substitue pas à un suivi
+        médical.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-lead {
+    text-align: center;
+    max-width: 40rem;
+    margin: var(--spacing-s) auto 0;
+    padding-inline: clamp(1.25rem, 4vw, 2rem);
+  }
+
+  .profile-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: var(--spacing-m);
+    padding-inline: clamp(1.25rem, 4vw, 2rem);
+    font-size: var(--font-link);
+  }
+
+  .profile-nav a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+  }
+
+  .profile-nav a:hover { color: var(--color-text-primary); }
+
+  .profile-nav .dot { margin: 0 0.6em; color: var(--color-light-border); }
+
+  .profile-section {
+    padding-block: var(--spacing-l);
+    scroll-margin-top: 6rem;
+  }
+
+  .profile-section:not(:first-of-type) { border-top: 1px solid var(--color-light-border); }
+
+  .profile-section:first-of-type { padding-top: var(--spacing-s); }
+
+  .profile-section:last-of-type { padding-bottom: var(--spacing-l); }
+
+  .profile-inner { max-width: 44rem; }
+
+  .profile-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .profile-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: var(--card-accent);
+  }
+
+  .profile-icon :global(svg) {
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+
+  .profile-heading h2 { margin-bottom: 0; margin-left: 0.05em; line-height: 1; }
+
+  .motifs {
+    margin-top: var(--spacing-s);
+  }
+
+  .motifs h3 {
+    font-size: var(--font-h3);
+    margin-bottom: 0.5rem;
+  }
+
+  .motifs ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .motifs li {
+    position: relative;
+    padding: 0.4rem 0 0.4rem 1.4rem;
+    font-size: var(--font-link);
+    color: var(--color-text-secondary);
+  }
+
+  .motifs li::before {
+    content: '';
+    position: absolute;
+    left: 0.15rem;
+    top: 1rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50% 50% 50% 0;
+    background: var(--card-accent);
+  }
+
+  .note-section { padding-top: 0; padding-bottom: var(--spacing-xl); }
+
+  .spec-note {
+    font-size: var(--font-mini);
+    margin: 0;
+  }
+</style>

@@ -266,20 +266,6 @@ html.js .page-hero:not(.home-hero) > :not(.aura):nth-child(4) { animation-delay:
 
 .btn-outline:hover { background: var(--color-white50); }
 
-/* Cartes pastel — couleurs fixes, texte vert profond quel que soit le thème */
-.pastel {
-  border-radius: var(--radius-card);
-  color: var(--color-green500);
-  padding: clamp(1.75rem, 4vw, 2.75rem);
-}
-
-.pastel h2, .pastel h3, .pastel p, .pastel a { color: var(--color-green500); }
-
-.pastel-mint { background: var(--color-mint); }
-.pastel-lilac { background: var(--color-lilac); }
-.pastel-rust { background: var(--color-rust); }
-.pastel-babyblue { background: var(--color-babyblue); }
-
 /* Révélation au défilement — sans JS, tout reste visible */
 html.js .reveal {
   opacity: 0;

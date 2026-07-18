@@ -11,6 +11,9 @@ export default defineConfig({
   },
   redirects: {
     '/a-propos': '/contact',
+    '/femme-enceinte': '/pour-qui#femme-enceinte',
+    '/nourrisson': '/pour-qui#nourrisson',
+    '/sportif': '/pour-qui#sportif',
   },
   // La nav est toujours visible : la précharger dès l'affichage évite un délai
   // au clic (le survol seul ne sert à rien sur mobile, public majoritaire du site).

@@ -19,7 +19,7 @@ Tous les rôles sont des custom properties redéfinies par `.dark:root` (voir `s
 | `--color-primary-accent` (boutons, bulle, traits) | émeraude | menthe |
 | `--color-text-tertiary` (texte sur accent) | beige | vert profond |
 
-**Pastels fixes** (identiques jour et nuit, texte toujours `--color-green500`) : `--color-mint`, `--color-lilac`, `--color-babyblue`, `--color-rust` — classes `.pastel .pastel-*`. Attribution : Adultes = mint, Femme enceinte = lilac, Nourrisson = babyblue, Sportif = rust (cartes d'accueil **et** panneau motifs des pages spécialité).
+**Pastels fixes** (identiques jour et nuit, texte toujours `--color-green500`) : `--color-mint`, `--color-lilac`, `--color-babyblue`, `--color-rust` — classes `.pastel .pastel-*`. Attribution : Adultes = mint, Femme enceinte = lilac, Nourrisson = babyblue, Sportif = rust (cartes d'accueil **et** panneaux motifs des sections profil de la page Pour qui).
 
 ## Typography
 
@@ -30,7 +30,7 @@ Tous les rôles sont des custom properties redéfinies par `.dark:root` (voir `s
 
 ## Signature moves
 
-- **Nav pilule flottante** (`src/components/Nav.astro`) : fixe, centrée, item actif sur fond `--color-white50`, backdrop-blur (`.blur`) après 40px de scroll, CTA « Rendez-vous » en pilule accent (masqué < 640px). Pas de burger. Un item, « Pour qui », ouvre un dropdown listant les pages spécialité ; la pilule active se déclenche si l'URL courante correspond à l'une d'elles. Le menu est une section à l'intérieur de la pilule elle-même (qui s'allonge à l'ouverture), pas un panneau flottant séparé : deux éléments avec `backdrop-filter` indépendants ne peuvent pas raccorder leur flou de façon continue à la jonction (chacun a ses propres artefacts de bord), d'où le choix d'un seul élément flouté. Sa forme (pilule pleine largeur en haut + rectangle étroit sous le bouton) est un `clip-path: path(...)` calculé en JS à l'ouverture (voir `applyShape` dans le script du composant) ; attention, ce `path()` doit être généré en une seule ligne, un saut de ligne dans la chaîne fait échouer silencieusement le parsing CSS.
+- **Nav pilule flottante** (`src/components/Nav.astro`) : fixe, centrée, item actif sur fond `--color-white50`, backdrop-blur (`.blur`) après 40px de scroll, CTA « Rendez-vous » en pilule accent (masqué < 640px). Pas de burger, pas de dropdown : 4 liens simples (Accueil, La séance, Pour qui, Contact).
 - **Aura** (`src/components/Aura.astro`) : trois blobs radiaux (`--aura-1/2/3`) en dérive lente derrière chaque hero, fondus vers le fond par `--color-gradient`. Masquée < 768px : sur mobile le fond reste uni, comme la référence.
 - **Indicateur circadien** (`src/components/Circadian.astro`, en bas de chaque page) : 24 traits (opacité 0.2 la nuit, 0.45 le jour, 1 pour l'heure courante), bulle soleil/lune positionnée sur l'heure courante = bouton de bascule de thème. Pas de texte d'heures de lever/coucher. Traits animés par `transform` dans un conteneur `overflow:hidden` (courbe `--curve`, l'overshoot copié de la référence).
 - **Cartes pastel** : grandes cartes arrondies (`--radius-card` 1.5rem), carte entière cliquable (lien étiré).
@@ -40,7 +40,7 @@ Tous les rôles sont des custom properties redéfinies par `.dark:root` (voir `s
 
 ## Structure
 
-4 pages dans la nav : Accueil (`/`), La séance (`/seance` — déroulement, tarifs `#tarifs`, FAQ), un dropdown « Pour qui » (pages spécialité), Contact (`/contact` — coordonnées, horaires, carte, **puis** portrait, diplôme et expériences cliniques de la praticienne) + 3 pages spécialité (layout `Specialite.astro`, prop `pastel`) + mentions légales + 404. La page `/a-propos` a été fusionnée dans Contact ; `astro.config.mjs` en garde une redirection. Première section de chaque page : classe `.page-hero` (passe sous la nav fixe, contient l'Aura).
+4 pages dans la nav : Accueil (`/`), La séance (`/seance` — déroulement, tarifs `#tarifs`, FAQ), Pour qui (`/pour-qui` — bienfaits généraux puis une section par profil : Adultes, Femme enceinte, Nourrisson, Sportif, chacune ancrée `#adultes` etc.), Contact (`/contact` — coordonnées, horaires, carte, **puis** portrait, diplôme et expériences cliniques de la praticienne) + mentions légales + 404. Les pages `/a-propos`, `/femme-enceinte`, `/nourrisson` et `/sportif` ont été fusionnées (dans Contact et Pour qui respectivement) ; `astro.config.mjs` garde une redirection pour chacune. Première section de chaque page : classe `.page-hero` (passe sous la nav fixe, contient l'Aura).
 
 ## Motion
 
