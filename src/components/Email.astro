@@ -1,0 +1,29 @@
+---
+import { site } from '../data/site.js';
+
+const { mailto = true, class: className } = Astro.props;
+const [user, domain] = site.cabinet.email.split('@');
+---
+
+{
+  mailto ? (
+    <a class={className} data-email-user={user} data-email-domain={domain} />
+  ) : (
+    <span class={className} data-email-user={user} data-email-domain={domain} />
+  )
+}
+
+<script>
+  function initEmails() {
+    document.querySelectorAll('[data-email-user]').forEach((el) => {
+      const user = el.getAttribute('data-email-user');
+      const domain = el.getAttribute('data-email-domain');
+      if (!user || !domain) return;
+      const address = `${user}@${domain}`;
+      el.textContent = address;
+      if (el instanceof HTMLAnchorElement) el.href = `mailto:${address}`;
+    });
+  }
+
+  document.addEventListener('astro:page-load', initEmails);
+</script>

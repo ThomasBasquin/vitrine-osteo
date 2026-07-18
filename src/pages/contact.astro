@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Aura from '../components/Aura.astro';
+import Email from '../components/Email.astro';
 import { site } from '../data/site.js';
 
 const title = `Contact & accès — ${site.cabinet.nom}`;
@@ -51,7 +52,7 @@ const experiences = [
           </div>
           <div>
             <dt>Email</dt>
-            <dd><a href={`mailto:${site.cabinet.email}`}>{site.cabinet.email}</a></dd>
+            <dd><Email class="contact-email-link" /></dd>
           </div>
           <div>
             <dt>Horaires</dt>
@@ -207,6 +208,10 @@ const experiences = [
   .contact-list a { color: var(--color-text-secondary); }
 
   .contact-list a:hover { color: var(--color-text-primary); }
+
+  .contact-list :global(.contact-email-link) { color: var(--color-text-secondary); }
+
+  .contact-list :global(.contact-email-link):hover { color: var(--color-text-primary); }
 
   .contact-extra {
     display: block;

@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Email from '../components/Email.astro';
 import { site } from '../data/site.js';
 ---
 
@@ -16,7 +17,7 @@ import { site } from '../data/site.js';
         {site.praticienne.nom}, {site.praticienne.titre}<br />
         {site.cabinet.adresse}, {site.cabinet.codePostal} {site.cabinet.ville}<br />
         Téléphone : {site.cabinet.telephone}<br />
-        E-mail : {site.cabinet.email}<br />
+        E-mail : <Email mailto={false} /><br />
         SIRET : {site.cabinet.siret}<br />
         N° RPPS : {site.praticienne.rpps}
       </p>
