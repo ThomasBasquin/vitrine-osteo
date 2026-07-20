@@ -34,13 +34,14 @@ Tous les rôles sont des custom properties redéfinies par `.dark:root` (voir `s
 - **Aura** (`src/components/Aura.astro`) : trois blobs radiaux (`--aura-1/2/3`) en dérive lente derrière chaque hero, fondus vers le fond par `--color-gradient`. Masquée < 768px : sur mobile le fond reste uni, comme la référence.
 - **Indicateur circadien** (`src/components/Circadian.astro`, en bas de chaque page) : 24 traits (opacité 0.2 la nuit, 0.45 le jour, 1 pour l'heure courante), bulle soleil/lune positionnée sur l'heure courante = bouton de bascule de thème. Pas de texte d'heures de lever/coucher. Traits animés par `transform` dans un conteneur `overflow:hidden` (courbe `--curve`, l'overshoot copié de la référence).
 - **Cartes pastel** : grandes cartes arrondies (`--radius-card` 1.5rem), carte entière cliquable (lien étiré).
-- **Arche** : le portrait (page Contact) garde le masque en arche (`border-radius: 999px 999px 1.5rem 1.5rem`).
+- **Arche** : le portrait (page d'accueil) garde le masque en arche (`border-radius: 999px 999px 1.5rem 1.5rem`).
 - **Hairlines** : listes (tarifs, FAQ, expériences, contact) structurées par filets 1px `--color-light-border`, pas de cartes ombrées.
+- **Séparateur de section** : petit trait de 2.5rem/3px en `--color-primary-accent` à 30% d'opacité, centré sur la jointure entre deux sections (`Pour qui`, `Contact`), plutôt qu'un kicker ou une carte.
 - Carte Leaflet : tuiles inversées en thème sombre (`.dark .leaflet-tile { filter: invert(1) hue-rotate(180deg) … }`).
 
 ## Structure
 
-4 pages dans la nav : Accueil (`/`), La séance (`/seance` — déroulement, tarifs `#tarifs`, FAQ), Pour qui (`/pour-qui` — bienfaits généraux puis une section par profil : Adultes, Femme enceinte, Nourrisson, Sportif, chacune ancrée `#adultes` etc.), Contact (`/contact` — coordonnées, horaires, carte, **puis** portrait, diplôme et expériences cliniques de la praticienne) + mentions légales + 404. Les pages `/a-propos`, `/femme-enceinte`, `/nourrisson` et `/sportif` ont été fusionnées (dans Contact et Pour qui respectivement) ; `astro.config.mjs` garde une redirection pour chacune. Première section de chaque page : classe `.page-hero` (passe sous la nav fixe, contient l'Aura).
+4 pages dans la nav : Accueil (`/`), La séance (`/seance` — déroulement, tarifs `#tarifs`, FAQ), Pour qui (`/pour-qui` — bienfaits généraux puis une section par profil : Adultes, Femme enceinte, Nourrisson, Sportif, chacune ancrée `#adultes` etc.), Contact (`/contact` — coordonnées, horaires, carte, **puis** diplôme, philosophie de pratique et expériences cliniques de la praticienne, sans photo) + mentions légales + 404. Les pages `/a-propos`, `/femme-enceinte`, `/nourrisson` et `/sportif` ont été fusionnées (dans Contact et Pour qui respectivement) ; `astro.config.mjs` garde une redirection pour chacune. Première section de chaque page : classe `.page-hero` (passe sous la nav fixe, contient l'Aura).
 
 ## Motion
 

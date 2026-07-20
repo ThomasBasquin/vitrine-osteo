@@ -16,6 +16,9 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
 )}`;
 
 const experiences = [
+  { lieu: 'Nouvel Hôpital Civil, Strasbourg' },
+  { lieu: 'Clinique Sainte-Barbe, Strasbourg' },
+  { lieu: 'Clinique Toussaint, Strasbourg' },
   { lieu: 'CHU Hautepierre, Strasbourg', detail: 'gynécologie, obstétrique' },
   { lieu: 'Clinique du Ried, Schiltigheim', detail: 'soins médicaux et de réadaptation à orientation gériatrique' },
   { lieu: 'Clinique Sainte-Anne, Strasbourg', detail: 'oncologie, soins palliatifs, chirurgie orthopédique' },
@@ -86,49 +89,34 @@ const experiences = [
     </div>
   </section>
 
-  <section class="portrait-section">
-    <div class="container">
-      <figure class="portrait reveal">
-        <img
-          src="/images/portrait-placeholder.svg"
-          alt={`Portrait de ${site.praticienne.nom}, ostéopathe`}
-          width="400"
-          height="500"
-        />
-      </figure>
-    </div>
-  </section>
-
-  <section class="presentation">
-    <div class="container presentation-inner">
-      <h2 class="reveal">Diplômée du {site.praticienne.ecole}.</h2>
-      <p class="reveal" style="--reveal-delay: 0.06s">
-        Je pratique une ostéopathie complète, alliant techniques douces (fonctionnelles,
-        tissulaires) et techniques structurelles (myotensives, HVBA).
-      </p>
-      <p class="reveal" style="--reveal-delay: 0.12s">
-        Mon approche globale et personnalisée vise à restaurer l'équilibre du corps et à
-        accompagner chaque patient vers un mieux-être durable.
-      </p>
-    </div>
-  </section>
-
-  <section class="exp-section">
-    <div class="container exp-wrap">
-      <h2 class="reveal">Expériences cliniques</h2>
-      <p class="exp-lead reveal" style="--reveal-delay: 0.06s">
-        Avant d'ouvrir mon cabinet, j'ai exercé au Nouvel Hôpital Civil, à la Clinique
-        Sainte-Barbe et à la Clinique Toussaint à Strasbourg, ainsi que dans ces
-        établissements&nbsp;:
-      </p>
-      <ul class="exp-list reveal" style="--reveal-delay: 0.1s">
-        {experiences.map((e) => (
-          <li>
-            <strong class="exp-lieu">{e.lieu}</strong>
-            {e.detail && <span class="exp-detail">{e.detail}</span>}
-          </li>
-        ))}
-      </ul>
+  <section class="about-section">
+    <div class="container about-inner">
+      <div class="about-copy reveal">
+        <h2>Diplômée du {site.praticienne.ecole}.</h2>
+        <p>
+          Je pratique une ostéopathie complète, alliant techniques douces (fonctionnelles,
+          tissulaires) et techniques structurelles (myotensives, HVBA).
+        </p>
+        <p>
+          Mon approche globale et personnalisée vise à restaurer l'équilibre du corps et à
+          accompagner chaque patient vers un mieux-être durable.
+        </p>
+      </div>
+      <div class="about-experience reveal" style="--reveal-delay: 0.14s">
+        <h3>Expériences cliniques</h3>
+        <p class="exp-lead">
+          Avant d'ouvrir mon cabinet, j'ai exercé dans plusieurs établissements de la région
+          strasbourgeoise&nbsp;:
+        </p>
+        <ul class="exp-list">
+          {experiences.map((e) => (
+            <li>
+              <strong class="exp-lieu">{e.lieu}</strong>
+              {e.detail && <span class="exp-detail">{e.detail}</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   </section>
 </Base>
@@ -267,40 +255,49 @@ const experiences = [
 
   .map-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 
-  .portrait-section { padding-top: 0; padding-bottom: calc(var(--spacing-xl) / 3); }
-
-  .portrait-section .container { display: flex; justify-content: center; }
-
-  .portrait { margin: 0; }
-
-  .portrait img {
-    width: min(340px, 78vw);
-    border-radius: 999px 999px var(--radius-card) var(--radius-card);
+  /* Même repère que les jointures de section de la page Pour qui : un
+     trait centré sur la limite entre la section précédente et celle-ci. */
+  .about-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    translate: -50% -50%;
+    width: 2.5rem;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-primary-accent);
+    opacity: 0.3;
   }
 
-  .presentation { padding-block: calc(var(--spacing-xl) / 3) var(--spacing-m); }
-
-  .presentation-inner {
-    max-width: 38rem;
+  .about-inner {
+    max-width: 60rem;
+    display: grid;
+    gap: clamp(2rem, 5vw, 3rem);
   }
 
-  .presentation-inner h2,
-  .exp-wrap h2 {
-    font-size: clamp(1.15rem, 0.85rem + 1.5vw, 2.25rem);
+  @media (min-width: 800px) {
+    .about-inner { grid-template-columns: 1.15fr 1fr; align-items: start; }
   }
 
-  .presentation-inner h2 { margin-bottom: var(--spacing-xs); }
+  .about-copy p:last-child { margin-bottom: 0; }
 
-  .exp-section { padding-block: var(--spacing-s) var(--spacing-xl); }
+  .about-experience h3 {
+    font-family: var(--bodyFont);
+    font-size: var(--font-body);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
 
-  .exp-wrap { max-width: 38rem; }
-
-  .exp-lead { margin-top: -0.5rem; }
+  .exp-lead {
+    font-size: var(--font-mini);
+    margin-bottom: 0;
+  }
 
   .exp-list {
     list-style: none;
     padding: 0;
-    margin: var(--spacing-m) 0 0;
+    margin: var(--spacing-xs) 0 0;
   }
 
   .exp-list li {
