@@ -6,23 +6,13 @@ import { site } from '../data/site.js';
 
 const title = `Contact & accès — ${site.cabinet.nom}`;
 const description =
-  `${site.praticienne.nom}, ${site.praticienne.titre} diplômée du ${site.praticienne.ecole}. ` +
-  `Contacter le cabinet d'ostéopathie de ${site.cabinet.ville} : téléphone, email, horaires, plan d'accès. ` +
-  'Prise de rendez-vous en ligne via Doctolib.';
+  `Contacter ${site.cabinet.nom}, cabinet d'ostéopathie à ${site.cabinet.ville} : ` +
+  'téléphone, email, horaires, plan d\'accès. Prise de rendez-vous en ligne via Doctolib.';
 
 const tel = site.cabinet.telephone.replace(/\s/g, '');
 const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
   `${site.cabinet.adresse}, ${site.cabinet.codePostal} ${site.cabinet.ville}`
 )}`;
-
-const experiences = [
-  { lieu: 'Nouvel Hôpital Civil, Strasbourg' },
-  { lieu: 'Clinique Sainte-Barbe, Strasbourg' },
-  { lieu: 'Clinique Toussaint, Strasbourg' },
-  { lieu: 'CHU Hautepierre, Strasbourg', detail: 'gynécologie, obstétrique' },
-  { lieu: 'Clinique du Ried, Schiltigheim', detail: 'soins médicaux et de réadaptation à orientation gériatrique' },
-  { lieu: 'Clinique Sainte-Anne, Strasbourg', detail: 'oncologie, soins palliatifs, chirurgie orthopédique' },
-];
 ---
 
 <Base title={title} description={description}>
@@ -33,33 +23,65 @@ const experiences = [
       Pour la prise de rendez-vous, vous pouvez me joindre par téléphone ou réserver
       directement un créneau en ligne via Doctolib.
     </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
+        Prendre rendez-vous
+      </a>
+    </div>
   </section>
 
   <section>
     <div class="container contact-grid">
       <div class="contact-info reveal">
-        <dl class="contact-list">
-          <div>
-            <dt>Adresse</dt>
-            <dd>
+        <ul class="contact-list">
+          <li>
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </span>
+            <div>
+              <span class="visually-hidden">Adresse</span>
               <address>
                 {site.cabinet.adresse}<br />
                 {site.cabinet.codePostal} {site.cabinet.ville}
               </address>
               <span class="contact-extra">{site.cabinet.parking}</span>
-            </dd>
-          </div>
-          <div>
-            <dt>Téléphone</dt>
-            <dd><a href={`tel:${tel}`}>{site.cabinet.telephone}</a></dd>
-          </div>
-          <div>
-            <dt>Email</dt>
-            <dd><Email class="contact-email-link" /></dd>
-          </div>
-          <div>
-            <dt>Horaires</dt>
-            <dd>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+            </span>
+            <div>
+              <span class="visually-hidden">Téléphone</span>
+              <a href={`tel:${tel}`}>{site.cabinet.telephone}</a>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </span>
+            <div>
+              <span class="visually-hidden">Email</span>
+              <Email class="contact-email-link" />
+            </div>
+          </li>
+          <li>
+            <span class="contact-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12,6 12,12 16,14" />
+              </svg>
+            </span>
+            <div>
+              <span class="visually-hidden">Horaires</span>
               <ul class="horaires">
                 {site.horaires.map((h) => (
                   <li>
@@ -68,12 +90,9 @@ const experiences = [
                   </li>
                 ))}
               </ul>
-            </dd>
-          </div>
-        </dl>
-        <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
-          Prendre rendez-vous
-        </a>
+            </div>
+          </li>
+        </ul>
       </div>
       <div class="map-wrap reveal" style="--reveal-delay: 0.12s">
         <div
@@ -85,37 +104,6 @@ const experiences = [
         <a class="map-link" href={itineraire} target="_blank" rel="noopener">
           Itinéraire vers le cabinet<span aria-hidden="true"> →</span>
         </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="about-section">
-    <div class="container about-inner">
-      <div class="about-copy reveal">
-        <h2>Diplômée du {site.praticienne.ecole}.</h2>
-        <p>
-          Je pratique une ostéopathie complète, alliant techniques douces (fonctionnelles,
-          tissulaires) et techniques structurelles (myotensives, HVBA).
-        </p>
-        <p>
-          Mon approche globale et personnalisée vise à restaurer l'équilibre du corps et à
-          accompagner chaque patient vers un mieux-être durable.
-        </p>
-      </div>
-      <div class="about-experience reveal" style="--reveal-delay: 0.14s">
-        <h3>Expériences cliniques</h3>
-        <p class="exp-lead">
-          Avant d'ouvrir mon cabinet, j'ai exercé dans plusieurs établissements de la région
-          strasbourgeoise&nbsp;:
-        </p>
-        <ul class="exp-list">
-          {experiences.map((e) => (
-            <li>
-              <strong class="exp-lieu">{e.lieu}</strong>
-              {e.detail && <span class="exp-detail">{e.detail}</span>}
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   </section>
@@ -159,6 +147,12 @@ const experiences = [
     padding-inline: clamp(1.25rem, 4vw, 2rem);
   }
 
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-l);
+  }
+
   .contact-grid {
     display: grid;
     gap: var(--spacing-l);
@@ -169,26 +163,49 @@ const experiences = [
     .contact-grid { grid-template-columns: 2fr 3fr; }
   }
 
-  .contact-list { margin: 0 0 2rem; }
-
-  .contact-list > div {
-    padding: 0.9rem 0;
-    border-bottom: 1px solid var(--color-light-border);
+  .contact-list {
+    margin: 0 0 2rem;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-s);
   }
 
-  .contact-list > div:first-child { padding-top: 0; }
-
-  .contact-list dt {
-    font-family: var(--titleFont);
-    font-weight: 600;
-    color: var(--color-text-primary);
-    margin-bottom: 0.2rem;
+  .contact-list > li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
   }
 
-  .contact-list dd {
-    margin: 0;
+  .contact-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-top: 0.2rem;
+    color: var(--color-primary-accent);
+  }
+
+  .contact-icon svg { width: 100%; height: 100%; }
+
+  .contact-list > li > div {
     font-size: var(--font-body);
     color: var(--color-text-secondary);
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   .contact-list address { font-style: normal; }
@@ -254,83 +271,4 @@ const experiences = [
   }
 
   .map-link:hover { text-decoration: underline; text-underline-offset: 4px; }
-
-  /* Même repère que les jointures de section de la page Pour qui : un
-     trait centré sur la limite entre la section précédente et celle-ci. */
-  .about-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    translate: -50% -50%;
-    width: 2.5rem;
-    height: 3px;
-    border-radius: 999px;
-    background: var(--color-primary-accent);
-    opacity: 0.3;
-  }
-
-  .about-inner {
-    max-width: 60rem;
-    display: grid;
-    gap: clamp(2rem, 5vw, 3rem);
-  }
-
-  @media (min-width: 800px) {
-    .about-inner { grid-template-columns: 1.15fr 1fr; align-items: start; }
-  }
-
-  .about-copy p:last-child { margin-bottom: 0; }
-
-  .about-experience h3 {
-    font-family: var(--bodyFont);
-    font-size: var(--font-body);
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-
-  .exp-lead {
-    font-size: var(--font-mini);
-    margin-bottom: 0;
-  }
-
-  .exp-list {
-    list-style: none;
-    padding: 0;
-    margin: var(--spacing-xs) 0 0;
-  }
-
-  .exp-list li {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    padding: 0.85rem 0 0.85rem 1.15rem;
-    border-bottom: 1px solid var(--color-light-border);
-  }
-
-  .exp-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 1.5rem;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50% 50% 50% 0;
-    background: var(--color-primary-accent);
-  }
-
-  .exp-list li:last-child { border-bottom: none; padding-bottom: 0; }
-
-  .exp-lieu {
-    font-family: var(--titleFont);
-    font-size: var(--font-link);
-    font-weight: 700;
-    color: var(--color-text-primary);
-  }
-
-  .exp-detail {
-    font-size: var(--font-mini);
-    color: var(--color-text-secondary);
-  }
 </style>

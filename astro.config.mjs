@@ -10,7 +10,6 @@ export default defineConfig({
     format: 'file',
   },
   redirects: {
-    '/a-propos': '/contact',
     '/femme-enceinte': '/pour-qui#femme-enceinte',
     '/nourrisson': '/pour-qui#nourrisson',
     '/sportif': '/pour-qui#sportif',

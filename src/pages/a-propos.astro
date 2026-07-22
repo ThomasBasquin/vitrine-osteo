@@ -1,0 +1,132 @@
+---
+import Base from '../layouts/Base.astro';
+import Aura from '../components/Aura.astro';
+import { site } from '../data/site.js';
+
+const title = `À propos — ${site.cabinet.nom}`;
+const description =
+  `${site.praticienne.nom}, ${site.praticienne.titre} diplômée du ${site.praticienne.ecole}. ` +
+  'Présentation, formation et expériences cliniques.';
+
+const experiences = [
+  { lieu: 'Nouvel Hôpital Civil, Strasbourg' },
+  { lieu: 'Clinique Sainte-Barbe, Strasbourg' },
+  { lieu: 'Clinique Toussaint, Strasbourg' },
+  { lieu: 'CHU Hautepierre, Strasbourg', detail: 'gynécologie, obstétrique' },
+  { lieu: 'Clinique du Ried, Schiltigheim', detail: 'soins médicaux et de réadaptation à orientation gériatrique' },
+  { lieu: 'Clinique Sainte-Anne, Strasbourg', detail: 'oncologie, soins palliatifs, chirurgie orthopédique' },
+];
+---
+
+<Base title={title} description={description}>
+  <section class="page-hero">
+    <Aura />
+    <h1>À propos</h1>
+    <p class="page-lead">
+      Ostéopathe D.O. à {site.cabinet.ville}, je propose une prise en charge globale et
+      personnalisée, à l'écoute de chaque patient.
+    </p>
+  </section>
+
+  <section class="bio-section">
+    <div class="container bio-inner">
+      <h2 class="reveal">
+        Diplômée du {site.praticienne.ecole} en {site.praticienne.anneeDiplome}
+      </h2>
+      <p class="reveal" style="--reveal-delay: 0.06s">
+        Je pratique une ostéopathie complète, alliant techniques douces (fonctionnelles,
+        tissulaires) et techniques structurelles (myotensives, HVBA).
+      </p>
+      <p class="reveal" style="--reveal-delay: 0.1s">
+        Mon approche globale et personnalisée vise à restaurer l'équilibre du corps et à
+        accompagner chaque patient vers un mieux-être durable.
+      </p>
+    </div>
+  </section>
+
+  <section class="exp-section">
+    <div class="container exp-inner">
+      <h2 class="reveal">Expériences cliniques</h2>
+      <p class="reveal" style="--reveal-delay: 0.06s">
+        Avant d'ouvrir mon cabinet, j'ai exercé dans plusieurs établissements de la région
+        strasbourgeoise&nbsp;:
+      </p>
+      <div class="exp-card reveal" style="--reveal-delay: 0.1s">
+        <ul class="exp-list">
+          {experiences.map((e) => (
+            <li>
+              <strong class="exp-lieu">{e.lieu}</strong>
+              {e.detail && <span class="exp-detail">{e.detail}</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-lead {
+    text-align: center;
+    max-width: 36rem;
+    margin: var(--spacing-s) auto 0;
+    padding-inline: clamp(1.25rem, 4vw, 2rem);
+  }
+
+  .bio-inner, .exp-inner { max-width: 46rem; }
+
+  .bio-section { padding-block: var(--spacing-s) var(--spacing-m); }
+
+  .exp-section { padding-block: var(--spacing-s) var(--spacing-xl); }
+
+  .bio-inner h2, .exp-inner h2 { margin-bottom: var(--spacing-s); }
+
+  .bio-inner p:last-child { margin-bottom: 0; }
+
+  .exp-card {
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    background: var(--color-opaque);
+    border: 1px solid var(--color-light-border);
+    border-radius: var(--radius-card);
+  }
+
+  .exp-list {
+    list-style: none;
+    padding: 0;
+    margin: var(--spacing-xs) 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .exp-list li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding-left: 1.15rem;
+  }
+
+  .exp-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.4rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50% 50% 50% 0;
+    background: var(--color-primary-accent);
+  }
+
+  .exp-lieu {
+    font-family: var(--titleFont);
+    font-size: var(--font-link);
+    font-weight: 700;
+    color: var(--color-text-primary);
+  }
+
+  .exp-detail {
+    font-size: var(--font-mini);
+    color: var(--color-text-secondary);
+  }
+</style>

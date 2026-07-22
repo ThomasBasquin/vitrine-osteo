@@ -4,11 +4,9 @@ import Circadian from './Circadian.astro';
 
 const year = new Date().getFullYear();
 
-const consultationLinks = [
-  { href: '/pour-qui#femme-enceinte', label: 'Femme enceinte' },
-  { href: '/pour-qui#nourrisson', label: 'Nourrisson' },
-  { href: '/pour-qui#sportif', label: 'Sportif' },
+const footerLinks = [
   { href: '/seance#tarifs', label: 'Tarifs' },
+  { href: '/contact', label: 'Contact' },
 ];
 ---
 
@@ -19,8 +17,8 @@ const consultationLinks = [
       {site.cabinet.adresse}, {site.cabinet.codePostal} {site.cabinet.ville}
     </p>
 
-    <nav class="footer-links" aria-label="Consultations">
-      {consultationLinks.map((l, i) => (
+    <nav class="footer-links" aria-label="Liens utiles">
+      {footerLinks.map((l, i) => (
         <>
           {i > 0 && <span class="dot" aria-hidden="true">·</span>}
           <a href={l.href}>{l.label}</a>
