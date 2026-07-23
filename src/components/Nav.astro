@@ -71,11 +71,12 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
     align-items: flex-start;
     overflow: hidden;
     border-radius: 50px;
-    transition: background 0.2s linear;
+    transition: background 0.2s linear, box-shadow 0.2s linear;
   }
 
   .pill.blur {
     background: var(--color-backdrop);
+    box-shadow: 0 8px 24px var(--color-nav-shadow), inset 0 0 0 1px var(--color-light-border);
     backdrop-filter: blur(20px) saturate(1.7);
     -webkit-backdrop-filter: blur(20px) saturate(1.7);
   }
@@ -118,7 +119,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
     inset: 0;
     z-index: -1;
     border-radius: 24px;
-    background: var(--color-white50);
+    background: var(--color-nav-highlight);
     box-shadow: inset 0 0 0 1px var(--color-light-border);
   }
 
@@ -129,7 +130,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
   }
 
   @media (hover: hover) {
-    a:hover { color: var(--color-text-primary); background: var(--color-white50); }
+    a:hover { color: var(--color-text-primary); background: var(--color-nav-highlight); }
 
     .rdv:hover {
       color: var(--color-text-tertiary);
@@ -138,7 +139,7 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
     }
   }
 
-  a:active { background: var(--color-white50); }
+  a:active { background: var(--color-nav-highlight); }
 
   .rdv:active {
     color: var(--color-text-tertiary);
