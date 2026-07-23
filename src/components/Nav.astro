@@ -108,8 +108,6 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
     white-space: nowrap;
   }
 
-  a:hover { color: var(--color-text-primary); background: var(--color-white50); }
-
   a.active {
     color: var(--color-text-primary);
     font-weight: 600;
@@ -130,10 +128,22 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
     font-weight: 600;
   }
 
-  .rdv:hover {
+  @media (hover: hover) {
+    a:hover { color: var(--color-text-primary); background: var(--color-white50); }
+
+    .rdv:hover {
+      color: var(--color-text-tertiary);
+      background: var(--color-primary-accent);
+      filter: saturate(1.5);
+    }
+  }
+
+  a:active { background: var(--color-white50); }
+
+  .rdv:active {
     color: var(--color-text-tertiary);
     background: var(--color-primary-accent);
-    filter: saturate(1.5);
+    filter: saturate(1.3);
   }
 
   @media (min-width: 768px) {

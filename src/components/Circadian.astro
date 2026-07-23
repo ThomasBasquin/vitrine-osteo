@@ -177,7 +177,9 @@ const hours = Array.from({ length: 24 }, (_, h) => h);
     opacity: 1;
   }
 
-  .hour:not(.active):hover .line { opacity: 1; transform: translate3d(0, 12px, 0); }
+  @media (hover: hover) {
+    .hour:not(.active):hover .line { opacity: 1; transform: translate3d(0, 12px, 0); }
+  }
 
   .bubble {
     position: absolute;
@@ -193,12 +195,16 @@ const hours = Array.from({ length: 24 }, (_, h) => h);
     border: 0;
     border-radius: 50%;
     cursor: pointer;
-    transition: left 0.5s var(--ease-out), filter 0.2s ease-in-out;
+    transition: left 0.5s var(--ease-out), filter 0.2s ease-in-out, transform 0.15s var(--ease-out);
     /* left est posé par le script, en % de .hours pour rester aligné avec les traits d'heure */
     left: 50%;
   }
 
-  .bubble:hover { filter: saturate(1.5); }
+  @media (hover: hover) {
+    .bubble:hover { filter: saturate(1.5); }
+  }
+
+  .bubble:active { filter: saturate(1.3); transform: translate(-50%, -100%) scale(0.88); }
 
   .icon-moon { display: none; }
 

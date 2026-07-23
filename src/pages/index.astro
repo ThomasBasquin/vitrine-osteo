@@ -278,9 +278,17 @@ const jsonLd = {
     transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
   }
 
-  .public:has(.public-link):hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.18);
+  @media (hover: hover) {
+    .public:has(.public-link):hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.18);
+    }
+  }
+
+  .public:has(.public-link):active {
+    transform: scale(0.985);
+    box-shadow: 0 8px 20px -12px rgba(0, 0, 0, 0.18);
+    transition-duration: 0.15s;
   }
 
   .public-heading {

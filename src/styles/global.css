@@ -252,19 +252,34 @@ html.js .page-hero:not(.home-hero) > :not(.aura):nth-child(4) { animation-delay:
   color: var(--color-text-tertiary);
 }
 
-.btn-primary:hover {
-  filter: saturate(1.5);
-  transform: translateY(-2px);
-  color: var(--color-text-tertiary);
-}
-
 .btn-outline {
   border: 2px solid var(--color-primary-accent);
   color: var(--color-text-primary);
   background: transparent;
 }
 
-.btn-outline:hover { background: var(--color-white50); }
+/* :hover est réservé aux pointeurs fins : sur tactile il se déclenche au tap
+   et reste figé jusqu'au tap suivant ailleurs sur la page. */
+@media (hover: hover) {
+  .btn-primary:hover {
+    filter: saturate(1.5);
+    transform: translateY(-2px);
+    color: var(--color-text-tertiary);
+  }
+
+  .btn-outline:hover { background: var(--color-white50); }
+}
+
+.btn-primary:active {
+  filter: saturate(1.3);
+  transform: scale(0.96);
+  color: var(--color-text-tertiary);
+}
+
+.btn-outline:active {
+  background: var(--color-white50);
+  transform: scale(0.96);
+}
 
 /* Révélation au défilement — sans JS, tout reste visible */
 html.js .reveal {
