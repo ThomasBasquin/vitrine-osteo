@@ -30,9 +30,8 @@ const experiences = [
 
   <section class="bio-section">
     <div class="container bio-inner">
-      <h2 class="reveal">
-        Diplômée du {site.praticienne.ecole} en {site.praticienne.anneeDiplome}
-      </h2>
+      <h2 class="reveal bio-title">Diplômée du {site.praticienne.ecole}</h2>
+      <p class="bio-year reveal" style="--reveal-delay: 0.04s">Promotion {site.praticienne.anneeDiplome}</p>
       <p class="reveal" style="--reveal-delay: 0.06s">
         Je pratique une ostéopathie complète, alliant techniques douces (fonctionnelles,
         tissulaires) et techniques structurelles (myotensives, HVBA).
@@ -80,6 +79,21 @@ const experiences = [
   .exp-section { padding-block: var(--spacing-s) var(--spacing-xl); }
 
   .bio-inner h2, .exp-inner h2 { margin-bottom: var(--spacing-s); }
+
+  .bio-title {
+    font-size: clamp(1.25rem, 1.05rem + 1vw, 1.875rem);
+    margin-bottom: 0.3rem;
+  }
+
+  .bio-year {
+    font-family: var(--titleFont);
+    font-size: var(--font-mini);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-primary-accent);
+    margin-bottom: var(--spacing-s);
+  }
 
   .bio-inner p:last-child { margin-bottom: 0; }
 
