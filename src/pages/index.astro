@@ -180,6 +180,11 @@ const jsonLd = {
     margin-top: var(--spacing-l);
   }
 
+  @media (min-width: 992px) {
+    .hero-lead { margin-top: calc(var(--spacing-l) * 0.75); }
+    .hero-actions { margin-top: calc(var(--spacing-l) * 0.75); }
+  }
+
   /* Entrée du hero */
   html.js .hero-content > * {
     animation: hero-in 0.9s var(--ease-out) both;
@@ -203,6 +208,11 @@ const jsonLd = {
   .home-portrait img {
     width: min(340px, 78vw);
     border-radius: 999px 999px var(--radius-card) var(--radius-card);
+  }
+
+  .definition-section {
+    padding-top: calc(var(--spacing-xl) * 0.75);
+    padding-bottom: calc(var(--spacing-xl) * 0.5);
   }
 
   .definition-container { max-width: 48rem; }

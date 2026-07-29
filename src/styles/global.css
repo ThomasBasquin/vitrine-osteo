@@ -55,9 +55,9 @@
     hsla(36, 31%, 90%, 0.987) 90.5%,
     hsl(36, 31%, 90%) 100%
   );
-  --aura-1: hsla(160, 52%, 71%, 0.7);
-  --aura-2: hsla(52, 84%, 70%, 0.6);
-  --aura-3: hsla(206, 84%, 82%, 0.55);
+  --aura-1: hsla(160, 58%, 58%, 0.57);
+  --aura-2: hsla(48, 90%, 64%, 0.53);
+  --aura-3: hsla(92, 55%, 68%, 0.43);
 
   /* Typographie fluide */
   --font-h1: clamp(2.7469rem, 1.2rem + 6.6vw, 9.75rem);
@@ -114,9 +114,9 @@
     hsla(158, 23%, 18%, 0.987) 90.5%,
     hsl(158, 23%, 18%) 100%
   );
-  --aura-1: hsla(160, 52%, 40%, 0.28);
-  --aura-2: hsla(45, 60%, 35%, 0.22);
-  --aura-3: hsla(220, 50%, 35%, 0.2);
+  --aura-1: hsla(160, 55%, 42%, 0.27);
+  --aura-2: hsla(45, 65%, 40%, 0.21);
+  --aura-3: hsla(95, 45%, 38%, 0.19);
 }
 
 * {
@@ -207,6 +207,21 @@ section { padding-block: var(--spacing-xl); position: relative; z-index: var(--z
 /* Première section d'une page : passe sous la nav fixe, accueille l'Aura */
 .page-hero {
   padding-top: clamp(8.25rem, 12vh, 11.75rem);
+}
+
+/* Sur desktop le titre respire davantage sous la nav flottante */
+@media (min-width: 992px) {
+  .page-hero { padding-top: clamp(13rem, 22vh, 19rem); }
+}
+
+/* Hauteur plancher commune pour que le dégradé de l'Aura s'étale sur la même
+   distance quelle que soit la longueur du contenu du hero (sinon les pages
+   courtes comme Contact voyaient le dégradé virer au beige presque
+   immédiatement, contrairement à l'accueil). */
+@media (min-width: 768px) {
+  .page-hero:has(.aura) {
+    min-height: clamp(560px, 52vw, 780px);
+  }
 }
 
 .page-hero > :not(.aura) { position: relative; z-index: var(--zindex-content); }
