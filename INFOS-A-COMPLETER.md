@@ -23,12 +23,12 @@ Presque tout se remplit dans **`src/data/site.js`** (un seul fichier).
       `src/pages/contact.astro`
 - [x] **Mentions légales** (`src/pages/mentions-legales.astro`) : SIRET, n° RPPS
       (hébergeur : fait — Hetzner)
-- [ ] **Domaine définitif** : une fois acheté, remplacer `osteo.thomasbasquin.fr` dans
-      `astro.config.mjs`, `nginx/` et `deploy.sh`
+- [x] **Domaine définitif** : `mariewach.fr` acheté, remplacé dans `astro.config.mjs`,
+      `nginx/` et `deploy.sh`
 
 ## Après mise en ligne
 
-- [x] Site en ligne sur https://osteo.thomasbasquin.fr (nginx + Let's Encrypt)
+- [x] Site en ligne sur https://mariewach.fr (nginx + Let's Encrypt)
 - [ ] Déclarer le site dans Google Search Console + créer la fiche Google Business Profile
       (essentiel pour la recherche locale)
 - [ ] Ajouter un sitemap une fois le domaine définitif connu (`@astrojs/sitemap`)

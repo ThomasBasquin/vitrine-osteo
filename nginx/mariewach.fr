@@ -1,16 +1,16 @@
-# Vhost pour le site vitrine ostéo (sous-domaine provisoire).
+# Vhost pour le site vitrine ostéo.
 # Installation :
-#   sudo cp nginx/osteo.thomasbasquin.fr /etc/nginx/sites-available/
-#   sudo ln -s /etc/nginx/sites-available/osteo.thomasbasquin.fr /etc/nginx/sites-enabled/
+#   sudo cp nginx/mariewach.fr /etc/nginx/sites-available/
+#   sudo ln -s /etc/nginx/sites-available/mariewach.fr /etc/nginx/sites-enabled/
 #   sudo nginx -t && sudo systemctl reload nginx
-#   sudo certbot --nginx -d osteo.thomasbasquin.fr   (une fois le DNS créé)
+#   sudo certbot --nginx -d mariewach.fr -d www.mariewach.fr   (une fois le DNS créé)
 
 server {
     listen 80;
     listen [::]:80;
-    server_name osteo.thomasbasquin.fr;
+    server_name mariewach.fr www.mariewach.fr;
 
-    root /var/www/osteo.thomasbasquin.fr;
+    root /var/www/mariewach.fr;
     index index.html;
 
     # astro build.format "file" génère /page.html : essayer $uri.html

@@ -9,7 +9,7 @@ d'hébergement : le build produit du HTML/CSS pur dans `dist/`, servi par nginx 
 npm install       # première fois
 npm run dev       # serveur de dev sur http://localhost:5173
 npm run build     # build statique dans dist/
-./deploy.sh       # build + copie vers /var/www/osteo.thomasbasquin.fr (le repo vit sur le VPS)
+./deploy.sh       # build + copie vers /var/www/mariewach.fr (le repo vit sur le VPS)
 ```
 
 ## Structure
@@ -18,5 +18,5 @@ npm run build     # build statique dans dist/
 - `src/pages/` — les pages (accueil, séance, pour-qui, contact, mentions légales, 404)
 - `src/layouts/` — layout commun (header/footer/SEO)
 - `src/styles/global.css` — palette et styles partagés
-- `nginx/osteo.thomasbasquin.fr` — vhost nginx à installer sur le VPS
+- `nginx/mariewach.fr` — vhost nginx à installer sur le VPS
 - `INFOS-A-COMPLETER.md` — liste des placeholders à remplacer avant mise en ligne
