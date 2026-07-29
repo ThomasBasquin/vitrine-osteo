@@ -26,8 +26,9 @@ export const site = {
   },
 
   horaires: [
-    { jours: 'Lundi – Vendredi', heures: '[9h00 – 19h00]' },
-    { jours: 'Samedi', heures: '[Sur rendez-vous]' },
+    { jours: 'Lundi', heures: '13h30 – 18h30' },
+    { jours: 'Mardi – Vendredi', heures: '8h30 – 18h30' },
+    { jours: 'Samedi', heures: '8h30 – 12h30' },
   ],
 
   tarifs: [

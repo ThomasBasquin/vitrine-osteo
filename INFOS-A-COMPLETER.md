@@ -9,7 +9,7 @@ Presque tout se remplit dans **`src/data/site.js`** (un seul fichier).
 - [x] Adresse du cabinet (rue, code postal, ville) + coordonnées GPS
 - [ ] Téléphone
 - [x] E-mail
-- [ ] Horaires d'ouverture
+- [x] Horaires d'ouverture
 - [x] Tarifs (consultation au cabinet)
 - [ ] Lien Doctolib (bouton « Prendre rendez-vous » — pointe encore vers doctolib.fr tout court)
 - [ ] Liens Google / Instagram / Facebook (optionnels)
