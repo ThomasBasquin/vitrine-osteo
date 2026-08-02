@@ -11,7 +11,7 @@ Presque tout se remplit dans **`src/data/site.js`** (un seul fichier).
 - [x] E-mail
 - [x] Horaires d'ouverture
 - [x] Tarifs (consultation au cabinet)
-- [ ] Lien Doctolib (bouton « Prendre rendez-vous » — pointe encore vers doctolib.fr tout court)
+- [x] Lien Doctolib
 - [ ] Liens Google / Instagram / Facebook (optionnels)
 
 ## Ailleurs

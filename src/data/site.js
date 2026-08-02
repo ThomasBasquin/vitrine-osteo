@@ -37,7 +37,7 @@ export const site = {
   ],
 
   liens: {
-    doctolib: 'https://www.doctolib.fr/', // [lien Doctolib à compléter]
+    doctolib: 'https://www.doctolib.fr/osteopathe/dieffenbach-au-val/marie-wach',
     google: '', // [lien fiche Google]
     instagram: '', // [lien Instagram]
     facebook: '', // [lien Facebook]
