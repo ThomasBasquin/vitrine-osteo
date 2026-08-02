@@ -167,6 +167,16 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
 
   .contact-section { padding-top: var(--spacing-m); }
 
+  /* Empilés, les trois blocs n'ont plus la colonne pour les distinguer : le
+     rythme vertical est tout ce qui reste pour les séparer. */
+  @media (max-width: 819px) {
+    .page-hero { padding-bottom: var(--spacing-l); }
+
+    .contact-section { padding-top: var(--spacing-l); }
+
+    .contact-grid { gap: var(--spacing-xl); }
+  }
+
   /* Hero sans sous-navigation ni contenu long : le plancher commun aux pages
      à Aura laissait 240px de dégradé nu sous le chapô avant les cartes. */
   @media (min-width: 992px) {
@@ -181,7 +191,13 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
   .contact-info {
     display: flex;
     flex-direction: column;
-    gap: clamp(2rem, 4vw, 3rem);
+    gap: var(--spacing-xl);
+  }
+
+  /* Une fois la carte revenue à côté, la colonne se relit d'un bloc : le
+     palier d'aération de l'empilement y devient un trou. */
+  @media (min-width: 820px) {
+    .contact-info { gap: clamp(2rem, 4vw, 3rem); }
   }
 
   .contact-card {
