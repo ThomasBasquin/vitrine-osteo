@@ -64,11 +64,26 @@ const ogImage = new URL('/images/og-cover.jpg', Astro.site);
     <Footer />
 
     <script>
-      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const targets = document.querySelectorAll('.reveal');
-      if (reduced || !('IntersectionObserver' in window)) {
-        targets.forEach((el) => el.classList.add('is-visible'));
-      } else {
+      // Astro repart des attributs <html> du nouveau document à chaque swap et
+      // perd donc la classe posée par le script inline du <head>. La reposer ici,
+      // avant le premier rendu du DOM échangé, plutôt que sur astro:page-load :
+      // les .reveal doivent déjà être masquées quand le swap s'affiche.
+      document.addEventListener('astro:after-swap', () =>
+        document.documentElement.classList.add('js')
+      );
+
+      let stopReveal: (() => void) | undefined;
+
+      function initReveal() {
+        stopReveal?.();
+
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const targets = document.querySelectorAll('.reveal');
+        if (reduced || !('IntersectionObserver' in window)) {
+          targets.forEach((el) => el.classList.add('is-visible'));
+          return;
+        }
+
         const io = new IntersectionObserver(
           (entries) => {
             for (const entry of entries) {
@@ -81,7 +96,10 @@ const ogImage = new URL('/images/og-cover.jpg', Astro.site);
           { rootMargin: '0px 0px -8% 0px' }
         );
         targets.forEach((el) => io.observe(el));
+        stopReveal = () => io.disconnect();
       }
+
+      document.addEventListener('astro:page-load', initReveal);
     </script>
 
     <style>
