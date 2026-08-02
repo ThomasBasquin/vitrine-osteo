@@ -144,6 +144,21 @@ const profils = [
 </Base>
 
 <style>
+  /* Le hero a déjà la nav de profils pour occuper l'espace, mais le plancher
+     commun aux heros à Aura reste trop généreux sur tablette : sans l'abaisser,
+     réduire le padding-bottom seul ne change rien (le min-height l'absorbe).
+     Padding-bottom du hero et padding-top du premier profil alignés sur la
+     même valeur (--spacing-xl, celle des dividers entre profils) pour une
+     transition à parts égales de chaque côté. */
+  @media (min-width: 744px) and (max-width: 991px) {
+    .page-hero {
+      padding-bottom: var(--spacing-xl);
+      min-height: clamp(380px, 38vw, 460px);
+    }
+
+    .profile-section:first-of-type { padding-top: var(--spacing-xl); }
+  }
+
   .page-lead {
     text-align: center;
     max-width: 40rem;
@@ -202,6 +217,10 @@ const profils = [
     max-width: 72rem;
     display: grid;
     gap: clamp(2rem, 5vw, 3rem);
+  }
+
+  @media (min-width: 744px) {
+    .profile-inner { padding-inline: clamp(2rem, 5vw, 3rem); }
   }
 
   @media (min-width: 800px) {

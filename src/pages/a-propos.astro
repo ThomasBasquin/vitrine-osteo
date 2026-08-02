@@ -134,6 +134,17 @@ const experiences = [
 
   /* Flux en colonnes (et non en grille) pour que les deux colonnes s'équilibrent d'elles-mêmes
      malgré les items à détail, plus hauts que les autres */
+  /* Le contenu court du hero laisse un vide énorme avant la bio si le plancher
+     commun aux heros à Aura n'est pas abaissé davantage. */
+  @media (min-width: 744px) and (max-width: 991px) {
+    section.page-hero {
+      padding-bottom: calc(var(--spacing-xl) / 4);
+      min-height: clamp(400px, 40vw, 460px);
+    }
+
+    .bio-section { padding-top: 0; }
+  }
+
   @media (min-width: 992px) {
     /* Le plancher commun aux heros à Aura est ici toujours contraignant : sans
        l'abaisser d'autant, le padding retiré ne se verrait pas. */

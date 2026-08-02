@@ -218,7 +218,7 @@ section { padding-block: var(--spacing-xl); position: relative; z-index: var(--z
    distance quelle que soit la longueur du contenu du hero (sinon les pages
    courtes comme Contact voyaient le dégradé virer au beige presque
    immédiatement, contrairement à l'accueil). */
-@media (min-width: 768px) {
+@media (min-width: 744px) {
   .page-hero:has(.aura) {
     min-height: clamp(560px, 52vw, 780px);
   }

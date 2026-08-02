@@ -172,13 +172,17 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
   @media (max-width: 819px) {
     .page-hero { padding-bottom: var(--spacing-l); }
 
-    .contact-section { padding-top: var(--spacing-l); }
+    .contact-section { padding-top: calc(var(--spacing-l) / 2); }
 
     .contact-grid { gap: var(--spacing-xl); }
   }
 
   /* Hero sans sous-navigation ni contenu long : le plancher commun aux pages
-     à Aura laissait 240px de dégradé nu sous le chapô avant les cartes. */
+     à Aura laisse trop de dégradé nu sous le chapô avant les cartes. */
+  @media (min-width: 744px) and (max-width: 991px) {
+    section.page-hero { min-height: clamp(320px, 30vw, 420px); }
+  }
+
   @media (min-width: 992px) {
     section.page-hero { min-height: clamp(520px, 44vw, 640px); }
 
