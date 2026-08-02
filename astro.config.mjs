@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://mariewach.fr',
@@ -8,6 +9,7 @@ export default defineConfig({
   build: {
     format: 'file',
   },
+  integrations: [sitemap()],
   redirects: {
     '/femme-enceinte': '/pour-qui#femme-enceinte',
     '/nourrisson': '/pour-qui#nourrisson',

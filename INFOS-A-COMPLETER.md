@@ -29,6 +29,8 @@ Presque tout se remplit dans **`src/data/site.js`** (un seul fichier).
 ## Après mise en ligne
 
 - [x] Site en ligne sur https://mariewach.fr (nginx + Let's Encrypt)
-- [ ] Déclarer le site dans Google Search Console + créer la fiche Google Business Profile
+- [x] Sitemap (`@astrojs/sitemap`, référencé dans `robots.txt`)
+- [ ] Déclarer le site dans Google Search Console (peut se faire dès maintenant,
+      pas besoin du téléphone) et soumettre le sitemap
+- [ ] Créer la fiche Google Business Profile une fois le téléphone connu
       (essentiel pour la recherche locale)
-- [ ] Ajouter un sitemap une fois le domaine définitif connu (`@astrojs/sitemap`)

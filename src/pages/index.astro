@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Aura from '../components/Aura.astro';
-import { site } from '../data/site.js';
+import { site, hasPhone } from '../data/site.js';
 
 const title = `${site.praticienne.nom} — Ostéopathe à ${site.cabinet.ville}`;
 const description =
@@ -43,13 +43,53 @@ const publics = [
   },
 ];
 
+// Étale "Mardi – Vendredi" en jours individuels et convertit "8h30" en "08:30"
+// pour les données structurées OpeningHoursSpecification.
+const joursOrdre = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+const joursEnAnglais = {
+  Lundi: 'Monday',
+  Mardi: 'Tuesday',
+  Mercredi: 'Wednesday',
+  Jeudi: 'Thursday',
+  Vendredi: 'Friday',
+  Samedi: 'Saturday',
+  Dimanche: 'Sunday',
+};
+
+function padTime(t) {
+  const [h, m] = t.split(':');
+  return `${h.padStart(2, '0')}:${(m || '00').padStart(2, '0')}`;
+}
+
+function parseHeure(h) {
+  return padTime(h.trim().replace('h', ':').replace(/:$/, ':00'));
+}
+
+const openingHoursSpecification = site.horaires.map((h) => {
+  const jours = h.jours.includes('–')
+    ? (() => {
+        const [debut, fin] = h.jours.split('–').map((j) => j.trim());
+        return joursOrdre.slice(joursOrdre.indexOf(debut), joursOrdre.indexOf(fin) + 1);
+      })()
+    : [h.jours.trim()];
+  const [opens, closes] = h.heures.split('–').map(parseHeure);
+
+  return {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: jours.map((j) => `https://schema.org/${joursEnAnglais[j]}`),
+    opens,
+    closes,
+  };
+});
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'MedicalBusiness',
   name: site.cabinet.nom,
   description: "Cabinet d'ostéopathie — adultes, femmes enceintes, nourrissons et sportifs.",
   url: Astro.site?.toString(),
-  telephone: site.cabinet.telephone,
+  image: new URL('/images/og-cover.jpg', Astro.site).toString(),
+  ...(hasPhone && { telephone: site.cabinet.telephone }),
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.cabinet.adresse,
@@ -64,6 +104,7 @@ const jsonLd = {
       longitude: site.cabinet.longitude,
     },
   }),
+  openingHoursSpecification,
 };
 ---
 
