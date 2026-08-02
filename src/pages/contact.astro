@@ -28,34 +28,34 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
 
   <section class="contact-section">
     <div class="container contact-grid">
-      <div class="contact-info reveal">
-        <div class="contact-primary">
-          <a class="btn btn-primary" href={site.liens.doctolib} target="_blank" rel="noopener">
+      <div class="contact-info">
+        <div class="contact-card reveal">
+          <a
+            class="btn btn-primary contact-cta"
+            href={site.liens.doctolib}
+            target="_blank"
+            rel="noopener"
+          >
             Prendre rendez-vous
           </a>
-          <span class="contact-or">ou</span>
-          <div class="contact-channels">
+          <p class="contact-alt"><span>ou</span></p>
+          <ul class="info-rows">
             {hasPhone && (
-              <>
-                <a class="contact-tel" href={`tel:${tel}`}>{site.cabinet.telephone}</a>
-                <span class="contact-channels-sep" aria-hidden="true">·</span>
-              </>
+              <li>
+                <span>Téléphone</span>
+                <a class="info-value" href={`tel:${tel}`}>{site.cabinet.telephone}</a>
+              </li>
             )}
-            <span class="contact-email"><Email /></span>
-          </div>
+            <li>
+              <span>E-mail</span>
+              <span class="info-email"><Email /></span>
+            </li>
+          </ul>
         </div>
 
-        <div class="contact-divider" aria-hidden="true"></div>
-
-        <div class="contact-secondary">
-          <div class="contact-address">
-            <address>
-              {site.cabinet.adresse}<br />
-              {site.cabinet.codePostal} {site.cabinet.ville}
-            </address>
-            <p class="contact-extra">{site.cabinet.parking}</p>
-          </div>
-          <ul class="horaires">
+        <div class="contact-hours reveal" style="--reveal-delay: 0.08s">
+          <h2 class="block-title">Horaires</h2>
+          <ul class="info-rows">
             {site.horaires.map((h) => (
               <li>
                 <span>{h.jours}</span>
@@ -65,16 +65,26 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
           </ul>
         </div>
       </div>
-      <div class="map-wrap reveal" style="--reveal-delay: 0.12s">
+
+      <div class="map-card reveal" style="--reveal-delay: 0.12s">
         <div
           id="map"
           data-lat={site.cabinet.latitude}
           data-lon={site.cabinet.longitude}
           data-nom={site.cabinet.nom}
         ></div>
-        <a class="map-link" href={itineraire} target="_blank" rel="noopener">
-          Itinéraire vers le cabinet<span aria-hidden="true"> →</span>
-        </a>
+        <div class="map-foot">
+          <div>
+            <address>
+              {site.cabinet.adresse}<br />
+              {site.cabinet.codePostal} {site.cabinet.ville}
+            </address>
+            <p class="map-extra">{site.cabinet.parking}</p>
+          </div>
+          <a class="btn btn-outline map-link" href={itineraire} target="_blank" rel="noopener">
+            Itinéraire<span aria-hidden="true"> →</span>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -134,159 +144,173 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
     padding-inline: clamp(1.25rem, 4vw, 2rem);
   }
 
+  /* Empilé, la mesure est bornée sur celle du chapô : sans ça le CTA pleine
+     largeur de la carte s'étire sur toute la colonne dès la tablette. */
   .contact-grid {
     display: grid;
     gap: var(--spacing-l);
     align-items: start;
+    max-width: 36rem;
   }
 
+  /* La carte étirée sur toute la hauteur de la colonne voisine : les deux
+     colonnes se terminent au même niveau quel que soit le contenu de gauche. */
   @media (min-width: 820px) {
-    .contact-grid { grid-template-columns: 2fr 3fr; }
+    .contact-grid {
+      grid-template-columns: 2fr 3fr;
+      align-items: stretch;
+      max-width: 78rem;
+    }
   }
 
   .page-hero { padding-bottom: var(--spacing-m); }
 
   .contact-section { padding-top: var(--spacing-m); }
 
+  /* Hero sans sous-navigation ni contenu long : le plancher commun aux pages
+     à Aura laissait 240px de dégradé nu sous le chapô avant les cartes. */
+  @media (min-width: 992px) {
+    section.page-hero { min-height: clamp(520px, 44vw, 640px); }
+
+    /* La colonne plafonne avec la grille tandis que --font-body continue de
+       grandir : passé 1600px l'e-mail ne tient plus sur sa ligne. */
+    .info-value,
+    .info-email :global(a) { font-size: var(--font-link); }
+  }
+
   .contact-info {
     display: flex;
     flex-direction: column;
-    container-type: inline-size;
+    gap: clamp(2rem, 4vw, 3rem);
   }
 
-  /* Empilé et centré par défaut : la symétrie bouton/téléphone de part et
-     d'autre du "ou" a besoin de plus de largeur que la colonne n'en offre
-     tant qu'elle n'a pas dépassé son point de bascule (y compris en layout
-     2 colonnes desktop, où cette colonne reste étroite). Container query
-     plutôt que media query : ce qui compte est la largeur de la colonne,
-     pas celle du viewport. */
-  .contact-primary {
+  .contact-card {
+    padding: clamp(1.5rem, 5vw, 2rem);
+    background: var(--color-opaque);
+    border: 1px solid var(--color-light-border);
+    border-radius: var(--radius-card);
+  }
+
+  /* .btn est inline-flex : le repasser en flex pour qu'il occupe la largeur
+     de la carte et devienne la cible évidente du bloc. */
+  .contact-cta {
     display: flex;
-    flex-direction: column;
+    width: 100%;
+  }
+
+  .contact-alt {
+    display: flex;
     align-items: center;
-    text-align: center;
-    gap: 0.6rem;
-  }
-
-  .contact-or {
+    gap: 0.9rem;
+    margin: 1.25rem 0 0;
+    font-size: var(--font-mini);
     color: var(--color-text-secondary);
-    font-size: var(--font-body);
   }
 
-  /* Téléphone et email sont deux moyens de contact équivalents,
-     regroupés sur une même ligne plutôt qu'empilés en blocs distincts. */
-  .contact-channels {
+  .contact-alt::before,
+  .contact-alt::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-light-border);
+  }
+
+  /* Rangées étiquette / valeur partagées par les moyens de contact et les
+     horaires : même rythme de filets sur toute la colonne. */
+  .info-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-body);
+    color: var(--color-text-secondary);
+  }
+
+  .info-rows li {
     display: flex;
     align-items: baseline;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 0.3rem 0.6rem;
-    font-size: var(--font-body);
+    gap: 0.2rem 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-light-border);
   }
 
-  .contact-channels-sep { color: var(--color-text-secondary); }
+  .info-rows li:last-child { padding-bottom: 0; border-bottom: none; }
 
-  .contact-tel {
-    font-family: var(--bodyFont);
+  /* margin-left auto plutôt que le seul space-between : garde la valeur
+     calée à droite même quand elle passe à la ligne (e-mail long). */
+  .info-rows strong,
+  .info-value {
+    margin-left: auto;
     font-weight: 600;
     color: var(--color-text-primary);
     text-decoration: none;
   }
 
-  .contact-tel:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .info-rows > li > span:first-child,
+  .info-rows strong { white-space: nowrap; }
 
-  .contact-email { color: var(--color-text-secondary); }
-
-  .contact-email a { color: inherit; }
-
-  .contact-email a:hover { color: var(--color-text-primary); }
-
-  @container (min-width: 430px) {
-    .contact-primary {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-      align-items: center;
-      gap: 0.75rem 1.25rem;
-    }
-
-    .contact-primary .btn { justify-self: end; white-space: nowrap; }
-
-    .contact-or { justify-self: center; }
-
-    .contact-channels { justify-self: start; }
+  /* Le <a> vient d'Email.astro : hors de la portée du style scopé de cette
+     page, d'où le wrapper porteur de la mise en page et le :global() ici. */
+  .info-email {
+    margin-left: auto;
+    overflow-wrap: anywhere;
   }
 
-  .contact-divider {
-    width: 2.5rem;
-    height: 3px;
-    border-radius: 999px;
-    background: var(--color-primary-accent);
-    opacity: 0.4;
-    margin: var(--spacing-l) 0;
+  .info-email :global(a) {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    text-decoration: none;
   }
 
-  /* Rythme vertical du bloc : un gap sur le conteneur plutôt que des
-     margin-top ad hoc sur chaque enfant, pour que l'espacement entre
-     groupes (adresse, horaires) reste garanti et lisible d'un coup
-     d'œil dans la feuille de style. */
-  .contact-secondary {
+  @media (hover: hover) {
+    .info-value:hover,
+    .info-email :global(a:hover) { text-decoration: underline; text-underline-offset: 4px; }
+  }
+
+  .block-title {
+    font-size: var(--font-h3);
+    margin-bottom: 0.75rem;
+  }
+
+  .contact-hours .info-rows { border-top: 1px solid var(--color-light-border); }
+
+  .map-card {
     display: flex;
     flex-direction: column;
-    gap: 1.75rem;
-    font-size: var(--font-body);
-    color: var(--color-text-secondary);
-  }
-
-  .contact-secondary > * { margin: 0; }
-
-  .contact-address {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .contact-address address { font-style: normal; }
-
-  .contact-extra { font-size: var(--font-mini); }
-
-  .horaires {
-    list-style: none;
-    padding: 0;
-  }
-
-  .horaires li {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.3rem 1rem;
-    padding: 0.65rem 0;
-    border-bottom: 1px solid var(--color-light-border);
-  }
-
-  .horaires li:first-child { padding-top: 0; }
-
-  .horaires li:last-child { padding-bottom: 0; border-bottom: none; }
-
-  .horaires li > span,
-  .horaires li > strong {
-    white-space: nowrap;
-  }
-
-  .horaires strong { color: var(--color-text-primary); }
-
-  .map-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    background: var(--color-opaque);
+    border: 1px solid var(--color-light-border);
+    border-radius: var(--radius-card);
+    overflow: hidden;
   }
 
   #map {
+    flex: 1 1 auto;
     width: 100%;
-    min-height: 380px;
-    border-radius: var(--radius-card);
-    border: 1px solid var(--color-light-border);
+    min-height: 340px;
     z-index: var(--zindex-map);
+  }
+
+  .map-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.9rem 1.5rem;
+    padding: clamp(1.1rem, 4vw, 1.5rem) clamp(1.25rem, 4vw, 1.75rem);
+    border-top: 1px solid var(--color-light-border);
+  }
+
+  .map-foot address {
+    font-style: normal;
+    font-size: var(--font-body);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .map-extra {
+    margin: 0.35rem 0 0;
+    font-size: var(--font-mini);
   }
 
   #map :global(.cabinet-marker) {
@@ -300,10 +324,7 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
   }
 
   .map-link {
-    align-self: flex-start;
-    font-weight: 600;
-    text-decoration: none;
+    flex: none;
+    padding: 0.6rem 1.25rem;
   }
-
-  .map-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 </style>
