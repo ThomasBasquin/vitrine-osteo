@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Aura from '../components/Aura.astro';
 import Email from '../components/Email.astro';
 import { site, hasPhone } from '../data/site.js';
 ---
@@ -9,46 +10,171 @@ import { site, hasPhone } from '../data/site.js';
   description="Mentions légales du site."
 >
   <section class="page-hero">
-    <div class="container legal">
-      <h1>Mentions légales</h1>
+    <Aura />
+    <h1 class="legal-title">Mentions légales</h1>
+    <p class="page-lead">
+      Informations relatives à l'éditeur de ce site, à son hébergement et au traitement
+      des données.
+    </p>
+  </section>
 
-      <h2>Éditeur du site</h2>
-      <p>
-        {site.praticienne.nom}, {site.praticienne.titre}<br />
-        {site.cabinet.adresse}, {site.cabinet.codePostal} {site.cabinet.ville}<br />
-        {hasPhone && <>Téléphone : {site.cabinet.telephone}<br /></>}
-        E-mail : <Email mailto={false} /><br />
-        SIRET : {site.cabinet.siret}<br />
-        N° RPPS : {site.praticienne.rpps}
-      </p>
+  <section class="legal-section">
+    <div class="container">
+      <div class="legal-block reveal">
+        <h2>Éditeur du site</h2>
+        <dl class="legal-rows">
+          <dt>Praticienne</dt>
+          <dd>{site.praticienne.nom}, {site.praticienne.titre}</dd>
 
-      <h2>Hébergement</h2>
-      <p>
-        Hetzner Online GmbH<br />
-        Industriestr. 25, 91710 Gunzenhausen, Allemagne<br />
-        <a href="https://www.hetzner.com" rel="noopener">www.hetzner.com</a>
-      </p>
+          <dt>Adresse</dt>
+          <dd>{site.cabinet.adresse}, {site.cabinet.codePostal} {site.cabinet.ville}</dd>
 
-      <h2>Données personnelles</h2>
-      <p>
-        Ce site ne collecte aucune donnée personnelle et n'utilise pas de cookies. La prise de
-        rendez-vous en ligne s'effectue sur la plateforme Doctolib, soumise à sa propre
-        politique de confidentialité.
-      </p>
+          {hasPhone && (
+            <>
+              <dt>Téléphone</dt>
+              <dd>{site.cabinet.telephone}</dd>
+            </>
+          )}
 
-      <h2>Propriété intellectuelle</h2>
-      <p>
-        L'ensemble des contenus de ce site (textes, images) est la propriété de
-        {site.praticienne.nom}. Toute reproduction sans autorisation est interdite.
-      </p>
+          <dt>E-mail</dt>
+          <dd><Email mailto={false} /></dd>
+
+          <dt>SIRET</dt>
+          <dd>{site.cabinet.siret}</dd>
+
+          <dt>N° RPPS</dt>
+          <dd>{site.praticienne.rpps}</dd>
+        </dl>
+      </div>
+
+      <div class="legal-block reveal" style="--reveal-delay: 0.06s">
+        <h2>Hébergement</h2>
+        <dl class="legal-rows">
+          <dt>Société</dt>
+          <dd>Hetzner Online GmbH</dd>
+
+          <dt>Adresse</dt>
+          <dd>Industriestr. 25, 91710 Gunzenhausen, Allemagne</dd>
+
+          <dt>Site</dt>
+          <dd><a href="https://www.hetzner.com" rel="noopener">www.hetzner.com</a></dd>
+        </dl>
+      </div>
+
+      <div class="legal-block reveal" style="--reveal-delay: 0.1s">
+        <h2>Données personnelles</h2>
+        <p>
+          Ce site ne collecte aucune donnée personnelle et n'utilise pas de cookies. La prise de
+          rendez-vous en ligne s'effectue sur la plateforme Doctolib, soumise à sa propre
+          politique de confidentialité.
+        </p>
+      </div>
+
+      <div class="legal-block reveal" style="--reveal-delay: 0.14s">
+        <h2>Propriété intellectuelle</h2>
+        <p>
+          L'ensemble des contenus de ce site (textes, images) est la propriété de
+          {site.praticienne.nom}. Toute reproduction sans autorisation est interdite.
+        </p>
+      </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .legal { max-width: 58rem; }
+  .page-lead {
+    text-align: center;
+    max-width: 36rem;
+    margin: var(--spacing-s) auto 0;
+    padding-inline: clamp(1.25rem, 4vw, 2rem);
+  }
 
-  .legal h1 { font-size: var(--font-h2-display); padding-bottom: var(--spacing-m); }
+  /* Titre long et page de second plan : l'échelle h1 pleine déborderait la
+     mesure du hero bien avant 1600px. */
+  .legal-title { font-size: var(--font-h2-display); }
 
-  .legal h2 { margin-top: 2rem; font-size: 1.25rem; }
+  /* Sans cet écart, la coupure hero / contenu ne se distingue plus de celle
+     qui sépare deux blocs entre eux ; les deux moitiés alignent le total sur
+     celui des autres pages secondaires. */
+  .page-hero { padding-bottom: var(--spacing-l); }
+
+  .legal-section { padding-top: var(--spacing-l); }
+
+  .legal-block {
+    padding-block: var(--spacing-s);
+    border-top: 1px solid var(--color-light-border);
+  }
+
+  .legal-block:first-child { padding-top: 0; border-top: none; }
+
+  .legal-block:last-child { padding-bottom: 0; }
+
+  .legal-block h2 {
+    font-size: var(--font-h3);
+    margin-bottom: 0.75rem;
+  }
+
+  .legal-block p { margin-bottom: 0; }
+
+  .legal-rows { margin: 0; }
+
+  .legal-rows dt {
+    font-family: var(--titleFont);
+    font-size: var(--font-mini);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .legal-rows dd {
+    margin: 0 0 0.9rem;
+    font-size: var(--font-body);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    overflow-wrap: anywhere;
+  }
+
+  .legal-rows dd:last-child { margin-bottom: 0; }
+
+  /* Étiquette et valeur côte à côte dès que la mesure le permet ; en dessous
+     elles restent empilées, la valeur seule occupant déjà toute la largeur. */
+  @media (min-width: 600px) {
+    .legal-rows {
+      display: grid;
+      grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
+      align-items: baseline;
+      column-gap: 2rem;
+      row-gap: 0.7rem;
+    }
+
+    .legal-rows dd { margin-bottom: 0; }
+  }
+
+  /* Le plancher commun aux pages à Aura s'applique dès 768px : avec un titre
+     réduit et quatre blocs courts, il laissait plusieurs centaines de pixels
+     de dégradé nu sous le chapô. Abaissé sur toute la plage, pas seulement
+     au-delà de 992px. */
+  @media (min-width: 768px) {
+    section.page-hero { min-height: clamp(400px, 34vw, 520px); }
+  }
+
+  @media (min-width: 992px) {
+    section.page-hero { padding-bottom: calc(var(--spacing-m) / 2); }
+
+    .legal-section { padding-top: var(--spacing-m); }
+
+    /* Titre de section en colonne propre : le contenu cesse de s'empiler dans
+       une seule bande à gauche de la grille. */
+    .legal-block {
+      display: grid;
+      grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+      column-gap: var(--spacing-m);
+      padding-block: var(--spacing-m);
+    }
+
+    .legal-block h2 { margin-bottom: 0; }
+
+    .legal-block p { max-width: 44rem; }
+  }
 </style>
