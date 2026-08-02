@@ -16,7 +16,7 @@ export const site = {
     adresse: '7 ZI Haechy',
     codePostal: '67220',
     ville: 'Dieffenbach-au-Val',
-    telephone: '[06 00 00 00 00]',
+    telephone: '06 35 40 13 59',
     email: 'mariewach.osteo@gmail.com',
     siret: '10661350800014',
     parking: 'Parking à disposition',

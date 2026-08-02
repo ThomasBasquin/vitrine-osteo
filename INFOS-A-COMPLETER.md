@@ -7,7 +7,7 @@ Presque tout se remplit dans **`src/data/site.js`** (un seul fichier).
 - [x] Prénom et nom de la praticienne
 - [x] Année de diplôme
 - [x] Adresse du cabinet (rue, code postal, ville) + coordonnées GPS
-- [ ] Téléphone
+- [x] Téléphone
 - [x] E-mail
 - [x] Horaires d'ouverture
 - [x] Tarifs (consultation au cabinet)
@@ -30,7 +30,6 @@ Presque tout se remplit dans **`src/data/site.js`** (un seul fichier).
 
 - [x] Site en ligne sur https://mariewach.fr (nginx + Let's Encrypt)
 - [x] Sitemap (`@astrojs/sitemap`, référencé dans `robots.txt`)
-- [ ] Déclarer le site dans Google Search Console (peut se faire dès maintenant,
-      pas besoin du téléphone) et soumettre le sitemap
-- [ ] Créer la fiche Google Business Profile une fois le téléphone connu
+- [x] Site déclaré dans Google Search Console, sitemap soumis
+- [ ] Créer la fiche Google Business Profile (le téléphone est connu, ça peut se faire)
       (essentiel pour la recherche locale)
