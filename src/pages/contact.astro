@@ -84,14 +84,18 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
   import L from 'leaflet';
   import 'leaflet/dist/leaflet.css';
 
-  const el = document.getElementById('map');
-  if (el) {
+  let map: L.Map | undefined;
+
+  function initMap() {
+    map?.remove();
+    map = undefined;
+
+    const el = document.getElementById('map');
+    if (!el) return;
+
     const lat = Number(el.dataset.lat);
     const lon = Number(el.dataset.lon);
-    const map = L.map(el, { scrollWheelZoom: false, attributionControl: false }).setView(
-      [lat, lon],
-      14
-    );
+    map = L.map(el, { scrollWheelZoom: false, attributionControl: false }).setView([lat, lon], 14);
     L.control
       .attribution({ prefix: false })
       .addAttribution('© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>')
@@ -108,6 +112,18 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
       .addTo(map)
       .bindPopup(el.dataset.nom ?? '');
   }
+
+  // Le module n'est évalué qu'une fois : à partir de la 2ᵉ arrivée sur la page
+  // via ClientRouter, seul cet événement redonne la main pour recréer la carte
+  // dans le conteneur fraîchement échangé.
+  document.addEventListener('astro:page-load', initMap);
+
+  // Le conteneur va disparaître du DOM : sans ce démontage, l'instance Leaflet
+  // survit avec ses écouteurs window (resize, orientationchange).
+  document.addEventListener('astro:before-swap', () => {
+    map?.remove();
+    map = undefined;
+  });
 </script>
 
 <style>
