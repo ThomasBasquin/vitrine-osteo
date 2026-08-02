@@ -133,7 +133,7 @@ const profils = [
   ))}
 
   <section class="note-section">
-    <div class="container profile-inner">
+    <div class="container">
       <p class="spec-note reveal">
         Cette liste n'est pas exhaustive : en cas de doute, n'hésitez pas à me contacter pour
         savoir si l'ostéopathie peut vous aider. L'ostéopathie ne se substitue pas à un suivi
@@ -199,13 +199,15 @@ const profils = [
   .profile-section:last-of-type { padding-bottom: var(--spacing-l); }
 
   .profile-inner {
-    max-width: 60rem;
+    max-width: 72rem;
     display: grid;
     gap: clamp(2rem, 5vw, 3rem);
   }
 
   @media (min-width: 800px) {
     .profile-inner { grid-template-columns: 1.15fr 1fr; align-items: start; }
+
+    .motifs { align-self: center; }
   }
 
   .profile-heading {
@@ -278,6 +280,9 @@ const profils = [
 
   .spec-note {
     font-size: var(--font-mini);
-    margin: 0;
+    max-width: 42rem;
+    margin: 0 auto;
+    text-align: center;
+    text-wrap: pretty;
   }
 </style>

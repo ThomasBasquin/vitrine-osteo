@@ -72,7 +72,7 @@ const experiences = [
     padding-inline: clamp(1.25rem, 4vw, 2rem);
   }
 
-  .bio-inner, .exp-inner { max-width: 46rem; }
+  .bio-inner, .exp-inner { max-width: 58rem; }
 
   .bio-section { padding-block: var(--spacing-s) var(--spacing-m); }
 
@@ -87,7 +87,7 @@ const experiences = [
 
   .bio-year {
     font-family: var(--titleFont);
-    font-size: var(--font-mini);
+    font-size: var(--font-link);
     font-weight: 700;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -130,6 +130,30 @@ const experiences = [
     height: 0.5rem;
     border-radius: 50% 50% 50% 0;
     background: var(--color-primary-accent);
+  }
+
+  /* Flux en colonnes (et non en grille) pour que les deux colonnes s'équilibrent d'elles-mêmes
+     malgré les items à détail, plus hauts que les autres */
+  @media (min-width: 992px) {
+    .bio-section { padding-top: 0; }
+
+    /* Même échelle que « Expériences cliniques » */
+    .bio-title { font-size: var(--font-h2); }
+
+    .exp-card { margin-top: var(--spacing-s); }
+
+    .exp-list {
+      display: block;
+      columns: 2;
+      column-gap: 3rem;
+    }
+
+    .exp-list li {
+      break-inside: avoid;
+      margin-bottom: 0.85rem;
+    }
+
+    .exp-list li:last-child { margin-bottom: 0; }
   }
 
   .exp-lieu {

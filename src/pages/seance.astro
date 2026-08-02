@@ -127,9 +127,13 @@ const faq = [
     padding-inline: clamp(1.25rem, 4vw, 2rem);
   }
 
-  .seance-inner { max-width: 46rem; }
+  .seance-inner { max-width: 58rem; }
 
   .etapes-section { padding-block: var(--spacing-s) var(--spacing-m); }
+
+  @media (min-width: 992px) {
+    .etapes-section { padding-top: 0; }
+  }
 
   #tarifs { padding-block: var(--spacing-xl); }
 
@@ -236,7 +240,7 @@ const faq = [
   }
 
   .faq-container {
-    max-width: 46rem;
+    max-width: 58rem;
     padding-inline: clamp(1.5rem, 5vw, 2.25rem);
   }
 
@@ -295,6 +299,6 @@ const faq = [
 
   .faq-item p {
     margin: 0 0 1.25rem;
-    max-width: 40rem;
+    max-width: 50rem;
   }
 </style>
