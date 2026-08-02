@@ -43,3 +43,7 @@ export const site = {
     facebook: '', // [lien Facebook]
   },
 };
+
+// Le téléphone est encore un placeholder entre crochets : on l'utilise pour
+// masquer le numéro plutôt que d'afficher/publier une valeur bidon en prod.
+export const hasPhone = !site.cabinet.telephone.startsWith('[');

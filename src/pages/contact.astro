@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Aura from '../components/Aura.astro';
 import Email from '../components/Email.astro';
-import { site } from '../data/site.js';
+import { site, hasPhone } from '../data/site.js';
 
 const title = `Contact & accès — ${site.cabinet.nom}`;
 const description =
@@ -20,8 +20,9 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
     <Aura />
     <h1>Contact</h1>
     <p class="page-lead">
-      Pour la prise de rendez-vous, vous pouvez me joindre par téléphone ou réserver
-      directement un créneau en ligne via Doctolib.
+      {hasPhone
+        ? 'Pour la prise de rendez-vous, vous pouvez me joindre par téléphone ou réserver directement un créneau en ligne via Doctolib.'
+        : 'Pour la prise de rendez-vous, réservez directement un créneau en ligne via Doctolib ou écrivez-moi par e-mail.'}
     </p>
   </section>
 
@@ -34,8 +35,12 @@ const itineraire = `https://www.google.com/maps/dir/?api=1&destination=${encodeU
           </a>
           <span class="contact-or">ou</span>
           <div class="contact-channels">
-            <a class="contact-tel" href={`tel:${tel}`}>{site.cabinet.telephone}</a>
-            <span class="contact-channels-sep" aria-hidden="true">·</span>
+            {hasPhone && (
+              <>
+                <a class="contact-tel" href={`tel:${tel}`}>{site.cabinet.telephone}</a>
+                <span class="contact-channels-sep" aria-hidden="true">·</span>
+              </>
+            )}
             <span class="contact-email"><Email /></span>
           </div>
         </div>
