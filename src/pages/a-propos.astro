@@ -135,6 +135,13 @@ const experiences = [
   /* Flux en colonnes (et non en grille) pour que les deux colonnes s'équilibrent d'elles-mêmes
      malgré les items à détail, plus hauts que les autres */
   @media (min-width: 992px) {
+    /* Le plancher commun aux heros à Aura est ici toujours contraignant : sans
+       l'abaisser d'autant, le padding retiré ne se verrait pas. */
+    section.page-hero {
+      padding-bottom: calc(var(--spacing-xl) / 2);
+      min-height: calc(clamp(560px, 52vw, 780px) - var(--spacing-xl) / 2);
+    }
+
     .bio-section { padding-top: 0; }
 
     /* Même échelle que « Expériences cliniques » */

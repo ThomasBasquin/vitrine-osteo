@@ -132,6 +132,13 @@ const faq = [
   .etapes-section { padding-block: var(--spacing-s) var(--spacing-m); }
 
   @media (min-width: 992px) {
+    /* Le plancher commun aux heros à Aura est ici toujours contraignant : sans
+       l'abaisser d'autant, le padding retiré ne se verrait pas. */
+    section.page-hero {
+      padding-bottom: calc(var(--spacing-xl) / 2);
+      min-height: calc(clamp(560px, 52vw, 780px) - var(--spacing-xl) / 2);
+    }
+
     .etapes-section { padding-top: 0; }
   }
 
