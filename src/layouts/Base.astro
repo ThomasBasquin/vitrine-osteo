@@ -64,13 +64,11 @@ const ogImage = new URL('/images/og-cover.jpg', Astro.site);
     <Footer />
 
     <script>
-      // Astro repart des attributs <html> du nouveau document à chaque swap et
-      // perd donc la classe posée par le script inline du <head>. La reposer ici,
-      // avant le premier rendu du DOM échangé, plutôt que sur astro:page-load :
-      // les .reveal doivent déjà être masquées quand le swap s'affiche.
-      document.addEventListener('astro:after-swap', () =>
-        document.documentElement.classList.add('js')
-      );
+      // La classe js garde les animations d'entrée (page-hero-in et .reveal), écrites
+      // pour un chargement de page. Astro repart des attributs <html> du nouveau
+      // document à chaque swap et la perd : on ne la repose volontairement pas ici.
+      // Le swap ClientRouter est quasi instantané (::view-transition-old à 1ms) et
+      // rejouer 0.9s de translation échelonnée par-dessus fait sautiller le contenu.
 
       let stopReveal: (() => void) | undefined;
 
