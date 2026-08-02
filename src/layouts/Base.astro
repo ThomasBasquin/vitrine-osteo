@@ -14,6 +14,8 @@ const coords = JSON.stringify({
   lat: site.cabinet.latitude,
   lon: site.cabinet.longitude,
 });
+
+const ogImage = new URL('/images/og-cover.jpg', Astro.site);
 ---
 
 <!doctype html>
@@ -25,6 +27,8 @@ const coords = JSON.stringify({
     <meta name="description" content={description} />
     <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link
       rel="preload"
       href="/fonts/DTGetaiGroteskDisplay-Black-v2.woff2"
@@ -37,6 +41,14 @@ const coords = JSON.stringify({
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="fr_FR" />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).toString()} />
+    <meta property="og:image" content={ogImage.toString()} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage.toString()} />
     <ClientRouter />
     <script is:inline set:html={`document.documentElement.classList.add('js');window.__SITE_COORDS=${coords};${themeScript}`} />
     <slot name="head" />
